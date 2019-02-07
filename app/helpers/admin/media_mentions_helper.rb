@@ -1,0 +1,2 @@
+module Admin::MediaMentionsHelper
+end

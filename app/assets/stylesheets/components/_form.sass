@@ -1,0 +1,38 @@
+form
+  [type="text"], [type="password"], [type="email"], [type="tel"], textarea, [type="submit"]
+    font-size: ms(0)
+    font-family: $mono
+
+.form_field
+  padding-bottom: 1rem
+
+  & > label
+    display: block
+    font-size: ms(-2)
+    font-weight: 500
+    text-transform: uppercase
+    margin-bottom: 0.5rem
+    font-family: $mono
+
+  select, [type="text"], [type="password"], [type="email"], [type="tel"], textarea
+    width: 100%
+
+  [type="text"], [type="password"], [type="email"], [type="tel"]
+    font-size: ms(2)
+    font-weight: 300
+    border: 1px solid $black
+    &:focus
+      border-color: $blue
+
+.form_actions
+  border-top: 1px dotted $faint
+  padding-top: 1rem
+  input, button
+    width: 100%
+    text-align: right
+    font-size: ms(-1)
+
+.danger-zone
+  padding: 1rem
+  background: rgba($red,0.025)
+  text-align: right

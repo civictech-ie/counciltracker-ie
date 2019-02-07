@@ -1,0 +1,26 @@
+= form_for media_mention.persisted? ? [:admin, media_mention] : [:admin, mentionable, media_mention], class: 'admin-form' do |f|
+  = render partial: 'admin/shared/errors', locals: {errors: media_mention.errors}
+
+  .admin-form_field
+    = f.label :body, 'Article headline'
+    .input
+      = f.text_area :body
+
+  .admin-form_field
+    = f.label :url, 'Permanent URL of article'
+    .input
+      = f.text_field :url
+
+  .admin-form_field
+    = f.label :source, 'Publication name'
+    .input
+      = f.text_field :source
+
+  .admin-form_field
+    = f.label :published_on, 'Publication date'
+    .input
+      = f.text_field :published_on
+
+
+  .admin-form_actions
+    = f.submit 'Save'

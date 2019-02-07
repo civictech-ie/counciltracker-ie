@@ -1,0 +1,54 @@
+.status
+  background-color: $faint
+  display: flex
+  flex-direction: row-reverse
+  text-shadow: none !important
+
+  &.-pass, &.-passed, &.-present, &.-for, &.-expected
+    background-color: $green
+    .status_icon
+      background-image: url(asset-path('tick.svg'))
+
+  &.-absent, &.-abstain
+    .status_icon
+      background-image: url(asset-path('blank.svg'))
+    .status_text
+      p
+        color: $grey
+
+  &.-error
+    background-color: $yellow
+    .status_icon
+      background-image: url(asset-path('x-black.svg'))
+    .status_text
+      p
+        color: $black
+
+  &.-fail, &.-failed, &.-against
+    background-color: $red
+    .status_icon
+      background-size: 0.9rem auto
+      background-image: url(asset-path('x.svg'))
+
+.status_icon
+  width: 1.5rem
+  height: 1.5rem
+  text-indent: -9999px
+  overflow: hidden
+  background-position: center center
+  background-size: 1rem auto
+  background-repeat: no-repeat
+
+.status_text
+  flex-grow: 1
+  text-align: left
+  display: flex
+  flex-direction: column
+  justify-content: center
+  padding-left: 0.325rem
+  p
+    font-weight: 500
+    font-family: $mono
+    text-transform: uppercase
+    font-size: ms(-1)
+    color: $white

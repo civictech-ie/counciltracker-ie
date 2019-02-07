@@ -1,0 +1,36 @@
+.breakdown
+  margin-bottom: 1rem
+
+.breakdown_item
+  display: flex
+  flex-direction: column-reverse
+  justify-content: flex-start
+  background: $faint
+  padding: 0.5rem
+
+  label
+    font-family: $mono
+    font-size: ms(-1)
+    text-transform: uppercase
+    color: $grey
+
+  big
+    font-family: $mono
+    font-size: ms(2)
+    font-weight: 400
+
+  &.-present, &.-for, &.-expected
+    background-color: $green
+
+    label, big
+      color: $white
+
+  &.-abstain
+    background-color: $faint
+    label, big
+      color: $black
+
+  &.-against
+    background-color: $red
+    label, big
+      color: $white

@@ -1,0 +1,19 @@
+%header.page-header
+  .wrapper{role: 'layout'}
+    .row
+      .col-xs-5.box.-delineated-h
+        %h1 Admin dashboard
+
+.primary-main_content
+  .wrapper{role: 'layout'}
+    .row
+      .col-xs-4.box.-delineated-h
+        %section
+          %header.subheader
+            %h2 Some stats
+          %main
+            %ul.list.-small
+              %li= pluralize Motion.published.count, 'published motion'
+              %li= pluralize Amendment.count, 'amendment'
+              %li= pluralize MediaMention.count, 'media mention'
+              %li #{ number_with_delimiter Vote.countable.count } #{ 'tracked vote'.pluralize(Vote.countable.count) }

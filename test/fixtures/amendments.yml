@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  motion: one
+  body: MyText
+  proposers_ids: 
+
+two:
+  motion: two
+  body: MyText
+  proposers_ids: 

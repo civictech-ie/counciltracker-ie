@@ -1,0 +1,15 @@
+- title ['Topics', @tag]
+- description "#{ pluralize @motions.count, 'motion' } related to #{ @tag } in Dublin City Council"
+- keywords "city council, motions, #{ @tag }"
+
+%header.page-header
+  .wrapper{role: 'layout'}
+    %h1= @tag
+
+.primary-main_content
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - @motions.each do |motion|
+        %li
+          = link_to motion do
+            = render partial: 'motions/motion', locals: {motion: motion}

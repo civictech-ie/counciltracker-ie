@@ -1,0 +1,44 @@
+.admin-form
+
+.admin-form_field
+  padding: 0.5rem 0
+  border-top: 1px dotted $faint
+
+  label
+    font-weight: 500
+
+  [type="text"], [type="tel"], [type="email"], [type="password"]
+    padding: 0.75rem 1rem
+    border: 1px solid $black
+    &:focus
+      border-color: $blue
+
+  textarea
+    font-size: ms(-1)
+    padding: 0.75rem 1rem
+    width: 24rem
+    height: 8rem
+    border: 1px solid $black
+    &:focus
+      border-color: $blue
+
+.admin-form_checkbox
+  text-align: center
+  label
+    display: block
+    width: 100%
+    margin: -0.125rem 0
+    padding: 0.125rem 0
+
+.admin-form_actions
+  padding: 0.5rem 0
+  border-top: 1px dotted $faint
+  [type="submit"]
+    background: $black
+    border: 0
+    -webkit-appearance: none
+    padding: 0.75rem 1rem
+    color: $white
+    &:hover
+      cursor: pointer
+      background: $blue

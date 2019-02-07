@@ -1,0 +1,28 @@
+input[type="submit"], a, a:link, a:visited
+  &.button
+    appearance: none
+    border: 0
+    background: $black
+    color: $white
+    font-size: ms(1)
+    padding: 0.25rem 0.75rem 0.325rem
+    &:hover
+      cursor: pointer
+      background-color: $blue
+
+    &.-danger
+      color: $white
+      &:hover
+        color: $white
+        background: $red
+        text-shadow: none
+
+    &.-utility
+      font-size: ms(-1)
+      font-family: $mono
+      color: $white !important
+      background: $blue
+      &:hover
+        color: $white
+        background: darken($blue,2.5%)
+        text-shadow: none

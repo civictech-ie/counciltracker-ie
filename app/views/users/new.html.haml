@@ -1,0 +1,23 @@
+- title 'Create an account'
+- noindex true
+
+%section
+  %header.subheader
+    %h1 Create an account
+
+  %main
+    .text.-article
+      :markdown
+        If you already have an account, you can [sign in](/signin).
+
+    .box.-padded-t
+      = form_for @user do |f|
+        .form_field.-modal
+          = f.label :email_address
+          .input= f.email_field :email_address
+        .form_field.-modal
+          = f.label :password
+          .input= f.password_field :password
+
+        .form_actions.-modal
+          = f.submit 'Register', class: 'button'

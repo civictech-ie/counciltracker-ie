@@ -1,0 +1,28 @@
+%header.page-header
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
+      .breadcrumbs_crumb= link_to "Events", [:admin, :events]
+      .breadcrumbs_crumb
+        %h1 #{ @event.eventable_type } on #{ @event.occurred_on.strftime('%d.%m.%y') }
+
+.primary-main_content
+  .wrapper{role: 'layout'}
+    %section
+    %main
+      .box.-highlighted.-padded
+        :markdown
+          This is just for bug-hunting. Nothing editable.
+
+      %section
+        %header.subheader Event
+        %main
+          .text.-fixed
+            #{ @event.inspect }
+
+      %section
+        %header.subheader Eventable: #{ @event.eventable_type }
+        %main
+          .text.-fixed
+            #{ @event.eventable.inspect }
+

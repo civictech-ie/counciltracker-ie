@@ -1,0 +1,18 @@
+%header.page-header
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
+      .breadcrumbs_crumb= link_to "Meetings", [:admin, :meetings]
+      .breadcrumbs_crumb= link_to @meeting.occurred_on_was.strftime('%d.%m.%y'), [:admin, @meeting]
+      .breadcrumbs_crumb
+        %h1 New motion
+
+.primary-main_content
+  .wrapper{role: 'layout'}
+    .row
+      .col-xs-12
+        %section
+          %header.subheader
+            %h2 New Motion
+          %main
+            = render partial: 'admin/motions/form', locals: { motion: @motion, meeting: @motion.meeting }

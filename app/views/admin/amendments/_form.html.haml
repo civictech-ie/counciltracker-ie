@@ -1,0 +1,34 @@
+= form_for amendment.persisted? ? [:admin, amendment] : [:admin, motion, amendment], class: 'admin-form' do |f|
+  = render partial: 'admin/shared/errors', locals: {errors: amendment.errors}
+
+  - if amendment.persisted?
+    .admin-form_field
+      = f.label :position
+      .input
+        = f.text_field :position
+
+  .admin-form_field
+    = f.label :body, 'Text'
+    .input
+      = f.text_area :body
+
+  .admin-form_field
+    = f.label :proposers_ids, 'Proposed by'
+    .input
+      = f.select :proposers_ids, motion.council_session.councillors.by_name.collect { |c| [ c.full_name, c.id ] }, {}, {multiple: true, size: 12}
+
+  .admin-form_field
+    = f.label :vote_ruleset
+    .input
+      = f.select :vote_ruleset, %w(plurality absolute_majority super_majority)
+  .admin-form_field
+    = f.label :vote_method
+    .input
+      = f.select :vote_method, %w(voice rollcall)
+  .admin-form_field
+    = f.label :vote_result
+    .input
+      = f.select :vote_result, %w(pass fail error)
+
+  .admin-form_actions
+    = f.submit 'Save'

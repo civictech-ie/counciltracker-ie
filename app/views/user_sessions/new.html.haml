@@ -1,0 +1,19 @@
+- title 'Sign in'
+- noindex true
+
+%section
+  %header.subheader
+    %h1 Sign in
+
+  %main
+    .box.-padded-t
+      = form_tag user_sessions_path, method: :post do
+        .form_field.-modal
+          = label_tag :email_address
+          .input= email_field_tag :email_address
+        .form_field.-modal
+          = label_tag :password
+          .input= password_field_tag :password
+
+        .form_actions.-modal
+          = submit_tag "Login", class: 'button'

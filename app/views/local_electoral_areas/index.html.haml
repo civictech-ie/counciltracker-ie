@@ -1,0 +1,17 @@
+%header.page-header
+  .wrapper{role: 'layout'}
+    .row
+      .col-xs-12.col-md-6
+        :markdown
+          Dublin is divided into **#{ pluralize @local_electoral_areas.count, 'local electoral area' }**.
+
+%ul.list.-enumerable
+  - @local_electoral_areas.each do |local_electoral_area|
+    %li
+      = link_to local_electoral_area do
+        .wrapper{role: 'layout'}
+          .row
+            .col-xs-6
+              = local_electoral_area.name
+            .col-xs-6
+              = pluralize local_electoral_area.active_seats.count, 'councillor'

@@ -1,0 +1,35 @@
+- cache [motion, :brief] do
+  .row
+    .col-xs-6
+      %p.text.-one-line=motion.title
+      %ul.list.-inline.-tags
+        - motion.tags.each do |tag|
+          %li
+            .tag= tag
+
+    .col-xs-3.col-xs-offset-1
+      - if motion.rollcall?
+        .box.-twofer-v
+          .mini-vote
+            - total = motion.votes.countable.count.to_f
+            - pct_for = ((motion.votes.in_favour.count * 100) / total)
+            - pct_against = ((motion.votes.in_opposition.count * 100) / total)
+            - pct_abstain = ((motion.votes.in_abstention.count * 100) / total)
+            .mini-vote_for{style: "flex-basis: #{ pct_for }%"} &nbsp;
+            .mini-vote_against{style: "flex-basis: #{ pct_against }%"} &nbsp;
+            .mini-vote_abstain{style: "flex-basis: #{ pct_abstain }%"} &nbsp;
+
+          .mini-breakdown
+            - motion.votes.countable.by_status.group_by(&:status).each do |status, votes|
+              .mini-breakdown_column
+                %label= status
+                %big= votes.count
+      - else
+        .mini-vote.-voice
+          %label Voice vote
+
+    .col-xs-2
+      .status{class: "-#{ motion.result.to_s }"}
+        .status_icon
+        .status_text
+          %p #{ motion.result }

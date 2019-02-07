@@ -1,0 +1,21 @@
+.row
+  .col-xs-2
+    .text.-fixed= vote.occurred_on.strftime('%d.%m.%y')
+
+  .col-xs-8
+    .text
+      - title = (vote.voteable_type == 'Motion') ? vote.voteable.title : vote.voteable.body
+      :markdown
+        #{ truncate(title, length: 150) }
+
+    - if vote.voteable.respond_to?(:tags)
+      %ul.list.-inline.-tags
+        - vote.voteable.tags.each do |tag|
+          %li
+            .tag= tag
+
+  .col-xs-2
+    .status{class: "-#{ vote.status.to_s }"}
+      .status_icon #{ vote.status }
+      .status_text
+        %p= vote.status

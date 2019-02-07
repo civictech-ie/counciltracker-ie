@@ -1,0 +1,93 @@
+- description "Tracking and publishing Dublin City Council's votes, motions, and amendments. See how your councillors are representing you on the council."
+- keywords "city council, vote tracking, open government"
+
+%header.page-header
+  .wrapper{role: 'layout'}
+    .row
+      .col-xs-5.box.-delineated-h
+        %h1 This website tracks and publishes the motions, amendments, and votes of Dublin City councillors.
+
+.primary-main_content
+  .wrapper{role: 'layout'}
+    .row
+      .col-xs-8.box.-delineated-h
+        %section
+          %header.subheader
+            %h2 Some recent motions
+          %main
+            %ul.list.-enumerable
+              - @interesting_motions.each do |motion|
+                %li
+                  = link_to motion do
+                    = render partial: 'motions/motion', locals: {motion: motion}
+
+        %section
+          %header.subheader
+            %h2 Recent attendance rate
+          %main
+            .breakdown
+              .row
+                .col-xs-6.box.-delineated-h
+                  .breakdown_item{class: "-present"}
+                    %label present
+                    %big #{ @pct_present.round(1) }%
+                .col-xs-6.box.-delineated-h
+                  .breakdown_item{class: "-absent"}
+                    %label absent
+                    %big #{ @pct_absent.round(1) }%
+
+        %section
+          %header.subheader
+            %h2 Local electoral areas
+          %main
+            %ul.list.-enumerable.-thirds
+              - @local_electoral_areas.each do |local_electoral_area|
+                %li
+                  = link_to local_electoral_area do
+                    - cache [local_electoral_area, :brief] do
+                      .text.-display= local_electoral_area.name
+                      .text.-fixed= pluralize local_electoral_area.active_councillors.count, 'councillor'
+
+        %section
+          %header.subheader
+            %h2 Parties
+          %main
+            %ul.list.-enumerable.-thirds
+              - cache @parties do
+                - @parties.each do |party|
+                  - next if party.active_councillors.empty?
+                  %li
+                    = link_to party do
+                      - cache party do
+                        .party-affiliated
+                          .party-icon.party-icon{style: "background-color: ##{ party.colour_hex };", title: party.name} &nbsp;
+                          .text.-display= party.name
+                        .text.-fixed= pluralize party.active_councillors.count, 'councillor'
+
+      .col-xs-4.box.-delineated-h
+        %section
+          %main
+            .box.-highlighted.-padded
+              .text
+                :markdown
+                  ## Pardon our progress
+
+                  This vote tracker is powered by manual data collection and entry (donated by hard-working volunteers), so we appreciate your patience as we continue to complete and correct the data.
+
+                  See [what we're working on](/changelog), [volunteer to help](/volunteer), or [learn more about the site](/faq).
+
+        %section
+          %header.subheader
+            %h3 Browse by topic
+          %main
+            %ul.list.-small
+              - cache [@motions, :topics] do
+                - @motions.pluck(:tags).flatten.uniq.sort.each do |tag|
+                  - motions = @motions.in_category(tag)
+                  - next unless motions.any?
+                  %li
+                    = link_to topic_path(tag.parameterize) do
+                      .row
+                        .col-xs-9=tag
+                        .col-xs-3
+                          .text.-fixed.-right= motions.count

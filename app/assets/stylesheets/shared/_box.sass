@@ -1,0 +1,54 @@
+.box
+  &.-stacked
+    margin-bottom: 1rem
+
+    &.-double
+      margin-bottom: 2rem
+
+  &.-baseline
+    border-bottom: 1px solid $black
+
+  &.-padded-t
+    padding-top: 1rem
+
+  &.-padded-b
+    padding-bottom: 1rem
+
+  &.-padded-v
+    padding-top: 1rem
+    padding-bottom: 1rem
+
+  &.-padded
+    padding: 1rem
+
+  &.-highlighted
+    background: $blue-faint
+
+    a, a:link, a:visited
+      &:hover
+        text-shadow: .03em 0 $blue-faint, -.03em 0 $blue-faint, 0 .03em $blue-faint, 0 -.03em $blue-faint, .06em 0 $blue-faint, -.06em 0 $blue-faint, .09em 0 $blue-faint, -.09em 0 $blue-faint, .12em 0 $blue-faint, -.12em 0 $blue-faint, .15em 0 $blue-faint, -.15em 0 $blue-faint
+
+  &.-twofer-v
+    display: flex
+    flex-direction: column
+
+  &.-delineated-l
+    border-left: 1px solid $faintish
+
+  &.-delineated-h
+    border-left: 1px solid $faintish
+
+    &:first-child
+      border-left: none
+
+  &.-result
+    &.-pass
+      background-color: rgba($green,0.075)
+    &.-fail
+      background-color: rgba($red,0.075)
+    &.-error
+      background-color: rgba($yellow,0.125)
+
+  &.-card
+    max-width: 18rem
+    background: $white

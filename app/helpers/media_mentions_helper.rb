@@ -1,0 +1,2 @@
+module MediaMentionsHelper
+end

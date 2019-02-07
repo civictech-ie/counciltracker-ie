@@ -1,0 +1,17 @@
+%header.page-header
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
+      .breadcrumbs_crumb= link_to "Meetings", [:admin, :meetings]
+      .breadcrumbs_crumb
+        %h1 New
+
+.primary-main_content
+  .wrapper{role: 'layout'}
+    .row
+      .col-xs-12
+        %section
+          %header.subheader
+            %h2 New meeting
+          %main
+            = render partial: 'admin/meetings/form', locals: { meeting: @meeting }

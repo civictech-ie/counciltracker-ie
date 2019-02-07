@@ -1,0 +1,60 @@
+.text
+  a, a:visited, a:link
+    color: $blue !important
+    font-weight: 500
+
+  p, ul, ol
+    margin: 1rem 0
+
+    &:first-child
+      margin-top: 0
+
+    &:last-child
+      margin-bottom: 0
+
+  &.-info
+    font-size: ms(-1)
+    font-weight: 400
+    color: $grey
+
+  &.-tiny
+    font-size: ms(-2)
+    font-weight: 400
+    color: $grey
+
+  &.-right
+    text-align: right
+
+  &.-center
+    text-align: center
+
+  &.-one-line
+    height: 1.3em
+    width: 72em
+    max-width: 100%
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+
+  &.-article
+    a, a:link, a:visited
+      font-weight: 500
+      color: $blue
+
+  &.-display
+    font-weight: 500
+
+    strong
+      font-weight: 500
+
+  &.-label
+    display: block
+    font-size: ms(-2)
+    font-weight: 500
+    text-transform: uppercase
+
+  &.-fixed
+    font-family: $mono
+
+  &.-body
+    max-width: 36em

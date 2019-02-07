@@ -1,0 +1,130 @@
+- title ['Motions', @motion.title]
+- description "Motion: #{ @motion.title } proposed by #{ @motion.proposers.map(&:full_name).to_sentence } on #{ @motion.occurred_on.strftime('%d/%m/%y') }."
+- keywords "city council, motions, #{ @motion.tags.join(',') }"
+
+- cache [@motion, :show] do
+  %header.page-header
+    .wrapper{role: 'layout'}
+      .breadcrumbs
+        .breadcrumbs_crumb= link_to @motion.meeting.title, meeting_path(meeting_type: @motion.meeting.meeting_type, occurred_on: @motion.meeting.occurred_on)
+        .breadcrumbs_crumb
+          %h1= link_to truncate(@motion.title, length: 48), @motion
+
+  .primary-main_content
+    .wrapper{role: 'layout'}
+      .row
+        .col-xs-3
+          %section
+            %main
+              .box.-highlighted.-padded
+                .text.-display= @motion.title
+
+          %section
+            %main
+              .box.-padded.-result{class: "-#{ @motion.vote_result }"}
+                .text
+                  :markdown
+                    **#{ @motion.vote_result.capitalize }ed**
+                .text by #{ @motion.vote_method } vote.
+
+          %section
+            %header.subheader
+              %h3 Proposers
+            %main
+              - if @motion.proposers.any?
+                %ul.list
+                  - @motion.proposers.each do |councillor|
+                    %li
+                      = link_to councillor do
+                        .party-affiliated
+                          .party-icon{style: "background-color: ##{ councillor.party_on(@motion.occurred_on).colour_hex };", title: councillor.party_on(@motion.occurred_on).name}
+                          = councillor.full_name
+              - else
+                %p.empty (Not present)
+
+          - if @motion.media_mentions.any?
+            %section
+              %header.subheader
+                %h3 Media
+              %main
+                %ul.list.-small
+                  - @motion.media_mentions.order('published_on desc').each do |media_mention|
+                    %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
+
+          - if @motion.tags.any?
+            %section
+              %header.subheader
+                %h3 Topics
+              %main
+                %ul.list.-small
+                  - @motion.tags.sort.each do |tag|
+                    %li= link_to tag, topic_path(tag.parameterize)
+
+          - if @motion.pdf_url.present?
+            %section
+              %header.subheader
+                %h3 Attachments
+              %main
+                %ul.list.-small
+                  %li= link_to "Report PDF", @motion.pdf_url
+
+        .col-xs-9
+          - if @motion.body.present?
+            %section
+              %header.subheader
+                %h3 Text
+              %main
+                .text.-body
+                  :markdown
+                    #{ @motion.body }
+
+          - if @motion.executive_recommendation.present?
+            %section
+              %header.subheader
+                %h3 Executive&rsquo;s recommendation
+              %main
+                .row
+                  .col-xs-10
+                    .text.-body
+                      :markdown
+                        #{ @motion.executive_recommendation }
+
+                  .col-xs-2
+                    .status{class: "-#{ @motion.executive_vote.to_s }"}
+                      .status_icon
+                      .status_text
+                        %p #{ @motion.executive_vote }
+
+          - if @motion.amendments.any?
+            %section
+              %header.subheader
+                %h3 Amendments
+              %main
+                %ul.list.-enumerable
+                  - @motion.amendments.each do |amendment|
+                    %li
+                      = link_to amendment do
+                        = render partial: 'amendments/amendment', locals: {amendment: amendment}
+
+          - if @motion.rollcall?
+            %section
+              %header.subheader
+                %h3 Vote
+
+            %main
+              .breakdown
+                .row
+                  - ['for', 'against', 'abstain'].each do |status|
+                    - votes = @motion.votes.where(status: status)
+                    .col-xs-4.box.-delineated-h
+                      .breakdown_item{class: "-#{ status }"}
+                        %label= status
+                        %big= votes.count
+
+                      %ul.list.-small
+                        - votes.by_councillor_name.each do |vote|
+                          %li
+                            = link_to vote.councillor do
+                              .party-affiliated
+                                .party-icon{style: "background-color: ##{ vote.councillor.party_on(@motion.occurred_on).colour_hex };", title: vote.councillor.party_on(@motion.occurred_on).name} &nbsp;
+                                = vote.councillor.full_name

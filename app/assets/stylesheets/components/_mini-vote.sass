@@ -1,0 +1,36 @@
+.mini-vote
+  margin-top: 0.25rem
+  display: flex
+  overflow: hidden
+  height: 0.5rem
+  width: 100%
+
+  & > div
+    display: block
+    flex: 0
+    height: 0.5rem
+
+  .mini-vote_for
+    width: 0
+    background: $green
+
+  .mini-vote_against
+    width: 0
+    background: $red
+
+  .mini-vote_abstain
+    width: 0
+    background: $faint
+
+  &.-voice
+    margin: 0
+    height: 100%
+    align-items: center
+    justify-content: center
+    label
+      font-size: ms(-1)
+      color: $grey
+      font-family: $mono
+      background: $faint
+      padding: 0.25rem 0.5rem
+      text-shadow: none !important

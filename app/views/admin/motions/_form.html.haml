@@ -1,0 +1,76 @@
+= form_for motion.persisted? ? [:admin, motion] : [:admin, meeting, motion], class: 'admin-form' do |f|
+  = render partial: 'admin/shared/errors', locals: {errors: motion.errors}
+
+  .admin-form_field
+    = f.label :title
+    .input
+      = f.text_area :title
+  .admin-form_field
+    = f.label :agenda_item
+    .input
+      = f.text_field :agenda_item
+
+  .admin-form_field
+    = f.label :pdf_url
+    .input
+      = f.text_field :pdf_url
+  .admin-form_field
+    = f.label :body, 'Text'
+    .input
+      = f.text_area :body
+  .admin-form_field
+    = f.label :proposers_ids, 'Proposed by'
+    .input
+      = f.select :proposers_ids, meeting.councillors.by_name.collect { |c| [ c.full_name, c.id ] }, {}, {multiple: true, size: 12}
+
+  .admin-form_field
+    = f.label :executive_vote
+    .input
+      = f.select :executive_vote, ['', 'for', 'against', 'neutral']
+  .admin-form_field
+    = f.label :executive_recommendation
+    .input
+      = f.text_area :executive_recommendation
+  .admin-form_field
+    = f.label :local_electoral_areas_ids, 'Related electoral areas'
+    .input
+      %ul.list
+        - LocalElectoralArea.order('name asc').each do |local_electoral_area|
+          %li
+            %label
+              %input{type: 'checkbox', name: 'motion[local_electoral_area_ids][]', value: local_electoral_area.id, checked: motion.local_electoral_area_ids.include?(local_electoral_area.id)}
+              = local_electoral_area.name
+
+  .admin-form_field
+    = f.label :tags, 'Topics'
+    %ul.list
+      - ['Local property tax', 'Fire and emergency services', 'Housing and homelessness', 'Environment', 'International relations', 'Waste management', 'Arts and culture', 'Finance', 'Economic development', 'Transport', 'Planning and zoning', 'Human rights'].each do |tag|
+        %li
+          %label
+            %input{type: 'checkbox', name: 'motion[tags][]', value: tag, checked: motion.in_category?(tag)}
+            = tag
+
+  .admin-form_field
+    = f.label :votable
+    .input
+      = f.select :votable, ['true','false']
+  .admin-form_field
+    = f.label :vote_ruleset
+    .input
+      = f.select :vote_ruleset, %w(plurality absolute_majority super_majority)
+  .admin-form_field
+    = f.label :vote_method
+    .input
+      = f.select :vote_method, %w(voice rollcall)
+  .admin-form_field
+    = f.label :vote_result
+    .input
+      = f.select :vote_result, %w(pass fail error)
+
+  .admin-form_field
+    = f.label :interesting, 'Is this motion interesting?'
+    .input
+      = f.select :interesting, ['true','false']
+
+  .admin-form_actions
+    = f.submit 'Save'

@@ -1,0 +1,13 @@
+= form_for [:admin, meeting], class: 'admin-form' do |f|
+  = render partial: 'admin/shared/errors', locals: {errors: meeting.errors}
+  .admin-form_field
+    = f.label :occurred_on
+    .input
+      = f.text_field :occurred_on
+  .admin-form_field
+    = f.label :meeting_type
+    .input
+      = f.select :meeting_type, %w(monthly annual special budget finance)
+
+  .admin-form_actions
+    = f.submit 'Save'

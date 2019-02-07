@@ -1,0 +1,25 @@
+%header.page-header
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
+      .breadcrumbs_crumb= link_to "Meetings", [:admin, :meetings]
+      .breadcrumbs_crumb= link_to @meeting.occurred_on_was.strftime('%d.%m.%y'), [:admin, @meeting]
+      .breadcrumbs_crumb
+        %h1 Edit
+
+.primary-main_content
+  .wrapper{role: 'layout'}
+    .row
+      .col-xs-2
+        %nav.secondary-nav
+          %ul.list.-enumerable
+            %li= link_to "Overview", [:admin, @meeting]
+            %li= link_to "Attendance", [:attendances, :admin, @meeting]
+            %li= link_to "Edit", [:edit, :admin, @meeting]
+
+      .col-xs-10
+        %section
+          %header.subheader
+            %h2 Edit details
+          %main
+            = render partial: 'admin/meetings/form', locals: { meeting: @meeting }

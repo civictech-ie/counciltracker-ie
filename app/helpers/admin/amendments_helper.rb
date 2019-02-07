@@ -1,0 +1,2 @@
+module Admin::AmendmentsHelper
+end

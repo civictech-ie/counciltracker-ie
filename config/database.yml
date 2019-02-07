@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: counciltracker_development
+
+test:
+  <<: *default
+  database: counciltracker_test
+
+production:
+  <<: *default
+  database: counciltracker_production
+  username: counciltracker
+  password: <%= ENV['DATABASE_URL'] %>

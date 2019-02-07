@@ -1,0 +1,38 @@
+- title 'Councillors'
+- description "#{ pluralize @councillors.count, 'councillor' } currently serve on the Dublin City Council. #{ (@councillors.count - current_council_session.co_options.count) } elected in #{ current_council_session.election.occurred_on.strftime('%b \'%y') } and #{ pluralize current_council_session.co_options.count, 'councillor' } appointed via co-option."
+- keywords 'dublin city council, councillors'
+
+- cache @councillors do
+  %header.page-header
+    .wrapper{role: 'layout'}
+      .breadcrumbs
+        .breadcrumbs_crumb
+          %h1= link_to "Councillors", :councillors
+
+  .primary-main_content
+    .wrapper{role: 'layout'}
+      .row
+        .col-xs-8
+          - @councillors.group_by(&:local_electoral_area).sort_by { |l,c| l }.each do |local_electoral_area, councillors|
+            %section
+              %header.subheader
+                %h2= local_electoral_area.name
+            %main
+              %ul.list.-councillors.-enumerable
+                - councillors.each do |councillor|
+                  %li
+                    = link_to councillor, class: 'councillor' do
+                      - cache councillor do
+                        %figure.figure.-portrait= image_tag councillor.portrait.url(:small)
+                        %p.text.-display= councillor.full_name
+                        %ul.list.-inline.-dotted
+                          %li
+                            %span.party-affiliated
+                              %span.party-icon.party-icon{style: "background-color: ##{ councillor.party.colour_hex };", title: councillor.party.name} &nbsp;
+                              = councillor.party.name
+                          %li= councillor.local_electoral_area.name
+
+        .col-xs-3.box.-delineated-h
+          .text
+            :markdown
+              There are #{ pluralize @councillors.count, 'councillor' } currently serving on the Dublin City Council, comprising #{ (@councillors.count - current_council_session.co_options.count) } elected in #{ current_council_session.election.occurred_on.strftime('%b \'%y') } and #{ pluralize current_council_session.co_options.count, 'councillor' } appointed via co-option.

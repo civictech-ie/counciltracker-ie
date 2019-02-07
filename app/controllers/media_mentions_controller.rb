@@ -1,0 +1,2 @@
+class MediaMentionsController < ApplicationController
+end

@@ -1,0 +1,35 @@
+%header.page-header
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumbs_crumb= link_to "Electoral areas", :parties
+      .breadcrumbs_crumb
+        %h1= link_to @local_electoral_area.name, @local_electoral_area
+
+.primary-main_content
+  .wrapper{role: 'layout'}
+    %section
+      %header.subheader
+        %h2 Councillors
+      %main
+        %ul.list.-councillors.-enumerable
+          - @councillors.each do |councillor|
+            %li
+              = link_to councillor, class: 'councillor' do
+                %figure.figure.-portrait= image_tag councillor.portrait.url(:small)
+                %p.text.-display= councillor.full_name
+                %ul.list.-inline.-dotted
+                  %li
+                    %span.party-affiliated
+                      %span.party-icon.party-icon{style: "background-color: ##{ councillor.party.colour_hex };", title: councillor.party.name} &nbsp;
+                      = councillor.party.name
+                  %li= councillor.local_electoral_area.name
+
+    %section
+      %header.subheader
+        %h2 Motions concerning #{ link_to @local_electoral_area.name, @local_electoral_area }
+      %main
+        %ul.list.-enumerable
+          - @motions.each do |motion|
+            %li
+              = link_to motion do
+                = render partial: 'motions/motion', locals: {motion: motion}
