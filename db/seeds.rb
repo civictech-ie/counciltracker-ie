@@ -31,9 +31,7 @@ Election.destroy_all
 
 Election.create_from_date_and_csv!(Date.new(2014,5,23), File.read('./db/election-20140523.csv'))
 
-Event.uncommitted.order('occurred_on asc').each do |e|
-  e.commit!
-end
+Event.uncommitted.order('occurred_on asc').each { |e| e.commit! }
 
 # Changes in Affiliation
 
@@ -58,7 +56,7 @@ ChangeOfAffiliation.create!(
   occurred_on: Date.new(2015,12,1)
 )
 
-c = ChangeOfAffiliation.create!(
+ChangeOfAffiliation.create!(
   councillor: Councillor.find_by!(full_name: 'Noeleen Reilly'),
   outgoing_party: Party.find_by!(name: 'Sinn Féin'),
   incoming_party: Party.find_by!(name: 'Independent'),

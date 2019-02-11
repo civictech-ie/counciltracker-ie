@@ -4,6 +4,11 @@ class Seat < ApplicationRecord
   belongs_to :councillor, touch: true
   belongs_to :party, touch: true
 
+  validates :council_session, presence: true
+  validates :local_electoral_area, presence: true
+  validates :councillor, presence: true
+  validates :party, presence: true
+
   delegate :full_name, to: :councillor
 
   scope :active, -> { active_on(Date.today) }
@@ -14,6 +19,6 @@ class Seat < ApplicationRecord
   end
 
   def events
-    council_session.events.where 'related_seat_ids @> ARRAY[CAST(? as bigint)]', self.id
+    @events ||= council_session.events.where 'related_seat_ids @> ARRAY[CAST(? as bigint)]', self.id
   end
 end

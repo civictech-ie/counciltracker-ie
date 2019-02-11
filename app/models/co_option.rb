@@ -3,6 +3,10 @@ class CoOption < Eventable
   belongs_to :incoming_councillor, class_name: 'Councillor'
   belongs_to :incoming_party, class_name: 'Party'
 
+  validates :outgoing_seat, presence: true
+  validates :incoming_councillor, presence: true
+  validates :incoming_party, presence: true
+
   def commit!
     outgoing_seat.update(concluded_on: event.occurred_on)
     incoming_seat = Seat.create!(

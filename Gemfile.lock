@@ -77,17 +77,24 @@ GEM
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
     dalli (2.7.9)
+    database_cleaner (1.7.0)
     date_validator (0.9.0)
       activemodel
       activesupport
     declarative (0.0.10)
     declarative-option (0.1.0)
+    diff-lcs (1.3)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     dry-inflector (0.1.2)
     erubi (1.8.0)
     excon (0.62.0)
     execjs (2.7.0)
+    factory_bot (5.0.0)
+      activesupport (>= 4.2.0)
+    factory_bot_rails (5.0.1)
+      factory_bot (~> 5.0.0)
+      railties (>= 4.2.0)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.10.0)
@@ -349,6 +356,10 @@ GEM
       bundler (>= 1.3.0)
       railties (= 5.2.2)
       sprockets-rails (>= 2.0.0)
+    rails-controller-testing (1.0.4)
+      actionpack (>= 5.0.1.x)
+      actionview (>= 5.0.1.x)
+      activesupport (>= 5.0.1.x)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -387,6 +398,23 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     retriable (3.1.2)
+    rspec-core (3.8.0)
+      rspec-support (~> 3.8.0)
+    rspec-expectations (3.8.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.8.0)
+    rspec-mocks (3.8.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.8.0)
+    rspec-rails (3.8.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.8.0)
+      rspec-expectations (~> 3.8.0)
+      rspec-mocks (~> 3.8.0)
+      rspec-support (~> 3.8.0)
+    rspec-support (3.8.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.2)
     safe_yaml (1.0.4)
@@ -406,6 +434,8 @@ GEM
       rubyzip (~> 1.2, >= 1.2.2)
     sentry-raven (2.9.0)
       faraday (>= 0.7.6, < 1.0)
+    shoulda-matchers (3.1.3)
+      activesupport (>= 4.0.0)
     signet (0.11.0)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -476,11 +506,13 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
-  capybara (~> 2.13)
+  capybara
   carrierwave
   coffee-rails (~> 4.2)
   dalli
+  database_cleaner
   date_validator
+  factory_bot_rails
   fog
   groupdate
   haml
@@ -494,10 +526,13 @@ DEPENDENCIES
   pg (< 1.0.0)
   puma (~> 3.7)
   rails (~> 5.2.2)
+  rails-controller-testing
   rails_12factor
+  rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   selenium-webdriver
   sentry-raven
+  shoulda-matchers
   sitemap_generator
   skylight
   sorcery

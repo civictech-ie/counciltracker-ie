@@ -22,7 +22,6 @@ gem 'groupdate'
 gem 'kramdown'
 gem 'httparty'
 gem 'nokogiri'
-gem 'vcr'
 gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
@@ -36,9 +35,15 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara', '~> 2.13'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_bot_rails'
   gem 'selenium-webdriver'
   gem 'webmock'
+  gem 'vcr'
+  gem 'shoulda-matchers'
+  gem 'rails-controller-testing'
 end
 
 group :development do

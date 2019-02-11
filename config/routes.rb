@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root to: 'home#show'
-  get 'changelog' => 'pages#changelog', as: :changelog
   get 'volunteer' => 'pages#volunteer', as: :volunteer
   get 'correction' => 'pages#correction', as: :correction
   get 'faq' => 'pages#faq', as: :faq

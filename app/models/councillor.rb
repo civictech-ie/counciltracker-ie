@@ -24,8 +24,7 @@ class Councillor < ApplicationRecord
   end
 
   def seat
-    return self.seats.active.first if self.seats.active.any?
-    return self.seats.order('concluded_on desc').first
+    seat_on(Date.current)
   end
 
   def seat_on(date)
@@ -89,7 +88,7 @@ class Councillor < ApplicationRecord
   end
 
   def generate_slug
-    return true if self.slug.present? && self.full_name.blank? # don't update until save
+    return unless self.full_name
 
     self.slug = if self.class.where(slug: self.full_name.parameterize).
                               where.not(id: self.id).any?

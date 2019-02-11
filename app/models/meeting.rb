@@ -37,6 +37,7 @@ class Meeting < ApplicationRecord
   end
 
   def expected_attendance # todo: rename to expected_councillors?
+    return nil unless self.council_session
     self.council_session.councillors.active_on(self.occurred_on)
   end
 

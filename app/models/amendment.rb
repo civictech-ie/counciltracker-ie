@@ -6,12 +6,16 @@ class Amendment < ApplicationRecord
 
   accepts_nested_attributes_for :votes
 
+  validates :vote_ruleset, presence: true
   validates :vote_ruleset, inclusion: %w(plurality absolute_majority super_majority), allow_blank: false
+  validates :vote_method, presence: true
   validates :vote_method, inclusion: %w(voice rollcall), allow_blank: false
+  validates :vote_result, presence: true
   validates :vote_result, inclusion: %w(pass fail error), allow_blank: false
 
   validates :official_reference, presence: true, uniqueness: { scope: :motion_id }
   validates :position, presence: true
+  validates :motion, presence: true
 
   before_validation :set_official_reference
   before_validation :append_to_motion, if: -> (m) { m.position.blank? }
@@ -54,10 +58,12 @@ class Amendment < ApplicationRecord
 
   def append_to_motion
     raise "Can't override present position" if position.present?
+    return unless self.motion
     self.position = (self.motion.amendments.map(&:position).max || 0) + 1
   end
 
   def set_official_reference
+    return unless self.motion && self.meeting
     self.official_reference = "#{ self.motion.official_reference }-#{ self.position }-#{ SecureRandom.hex(2) }"
   end
 
@@ -66,6 +72,7 @@ class Amendment < ApplicationRecord
   end
 
   def determine_vote_result
+    return unless self.vote_ruleset
     self.vote_result = case self.vote_ruleset.to_sym
     when :plurality
       if self.votes.in_favour.count > self.votes.in_opposition.count

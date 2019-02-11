@@ -2,6 +2,8 @@ class Event < ApplicationRecord
   belongs_to :council_session
   belongs_to :eventable, polymorphic: true, dependent: :destroy
 
+  validates :council_session, presence: true
+  validates :eventable, presence: true
   validates :occurred_on, presence: true
 
   before_validation :set_occurred_on, :set_council_session, :set_related_seat_ids
@@ -33,7 +35,7 @@ class Event < ApplicationRecord
   private
 
   def set_occurred_on
-    return unless eventable.occurred_on.present?
+    return unless eventable && eventable.occurred_on.present?
     self.occurred_on = eventable.occurred_on
   end
 
@@ -42,7 +44,7 @@ class Event < ApplicationRecord
   end
 
   def set_related_seat_ids
-    raise "Setting related ids without eventable" if !self.eventable.present?
+    return unless eventable
     self.related_seat_ids = eventable.related_seat_ids
   end
 end

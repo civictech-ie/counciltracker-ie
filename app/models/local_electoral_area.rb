@@ -24,6 +24,7 @@ class LocalElectoralArea < ApplicationRecord
   private
 
   def generate_slug
+    return unless self.name
     self.slug = self.name.parameterize
   end
 end

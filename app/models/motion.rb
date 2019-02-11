@@ -8,14 +8,18 @@ class Motion < ApplicationRecord
 
   accepts_nested_attributes_for :votes
 
-  validates :vote_ruleset, inclusion: %w(plurality absolute_majority super_majority), allow_blank: false
-  validates :vote_method, inclusion: %w(voice rollcall), allow_blank: false
-  validates :vote_result, inclusion: %w(pass fail error), allow_blank: false
-
   validates :official_reference, presence: true, uniqueness: { scope: :meeting_id }
+  validates :meeting, presence: true
   validates :position, presence: true
   validates :agenda_item, presence: true
   validates :executive_vote, inclusion: %w(for against abstain absent), allow_blank: true
+
+  validates :vote_ruleset , presence: true
+  validates :vote_ruleset, inclusion: %w(plurality absolute_majority super_majority), allow_blank: false
+  validates :vote_method, presence: true
+  validates :vote_method, inclusion: %w(voice rollcall), allow_blank: false
+  validates :vote_result, presence: true
+  validates :vote_result, inclusion: %w(pass fail error), allow_blank: false
 
   before_validation :cleanup_agenda_item, :set_official_reference, :set_position, :cleanup_tags
   after_validation :set_hashed_id, if: -> (m) { m.hashed_id.blank? }
@@ -55,7 +59,7 @@ class Motion < ApplicationRecord
   end
 
   def proposers
-    Councillor.where(id: self.proposers_ids)
+    @proposers ||= Councillor.where(id: self.proposers_ids)
   end
 
   def self.cleanup_agenda_item(itm)
@@ -63,7 +67,7 @@ class Motion < ApplicationRecord
   end
 
   def meeting_date
-    self.meeting.occurred_on
+    self.occurred_on
   end
 
   def is_votable?
@@ -133,10 +137,12 @@ class Motion < ApplicationRecord
   end
 
   def set_official_reference
-    self.official_reference = "#{ self.meeting.meeting_type }-#{ self.meeting.occurred_on.to_s.gsub('-','') }-#{ self.agenda_item }"
+    return unless self.meeting
+    self.official_reference = "#{ self.meeting.meeting_type }-#{ self.occurred_on.to_s.gsub('-','') }-#{ self.agenda_item }"
   end
 
   def determine_vote_result
+    return unless self.vote_ruleset
     self.vote_result = case self.vote_ruleset.to_sym
     when :plurality
       if self.votes.in_favour.count > self.votes.in_opposition.count

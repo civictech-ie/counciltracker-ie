@@ -2,6 +2,7 @@ class Attendance < ApplicationRecord
   belongs_to :attendable, polymorphic: true, required: false, touch: true
   belongs_to :councillor, touch: true
 
+  validates :councillor, presence: true
   validates :status, presence: true, inclusion: %w(present apologies absent expected exception)
   validate :councillor_on_council
 
@@ -29,6 +30,7 @@ class Attendance < ApplicationRecord
   private
 
   def councillor_on_council
+    return true unless self.attendable
     if !self.councillor.active_on?(self.occurred_on)
       errors.add(:councillor, "Councillor is not on council on meeting date")
     end

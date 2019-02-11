@@ -5,7 +5,8 @@ class Vote < ApplicationRecord
   delegate :occurred_on, to: :voteable
   delegate :meeting, to: :voteable
 
-  validates :status, presence: true, inclusion: %w(for against abstain absent not_voted exception), allow_blank: true
+  validates :voteable, presence: true
+  validates :status, presence: true, inclusion: %w(for against abstain absent not_voted exception)
   validates :councillor, presence: true, uniqueness: { scope: :voteable }
 
   scope :missing, -> { where(status: '') }

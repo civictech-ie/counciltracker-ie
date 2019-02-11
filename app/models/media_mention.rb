@@ -2,7 +2,9 @@ class MediaMention < ApplicationRecord
   belongs_to :mentionable, polymorphic: true, touch: true
 
   validates :body, presence: true
+  validates :mentionable, presence: true
   validates :published_on, date: { allow_blank: true }
+
   after_initialize :set_published_on
 
   def domain

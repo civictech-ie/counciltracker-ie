@@ -1,6 +1,8 @@
 require 'csv'
 
 class Election < Eventable
+  validates :parameters, presence: true
+
   def self.create_from_date_and_csv!(date, csv_file)
     rows = CSV.parse(csv_file, headers: true)
     councillors = rows.map do |row|
