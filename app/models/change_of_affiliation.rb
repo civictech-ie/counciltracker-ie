@@ -26,8 +26,7 @@ class ChangeOfAffiliation < Eventable
   end
 
   def related_seat_ids
-    return [] unless seat.present?
-    [seat.id]
+    @related_seat_ids ||= [seat.try(:id)].compact
   end
 
   def seat
