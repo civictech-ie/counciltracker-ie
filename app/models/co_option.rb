@@ -30,7 +30,7 @@ class CoOption < Eventable
   end
 
   def incoming_seat
-    return nil unless event && event.committed?
-    event.council_session.seats.find_by(councillor: incoming_councillor, party: incoming_party)
+    return unless event
+    @incoming_seat ||= council_session.seats.find_by(councillor: incoming_councillor, commenced_on: event.occurred_on)
   end
 end

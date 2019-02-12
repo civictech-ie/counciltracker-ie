@@ -63,6 +63,13 @@ ChangeOfAffiliation.create!(
   occurred_on: Date.new(2018,2,1)
 )
 
+ChangeOfAffiliation.create!(
+  councillor: Councillor.find_by!(full_name: 'John Lyons'),
+  outgoing_party: Party.find_by!(name: 'People Before Profit'),
+  incoming_party: Party.find_by!(name: 'Independent'),
+  occurred_on: Date.new(2019,1,6)
+)
+
 # Co-Options
 
 CoOption.create!(
