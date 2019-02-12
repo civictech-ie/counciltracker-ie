@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :councillor do
-    full_name { "Gaye Fagan" }
+    full_name { Faker::Name.name }
   end
 end

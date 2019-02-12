@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :vote do
     councillor
-    voteable { motion }
+    association :voteable, factory: :motion
     status { 'for' }
   end
 end

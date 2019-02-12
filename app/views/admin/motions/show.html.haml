@@ -103,7 +103,7 @@
                       .col-xs-9
                         %p.text.-one-line= amendment.body
                       .col-xs-2
-                        .status{class: "-#{ amendment.result.to_s }"}
+                        .status{class: "-#{ amendment.vote_result.to_s }"}
                           .status_icon
                           .status_text
-                            %p #{ amendment.result }
+                            %p #{ amendment.vote_result }

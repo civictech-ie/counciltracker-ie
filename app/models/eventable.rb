@@ -4,6 +4,8 @@ class Eventable < ApplicationRecord
   has_one :event, as: :eventable
   attribute :occurred_on, :date
 
+  validates :occurred_on, presence: true
+
   after_create :create_event
 
   def related_seat_ids

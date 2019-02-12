@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/stympy/faker.git
+  revision: f7fe79bb2405eb39945702441f785d70842fb233
+  branch: master
+  specs:
+    faker (1.9.2)
+      i18n (>= 0.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -513,6 +521,7 @@ DEPENDENCIES
   database_cleaner
   date_validator
   factory_bot_rails
+  faker!
   fog
   groupdate
   haml

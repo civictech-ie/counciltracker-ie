@@ -37,16 +37,12 @@ class Amendment < ApplicationRecord
     self.hashed_id
   end
 
-  def result
-    self.vote_result
-  end
-
   def rollcall?
     (self.vote_method == 'rollcall')
   end
 
   def proposers
-    Councillor.where(id: self.proposers_ids)
+    @proposers ||= Councillor.where(id: self.proposers_ids)
   end
 
   def refresh_hashed_id!
