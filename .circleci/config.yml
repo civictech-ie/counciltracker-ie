@@ -1,51 +1,45 @@
+---
 version: 2
 jobs:
   build:
+    working_directory: ~/counciltracker
     docker:
-      - image: circleci/ruby:2.5.1-node-browsers
-      - image: circleci/postgres:9.5
-
-    working_directory: ~/repo
-
+      - image: circleci/ruby:2.5.1
+        environment:
+          PGHOST: localhost
+          PGUSER: counciltracker
+          RAILS_ENV: test
+      - image: postgres:9.5
+        environment:
+          POSTGRES_USER: counciltracker
+          POSTGRES_DB: counciltracker_test
+          POSTGRES_PASSWORD: ""
     steps:
       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+      # Restore Cached Dependencies
+      - type: cache-restore
+        name: Restore bundle cache
+        key: counciltracker-{{ checksum "Gemfile.lock" }}
 
-      - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      # Bundle install dependencies
+      - run: bundle install --path vendor/bundle
 
-      # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      # Cache Dependencies
+      - type: cache-save
+        name: Store bundle cache
+        key: counciltracker-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
 
-      # run tests!
-      - run:
-          name: run tests
-          command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
-              circleci tests split --split-by=timings)"
-            bundle exec rspec \
-              --format progress \
-              --format RspecJunitFormatter \
-              --out /tmp/test-results/rspec.xml \
-              --format progress \
-              $TEST_FILES
-      # collect reports
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+      # Wait for DB
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      # Setup the environment
+      - run: cp .sample.env .env
+
+      # Setup the database
+      - run: bundle exec rake db:setup
+
+      # Run the tests
+      - run: bundle exec rake
