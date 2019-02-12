@@ -19,5 +19,21 @@ RSpec.describe CoOption, type: :model do
       co_option.reload
       expect(co_option.related_seat_ids.length).to eq(2)
     end
+
+    it "switches the outgoing councillor with the incoming councillor" do
+      outgoing_councillor = seat.councillor
+      incoming_councillor = co_option.incoming_councillor
+
+      # before the co-option, the incoming councillor is not active and the outgoing councillor is
+      expect(outgoing_councillor.active_on?(co_option.occurred_on - 1.day)).to eq(true)
+      expect(incoming_councillor.active_on?(co_option.occurred_on - 1.day)).to eq(false)
+
+      co_option.commit!
+      incoming_councillor.reload
+
+      # before the co-option, the outgoing councillor is not active and the incoming councillor is
+      expect(incoming_councillor.active_on?(co_option.occurred_on + 1.day)).to eq(true)
+      expect(outgoing_councillor.active_on?(co_option.occurred_on + 1.day)).to eq(false)
+    end
   end
 end
