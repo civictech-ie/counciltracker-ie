@@ -6,7 +6,7 @@ class MeetingsController < ApplicationController
 
   def show
     @council_session = CouncilSession.current
-    @meeting = @council_session.meetings.where(meeting_type: params[:meeting_type], occurred_on: params[:occurred_on]).take
+    @meeting = Meeting.where(meeting_type: params[:meeting_type], occurred_on: params[:occurred_on]).take
     @motions = @meeting.motions.published.by_position
     @attendances = @meeting.attendances.countable.by_status
   end

@@ -19,9 +19,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_raven_context
-    if logged_in?
-      Raven.user_context(email: current_user.email_address)
-      Raven.extra_context(params: params.to_unsafe_h, url: request.url)
-    end
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end
