@@ -15,8 +15,12 @@
               %figure.figure.-portrait= image_tag councillor.portrait.url(:small)
               %p.text.-display= councillor.full_name
               %ul.list.-inline.-dotted
-                %li
-                  %span.party-affiliated
-                    %span.party-icon.party-icon{style: "background-color: ##{ councillor.party.colour_hex };", title: councillor.party.name} &nbsp;
-                    = councillor.party.name
-                %li= councillor.local_electoral_area.name
+              
+                - if councillor.seat && councillor.party
+                  %li
+                    %span.party-affiliated
+                      %span.party-icon.party-icon{style: "background-color: ##{ councillor.party.colour_hex };", title: councillor.party.name} &nbsp;
+                      = councillor.party.name
+
+                - if councillor.seat && councillor.local_electoral_area
+                  %li= councillor.local_electoral_area.name

@@ -18,11 +18,12 @@ class Election < Eventable
 
   def commit! # replace names with ids
     raise('Missing event') unless event.present?
-    raise('Missing council session') unless event.council_session.present?
+
+    council_session = CouncilSession.create!(commenced_on: event.occurred_on)
 
     self.parameters = parameters.map do |row|
       seat = Seat.create!(
-        council_session: event.council_session,
+        council_session: council_session,
         party: Party.find_or_create_by!(name: row['party_name']),
         councillor: Councillor.find_or_create_by!(full_name: row['councillor_name']),
         local_electoral_area: LocalElectoralArea.find_or_create_by!(name: row['local_electoral_area_name']),
@@ -31,12 +32,17 @@ class Election < Eventable
 
       row.merge({seat_id: seat.id})
     end
+
+    yesterday = (event.occurred_on - 1.day).to_date
+    old_council_session = CouncilSession.current_on(yesterday).take
+    old_council_session.concluded_on = yesterday
+    old_council_session.save!
+
     save!
   end
 
   def rollback! # replace ids with names
     raise('Missing event') unless event.present?
-    raise('Missing council session') unless event.council_session.present?
 
     self.parameters = parameters.map do |row|
       seat = event.council_session.seats.find(row['seat_id'])
@@ -45,6 +51,10 @@ class Election < Eventable
       row.delete(:seat_id)
       row
     end
+
+    council_session = CouncilSession.find_by!(commenced_on: event.occurred_on)
+    council_session.destroy!
+
     save!
   end
 

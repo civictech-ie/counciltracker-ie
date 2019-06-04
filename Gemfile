@@ -1,4 +1,4 @@
-ruby '2.5.1'
+ruby '2.6.1'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 5.2.3'
 gem 'pg', '< 1.0.0'
 gem 'haml'
 gem 'jquery-rails'
@@ -25,7 +25,6 @@ gem 'nokogiri'
 gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
-gem 'skylight'
 gem 'date_validator'
 gem "sentry-raven"
 gem 'dalli'
@@ -50,6 +49,9 @@ end
 group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'guard'
+  gem 'guard-livereload', require: false
+  gem 'rack-livereload'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end

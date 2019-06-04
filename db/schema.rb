@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_17_221659) do
+ActiveRecord::Schema.define(version: 2019_06_04_103333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(version: 2018_04_17_221659) do
 
   create_table "events", force: :cascade do |t|
     t.date "occurred_on"
-    t.bigint "council_session_id"
     t.string "eventable_type"
     t.bigint "eventable_id"
     t.bigint "related_seat_ids", default: [], array: true
@@ -115,7 +114,6 @@ ActiveRecord::Schema.define(version: 2018_04_17_221659) do
     t.datetime "updated_at", null: false
     t.datetime "committed_at"
     t.index ["committed_at"], name: "index_events_on_committed_at"
-    t.index ["council_session_id"], name: "index_events_on_council_session_id"
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id"
   end
 

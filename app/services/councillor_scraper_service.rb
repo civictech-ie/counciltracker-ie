@@ -16,8 +16,7 @@ class CouncillorScraperService
     ng_page = Nokogiri::HTML(page)
 
     image_url = ng_page.css('.mgBigPhoto img')[0]['src']
-    img_base = 'https://www.dublincity.ie/councilmeetings/'
-    councillor.remote_portrait_url = img_base + image_url
+    councillor.remote_portrait_url = dcc_host + image_url
     councillor.save!
   end
 end

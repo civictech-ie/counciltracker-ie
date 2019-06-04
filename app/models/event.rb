@@ -1,12 +1,10 @@
 class Event < ApplicationRecord
-  belongs_to :council_session
   belongs_to :eventable, polymorphic: true, dependent: :destroy
 
-  validates :council_session, presence: true
   validates :eventable, presence: true
   validates :occurred_on, presence: true
 
-  before_validation :set_occurred_on, :set_council_session, :set_related_seat_ids
+  before_validation :set_occurred_on, :set_related_seat_ids
 
   scope :uncommitted, -> { where("committed_at IS NULL") }
   scope :by_occurred_on, -> { order("events.occurred_on desc") }
@@ -32,15 +30,15 @@ class Event < ApplicationRecord
     Seat.where id: self.related_seat_ids
   end
 
+  def council_session
+    @council_session ||= CouncilSession.current_on(self.occurred_on).take
+  end
+
   private
 
   def set_occurred_on
     return unless eventable && eventable.occurred_on.present?
     self.occurred_on = eventable.occurred_on
-  end
-
-  def set_council_session
-    self.council_session = CouncilSession.current_on(self.occurred_on).take
   end
 
   def set_related_seat_ids

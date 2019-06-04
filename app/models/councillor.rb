@@ -24,7 +24,7 @@ class Councillor < ApplicationRecord
   end
 
   def seat
-    seat_on(Date.current)
+    @seat ||= seat_on(Date.current)
   end
 
   def seat_on(date)

@@ -1,5 +1,4 @@
 class CouncilSession < ApplicationRecord
-  has_many :events, dependent: :destroy
   has_many :seats, dependent: :destroy
   has_many :meetings, dependent: :destroy
 
@@ -17,6 +16,10 @@ class CouncilSession < ApplicationRecord
   validates :commenced_on, presence: true
 
   scope :current_on, -> (date) { where('(commenced_on <= ?) AND ((concluded_on IS NULL) OR (concluded_on > ?))', date, date) }
+
+  def events
+    Event.where(occurred_on: [commenced_on...concluded_on])
+  end
 
   def election
     self.events.find_by(eventable_type: 'Election')

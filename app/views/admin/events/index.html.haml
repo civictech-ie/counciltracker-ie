@@ -10,8 +10,7 @@
     %section
       %header.table-header
         .row
-          .col-xs-1.col-xs-offset-11
-            %label committed?
+          .col-xs-1 &nbsp;
 
       %ul.list.-enumerable
         - @events.each do |event|
@@ -22,6 +21,3 @@
                   .text.-fixed= event.occurred_on.strftime('%d.%m.%y')
                 .col-xs-9
                   = raw admin_summarize_event(event)
-                .col-xs-1
-                  .text.-fixed.-right
-                    = event.committed? ? 'Yes' : 'No'
