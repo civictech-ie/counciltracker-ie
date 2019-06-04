@@ -36,26 +36,11 @@ blocks:
           # Read about caching: https://docs.semaphoreci.com/article/54-toolbox-reference#cache
           - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
           # Set Ruby version:
-          - sem-version ruby 2.6.0
+          - sem-version ruby 2.6.1
           - bundle install --deployment -j 4 --path vendor/bundle
           # Store the latest version of dependencies in cache,
           # to be used in next blocks and future workflows:
           - cache store gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock) vendor/bundle
-
-  - name: Code scanning
-    task:
-      jobs:
-        - name: check style + security
-          commands:
-            - checkout
-            - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
-            # Bundler requires `install` to run even though cache has been
-            # restored, but generally this is not the case with other package
-            # managers. Installation will not actually run and command will
-            # finish quickly:
-            - sem-version ruby 2.6.0
-            - bundle install --deployment --path vendor/bundle
-            - bundle exec brakeman
 
   - name: Unit tests
     task:
@@ -69,7 +54,7 @@ blocks:
           # Start Postgres database service.
           # See https://docs.semaphoreci.com/article/54-toolbox-reference#sem-service
           - sem-service start postgres
-          - sem-version ruby 2.6.0
+          - sem-version ruby 2.6.1
           - bundle install --deployment --path vendor/bundle
           - bundle exec rake db:setup
 
@@ -93,7 +78,7 @@ blocks:
           - checkout
           - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
           - sem-service start postgres
-          - sem-version ruby 2.6.0
+          - sem-version ruby 2.6.1
           - bundle install --deployment --path vendor/bundle
           - bundle exec rake db:setup
 
