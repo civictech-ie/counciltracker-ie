@@ -47,6 +47,11 @@ blocks:
       # This block runs two jobs in parallel and they both share common
       # setup steps. We can group them in a prologue.
       # See https://docs.semaphoreci.com/article/50-pipeline-yaml#prologue
+      env_vars:
+        - name: DATABASE_URL
+          value: postgresql://postgres@localhost/test?encoding=utf8
+        - name: RAILS_ENV
+          value: test
       prologue:
         commands:
           - checkout
@@ -74,6 +79,12 @@ blocks:
   # See https://docs.semaphoreci.com/article/50-pipeline-yaml#agent-in-task
   - name: Integration tests
     task:
+      env_vars:
+        - name: DATABASE_URL
+          value: postgresql://postgres@localhost/test?encoding=utf8
+        - name: RAILS_ENV
+          value: test
+
       prologue:
         commands:
           - checkout
@@ -81,8 +92,8 @@ blocks:
           - sem-service start postgres
           - sem-version ruby 2.6.1
           - bundle install --deployment --path vendor/bundle
-          - ENV=test bundle exec rake db:setup
-          - ENV=test bundle exec rake db:test:prepare
+          - bundle exec rake db:setup
+          - bundle exec rake db:test:prepare
 
       jobs:
       - name: RSpec - feature specs
