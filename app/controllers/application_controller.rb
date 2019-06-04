@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-
-  before_action :require_council_session
   before_action :set_raven_context
 
   def current_account
@@ -13,10 +11,6 @@ class ApplicationController < ActionController::Base
     @council_session ||= CouncilSession.latest
   end
   helper_method :current_council_session
-
-  def require_council_session
-    redirect_to([:new, :council_session]) if current_council_session.nil?
-  end
 
   private
 

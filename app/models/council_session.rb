@@ -17,8 +17,17 @@ class CouncilSession < ApplicationRecord
 
   scope :current_on, -> (date) { where('(commenced_on <= ?) AND ((concluded_on IS NULL) OR (concluded_on > ?))', date, date) }
 
+  after_save :update_seat_concluded_on, if: :saved_change_to_concluded_on?
+  after_save :update_seat_commenced_on, if: :saved_change_to_commenced_on?
+
   def events
-    Event.where(occurred_on: [commenced_on...concluded_on])
+    @events ||= if commenced_on && concluded_on
+      Event.where(occurred_on: [commenced_on...concluded_on])
+    elsif commenced_on
+      Event.where('occurred_on >= ?', commenced_on)
+    else
+      Event.none
+    end
   end
 
   def election
@@ -47,5 +56,17 @@ class CouncilSession < ApplicationRecord
 
   def election
     self.events.where(eventable_type: 'Election').take
+  end
+
+  private
+
+  def update_seat_commenced_on
+    seats.where(commenced_on: [self.commenced_on_before_last_save, nil]).
+      update_all(commenced_on: self.commenced_on)
+  end
+
+  def update_seat_concluded_on
+    seats.where(concluded_on: [self.concluded_on_before_last_save, nil]).
+      update_all(concluded_on: self.concluded_on)
   end
 end

@@ -1,7 +1,6 @@
 class MotionsController < ApplicationController
   def index
-    @council_session = current_council_session
-    @motions = @council_session.motions.published.order('motions.updated_at desc')
+    @motions = Motion.published.order('motions.updated_at desc')
 
     respond_to do |format|
       format.html { render :index }
@@ -13,7 +12,7 @@ class MotionsController < ApplicationController
   end
 
   def show
-    @council_session = current_council_session
-    @motion = @council_session.motions.published.find_by(hashed_id: params[:id])
+    @motion = Motion.published.find_by(hashed_id: params[:id])
+    @council_session = @motion.council_session
   end
 end
