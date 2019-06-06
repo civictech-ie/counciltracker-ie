@@ -34,7 +34,7 @@ class Election < Eventable
     end
 
     # should only be one
-    CouncilSession.where(concluded_on: nil).each do |old_session|
+    CouncilSession.where(concluded_on: nil).where.not(id: council_session.id).each do |old_session|
       old_session.concluded_on = (event.occurred_on - 1.day).to_date
       old_session.save!
     end
