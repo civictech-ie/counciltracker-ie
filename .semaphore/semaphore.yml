@@ -69,33 +69,33 @@ blocks:
         commands:
           - bundle exec rspec spec/models
 
-      - name: RSpec - controller tests
-        commands:
-          - bundle exec rspec spec/controllers
+      # - name: RSpec - controller tests
+      #   commands:
+      #     - bundle exec rspec spec/controllers
 
   # Note that it's possible to define an agent on a per-block level.
   # For example, if your integration tests need more RAM, you could override
   # agent configuration here to use e1-standard-8.
   # See https://docs.semaphoreci.com/article/50-pipeline-yaml#agent-in-task
-  - name: Integration tests
-    task:
-      env_vars:
-        - name: DATABASE_URL
-          value: postgresql://postgres@localhost/test?encoding=utf8
-        - name: RAILS_ENV
-          value: test
+  # - name: Integration tests
+  #   task:
+  #     env_vars:
+  #       - name: DATABASE_URL
+  #         value: postgresql://postgres@localhost/test?encoding=utf8
+  #       - name: RAILS_ENV
+  #         value: test
 
-      prologue:
-        commands:
-          - checkout
-          - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
-          - sem-service start postgres
-          - sem-version ruby 2.6.1
-          - bundle install --deployment --path vendor/bundle
-          - bundle exec rake db:setup
-          - bundle exec rake db:test:prepare
+  #     prologue:
+  #       commands:
+  #         - checkout
+  #         - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
+  #         - sem-service start postgres
+  #         - sem-version ruby 2.6.1
+  #         - bundle install --deployment --path vendor/bundle
+  #         - bundle exec rake db:setup
+  #         - bundle exec rake db:test:prepare
 
-      jobs:
-      - name: RSpec - feature specs
-        commands:
-          - bundle exec rspec spec/features
+  #     jobs:
+  #     - name: RSpec - feature specs
+  #       commands:
+  #         - bundle exec rspec spec/features
