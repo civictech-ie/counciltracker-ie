@@ -5,7 +5,7 @@ class LocalElectoralAreasController < ApplicationController
 
   def show
     @local_electoral_area = current_council_session.local_electoral_areas.find_by(slug: params[:id])
-    @councillors = @local_electoral_area.active_councillors
+    @councillors = @local_electoral_area.councillors
     @motions = @local_electoral_area.motions.published
   end
 end

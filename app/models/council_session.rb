@@ -15,7 +15,7 @@ class CouncilSession < ApplicationRecord
 
   validates :commenced_on, presence: true
 
-  scope :current_on, -> (date) { where('(commenced_on <= ?) AND ((concluded_on IS NULL) OR (concluded_on > ?))', date, date) }
+  scope :current_on, -> (date) { where('(commenced_on <= ?) AND ((concluded_on IS NULL) OR (concluded_on >= ?))', date, date) }
 
   after_save :update_seat_concluded_on, if: :saved_change_to_concluded_on?
   after_save :update_seat_commenced_on, if: :saved_change_to_commenced_on?

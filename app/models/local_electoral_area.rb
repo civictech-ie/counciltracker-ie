@@ -4,7 +4,7 @@ class LocalElectoralArea < ApplicationRecord
 
   has_many :councillors, -> { distinct }, through: :seats
   has_many :local_electoral_areas, -> { distinct }, through: :seats
-  has_many :active_councillors, source: :councillor, through: :active_seats
+  has_many :active_councillors, -> { distinct }, source: :councillor, through: :active_seats
 
   validates :name, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true

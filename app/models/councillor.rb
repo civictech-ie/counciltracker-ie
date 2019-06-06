@@ -31,6 +31,10 @@ class Councillor < ApplicationRecord
     self.seats.active_on(date).take
   end
 
+  def seat_for_session(council_session)
+    council_session.seats.where(councillor_id: self.id).take
+  end
+
   def active_on?(date)
     self.seats.active_on(date).any?
   end

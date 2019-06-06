@@ -33,10 +33,11 @@ class Election < Eventable
       row.merge({seat_id: seat.id})
     end
 
-    yesterday = (event.occurred_on - 1.day).to_date
-    old_council_session = CouncilSession.current_on(yesterday).take
-    old_council_session.concluded_on = yesterday
-    old_council_session.save!
+    # should only be one
+    CouncilSession.where(concluded_on: nil).each do |old_session|
+      old_session.concluded_on = (event.occurred_on - 1.day).to_date
+      old_session.save!
+    end
 
     save!
   end
@@ -45,7 +46,7 @@ class Election < Eventable
     raise('Missing event') unless event.present?
 
     self.parameters = parameters.map do |row|
-      seat = event.council_session.seats.find(row['seat_id'])
+      seat = Seat.find(row['seat_id'])
       seat.destroy!
 
       row.delete(:seat_id)

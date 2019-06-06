@@ -1,7 +1,7 @@
 %header.page-header
   .wrapper{role: 'layout'}
     .breadcrumbs
-      .breadcrumbs_crumb= link_to "Electoral areas", :parties
+      .breadcrumbs_crumb= link_to "Electoral areas", :local_electoral_areas
       .breadcrumbs_crumb
         %h1= link_to @local_electoral_area.name, @local_electoral_area
 
@@ -12,7 +12,8 @@
         %h2 Councillors
       %main
         %ul.list.-councillors.-enumerable
-          - @councillors.each do |councillor|
+          - @councillors.by_name.each do |councillor|
+            - seat = councillor.seats.where(local_electoral_area: @local_electoral_area).take
             %li
               = link_to councillor, class: 'councillor' do
                 %figure.figure.-portrait= image_tag councillor.portrait.url(:small)
@@ -20,9 +21,15 @@
                 %ul.list.-inline.-dotted
                   %li
                     %span.party-affiliated
-                      %span.party-icon.party-icon{style: "background-color: ##{ councillor.party.colour_hex };", title: councillor.party.name} &nbsp;
-                      = councillor.party.name
-                  %li= councillor.local_electoral_area.name
+                      %span.party-icon.party-icon{style: "background-color: ##{ seat.party.colour_hex };", title: seat.party.name} &nbsp;
+                    = seat.party.name
+                  %li
+                    - councillor.seats.each do |seat|
+                      - if seat.commenced_on
+                        #{ seat.commenced_on.strftime('%b %Y') }-
+                      - if seat.concluded_on
+                        #{ seat.concluded_on.strftime('%b %Y') }
+                  %li= @local_electoral_area.name
 
     %section
       %header.subheader
