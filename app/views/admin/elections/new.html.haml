@@ -1,0 +1,30 @@
+%header.page-header
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
+      .breadcrumbs_crumb= link_to "Events", [:admin, :events]
+      .breadcrumbs_crumb
+        %h1 New election
+
+.primary-main_content
+  .wrapper{role: 'layout'}
+    .row
+      .col-xs-12
+        %section
+          %header.subheader
+            %h2 New election
+          %main
+            = form_for [:admin, @election], html: {multipart: true}, class: 'admin-form' do |f|
+              = render partial: 'admin/shared/errors', locals: {errors: @election.errors}
+              .admin-form_field
+                = f.label :occurred_on
+                .input
+                  = f.text_field :occurred_on
+                  
+              .admin-form_field
+                = f.label :election_csv
+                .input
+                  = f.file_field :election_csv
+
+              .admin-form_actions
+                = f.submit 'Save'

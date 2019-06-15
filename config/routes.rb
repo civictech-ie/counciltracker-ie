@@ -29,7 +29,11 @@ Rails.application.routes.draw do
     resources :councillors do
       resources :media_mentions, only: [:new, :create]
     end
-    resources :events
+    resources :events, only: [:index, :show]
+    resources :co_options, only: [:new, :create, :edit, :update, :destroy]
+    resources :change_of_affiliations, only: [:new, :create, :edit, :update, :destroy]
+    resources :elections
+
     resources :meetings do
       collection do
         patch :scrape
