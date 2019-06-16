@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_04_103333) do
+ActiveRecord::Schema.define(version: 2019_06_16_081233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -197,11 +197,20 @@ ActiveRecord::Schema.define(version: 2019_06_04_103333) do
     t.index ["slug"], name: "index_parties_on_slug", unique: true
   end
 
+  create_table "party_affiliations", force: :cascade do |t|
+    t.bigint "seat_id"
+    t.bigint "party_id"
+    t.date "commenced_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["party_id"], name: "index_party_affiliations_on_party_id"
+    t.index ["seat_id"], name: "index_party_affiliations_on_seat_id"
+  end
+
   create_table "seats", force: :cascade do |t|
     t.bigint "council_session_id"
     t.bigint "local_electoral_area_id"
     t.bigint "councillor_id"
-    t.bigint "party_id"
     t.date "commenced_on"
     t.date "concluded_on"
     t.datetime "created_at", null: false
@@ -211,7 +220,6 @@ ActiveRecord::Schema.define(version: 2019_06_04_103333) do
     t.index ["council_session_id"], name: "index_seats_on_council_session_id"
     t.index ["councillor_id"], name: "index_seats_on_councillor_id"
     t.index ["local_electoral_area_id"], name: "index_seats_on_local_electoral_area_id"
-    t.index ["party_id"], name: "index_seats_on_party_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -252,9 +260,10 @@ ActiveRecord::Schema.define(version: 2019_06_04_103333) do
   add_foreign_key "co_options", "parties", column: "incoming_party_id"
   add_foreign_key "co_options", "seats", column: "outgoing_seat_id"
   add_foreign_key "motions", "meetings"
+  add_foreign_key "party_affiliations", "parties"
+  add_foreign_key "party_affiliations", "seats"
   add_foreign_key "seats", "council_sessions"
   add_foreign_key "seats", "councillors"
   add_foreign_key "seats", "local_electoral_areas"
-  add_foreign_key "seats", "parties"
   add_foreign_key "votes", "councillors"
 end

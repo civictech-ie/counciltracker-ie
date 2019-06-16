@@ -6,8 +6,9 @@ class CouncilSession < ApplicationRecord
   has_many :amendments, through: :motions
 
   has_many :councillors, -> { distinct }, through: :seats
+  has_many :party_affiliations, through: :seats
 
-  has_many :parties, -> { distinct }, through: :seats
+  has_many :parties, -> { distinct }, through: :party_affiliations
   has_many :local_electoral_areas, -> { distinct }, through: :seats
 
   has_many :active_seats, -> { active }, class_name: 'Seat'

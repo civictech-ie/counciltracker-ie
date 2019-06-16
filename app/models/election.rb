@@ -24,11 +24,12 @@ class Election < Eventable
     self.parameters = parameters.map do |row|
       seat = Seat.create!(
         council_session: council_session,
-        party: Party.find_or_create_by!(name: row['party_name']),
         councillor: Councillor.find_or_create_by!(full_name: row['councillor_name']),
         local_electoral_area: LocalElectoralArea.find_or_create_by!(name: row['local_electoral_area_name']),
         commenced_on: event.occurred_on
       )
+
+      seat.party_affiliations.create!(party: Party.find_or_create_by!(name: row['party_name']))
 
       row.merge({seat_id: seat.id})
     end

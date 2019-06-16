@@ -1,5 +1,4 @@
 class Admin::ElectionsController < ApplicationController
-
   def show
     @election = Election.find(params[:id])
   end
@@ -11,7 +10,6 @@ class Admin::ElectionsController < ApplicationController
   def create
     @election = Election.create_from_date_and_csv!(election_params[:occurred_on], File.read(election_params[:election_csv].path))
     if @election.save
-      @election.event.commit!
       redirect_to [:admin, @election]
     else
       render :new

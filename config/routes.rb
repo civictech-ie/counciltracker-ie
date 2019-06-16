@@ -35,9 +35,7 @@ Rails.application.routes.draw do
     resources :elections
 
     resources :meetings do
-      collection do
-        patch :scrape
-      end
+      collection { patch :scrape }
       member do
         get :attendances
         patch :update_attendances

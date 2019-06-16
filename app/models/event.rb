@@ -4,11 +4,17 @@ class Event < ApplicationRecord
   validates :eventable, presence: true
   validates :occurred_on, presence: true
 
+  after_create :commit!
+  before_destroy :rollback!
+
   before_validation :set_occurred_on, :set_related_seat_ids
 
   scope :uncommitted, -> { where("committed_at IS NULL") }
   scope :by_occurred_on, -> { order("events.occurred_on desc") }
   scope :related_to_seat, -> (id) { where('related_seat_ids @> ?', "{#{ id }}") }
+  scope :co_option, -> { where(eventable_type: 'CoOption') }
+  scope :change_of_affiliation, -> { where(eventable_type: 'ChangeOfAffiliation') }
+  scope :election, -> { where(eventable_type: 'Election') }
 
   def commit!
     raise "Can't commit unless uncommitted" unless !committed?
