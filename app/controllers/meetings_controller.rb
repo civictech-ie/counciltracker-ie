@@ -1,7 +1,6 @@
 class MeetingsController < ApplicationController
   def index
-    @council_session = CouncilSession.current
-    @meetings = @council_session.meetings.has_countable_attendances.order('occurred_on desc')
+    @meetings = Meeting.has_countable_attendances.order('occurred_on desc')
   end
 
   def show

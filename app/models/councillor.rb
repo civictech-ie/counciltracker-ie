@@ -3,6 +3,7 @@ class Councillor < ApplicationRecord
   has_many :attendances
   has_many :votes
   has_many :media_mentions, as: :mentionable
+  has_many :council_sessions, through: :seats
 
   has_many :meetings, through: :attendances
   has_many :motions, through: :votes

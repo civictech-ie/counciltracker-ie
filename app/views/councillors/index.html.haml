@@ -12,7 +12,7 @@
   .primary-main_content
     .wrapper{role: 'layout'}
       .row
-        .col-xs-8
+        .col-xs-12
           - @councillors.group_by(&:local_electoral_area).sort_by { |l,c| l }.each do |local_electoral_area, councillors|
             %section
               %header.subheader
@@ -31,8 +31,3 @@
                               %span.party-icon.party-icon{style: "background-color: ##{ councillor.party.colour_hex };", title: councillor.party.name} &nbsp;
                               = councillor.party.name
                           %li= councillor.local_electoral_area.name
-
-        .col-xs-3.box.-delineated-h
-          .text
-            :markdown
-              There are #{ pluralize @councillors.count, 'councillor' } currently serving on the Dublin City Council, comprising #{ (@councillors.count - current_council_session.co_options.count) } elected in #{ current_council_session.election.occurred_on.strftime('%b \'%y') } and #{ pluralize current_council_session.co_options.count, 'councillor' } appointed via co-option.

@@ -15,6 +15,7 @@
               %figure.figure.-portrait= image_tag councillor.portrait.url(:small)
               %p.text.-display= councillor.full_name
               %ul.list.-inline.-dotted
+                %li= councillor.council_sessions.map(&:commenced_on).map(&:year).map { |y| "#{y} Council" }.to_sentence
               
                 - if councillor.party
                   %li
