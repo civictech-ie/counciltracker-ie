@@ -23,12 +23,6 @@
                     %span.party-affiliated
                       %span.party-icon.party-icon{style: "background-color: ##{ seat.party.colour_hex };", title: seat.party.name} &nbsp;
                     = seat.party.name
-                  %li
-                    - councillor.seats.each do |seat|
-                      - if seat.commenced_on
-                        #{ seat.commenced_on.strftime('%b %Y') }-
-                      - if seat.concluded_on
-                        #{ seat.concluded_on.strftime('%b %Y') }
                   %li= @local_electoral_area.name
 
     %section
