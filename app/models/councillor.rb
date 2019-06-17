@@ -3,6 +3,7 @@ class Councillor < ApplicationRecord
   has_many :attendances
   has_many :votes
   has_many :media_mentions, as: :mentionable
+  has_many :council_sessions, through: :seats
 
   has_many :meetings, through: :attendances
   has_many :motions, through: :votes
@@ -24,11 +25,15 @@ class Councillor < ApplicationRecord
   end
 
   def seat
-    seat_on(Date.current)
+    @seat ||= seat_on(Date.current)
   end
 
   def seat_on(date)
     self.seats.active_on(date).take
+  end
+
+  def seat_for_session(council_session)
+    council_session.seats.where(councillor_id: self.id).take
   end
 
   def active_on?(date)
@@ -36,7 +41,7 @@ class Councillor < ApplicationRecord
   end
 
   def party
-    seat.party
+    @party ||= seats.order('commenced_on desc').take.party
   end
 
   def party_on(date) # lol
@@ -48,7 +53,7 @@ class Councillor < ApplicationRecord
   end
 
   def local_electoral_area
-    seat.local_electoral_area
+    @local_electoral_area ||= seats.order('commenced_on desc').take.local_electoral_area
   end
 
   def local_electoral_area_name
@@ -67,8 +72,8 @@ class Councillor < ApplicationRecord
     Amendment.proposed_by(self)
   end
 
-  def events # replace with scope on event so it's orderable
-    self.seats.map(&:events).flatten
+  def events
+    Event.related_to_seats(self.seats.map(&:id).compact).order('occurred_on desc')
   end
 
   private

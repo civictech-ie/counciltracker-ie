@@ -13,15 +13,7 @@
   .primary-main_content
     .wrapper{role: 'layout'}
       .row
-        .col-xs-3
-          %main
-            .box.-highlighted.-padded
-              .text.-display
-                #{ @meeting.meeting_type_in_english }
-              .text.-fixed
-                on #{ @meeting.occurred_on.strftime('%d.%m.%y') }
-
-        .col-xs-9.box.-delineated-h
+        .col-xs-12
           %section
             %header.subheader
               %h3 Motions
@@ -44,7 +36,7 @@
                   - ['expected', 'present', 'absent'].each do |status|
                     - attendances = @attendances.where(status: status)
                     - next if (status != 'absent') && attendances.empty?
-                    .col-xs-6.box.-delineated-h
+                    .col-xs-4.box.-delineated-h
                       .breakdown_item{class: "-#{ status }"}
                         %label= status
                         %big= attendances.count

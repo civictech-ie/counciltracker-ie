@@ -8,7 +8,7 @@ RSpec.describe ChangeOfAffiliation, type: :model do
 
   context "there is an active seat" do
     let(:outgoing_party) { create(:party) }
-    let(:seat) { create(:seat, commenced_on: 2.weeks.ago, party: outgoing_party) }
+    let(:seat) { create(:seat, commenced_on: 8.weeks.ago, party: outgoing_party) }
     let(:change_of_affiliation) { create(:change_of_affiliation, councillor: seat.councillor, occurred_on: 1.week.ago, outgoing_party: outgoing_party) }
 
     it "knows its related seats" do
@@ -20,14 +20,12 @@ RSpec.describe ChangeOfAffiliation, type: :model do
     end
 
     it "can make the change" do
-      expect(seat.party).to eq change_of_affiliation.outgoing_party
-      change_of_affiliation.commit!
-      seat.reload
+      change_of_affiliation.reload
       expect(seat.party).to eq change_of_affiliation.incoming_party
     end
 
     it "can unmake the change" do
-      change_of_affiliation.commit!
+      change_of_affiliation.commit! if !change_of_affiliation.committed?
       seat.reload
       change_of_affiliation.rollback!
       seat.reload

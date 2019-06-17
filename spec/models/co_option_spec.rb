@@ -10,12 +10,7 @@ RSpec.describe CoOption, type: :model do
     let(:seat) { create(:seat, commenced_on: 2.weeks.ago) }
     let(:co_option) { create(:co_option, occurred_on: 1.week.ago, outgoing_seat: seat) }
 
-    it "has one related seat when the event hasn't been committed" do
-      expect(co_option.related_seat_ids.length).to eq(1)
-    end
-
     it "has two related seats when the event has been committed" do
-      co_option.commit!
       co_option.reload
       expect(co_option.related_seat_ids.length).to eq(2)
     end
@@ -28,7 +23,7 @@ RSpec.describe CoOption, type: :model do
       expect(outgoing_councillor.active_on?(co_option.occurred_on - 1.day)).to eq(true)
       expect(incoming_councillor.active_on?(co_option.occurred_on - 1.day)).to eq(false)
 
-      co_option.commit!
+      co_option.reload
       incoming_councillor.reload
 
       # before the co-option, the outgoing councillor is not active and the incoming councillor is

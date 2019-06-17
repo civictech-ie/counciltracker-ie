@@ -1,6 +1,8 @@
 require 'csv'
 
 class Election < Eventable
+  attribute :election_csv
+
   validates :parameters, presence: true
 
   def self.create_from_date_and_csv!(date, csv_file)
@@ -18,33 +20,45 @@ class Election < Eventable
 
   def commit! # replace names with ids
     raise('Missing event') unless event.present?
-    raise('Missing council session') unless event.council_session.present?
+
+    council_session = CouncilSession.create!(commenced_on: event.occurred_on)
 
     self.parameters = parameters.map do |row|
       seat = Seat.create!(
-        council_session: event.council_session,
-        party: Party.find_or_create_by!(name: row['party_name']),
+        council_session: council_session,
         councillor: Councillor.find_or_create_by!(full_name: row['councillor_name']),
         local_electoral_area: LocalElectoralArea.find_or_create_by!(name: row['local_electoral_area_name']),
         commenced_on: event.occurred_on
       )
 
+      seat.party_affiliations.create!(party: Party.find_or_create_by!(name: row['party_name']))
+
       row.merge({seat_id: seat.id})
     end
+
+    # should only be one
+    CouncilSession.where(concluded_on: nil).where.not(id: council_session.id).each do |old_session|
+      old_session.concluded_on = (event.occurred_on - 1.day).to_date
+      old_session.save!
+    end
+
     save!
   end
 
   def rollback! # replace ids with names
     raise('Missing event') unless event.present?
-    raise('Missing council session') unless event.council_session.present?
 
     self.parameters = parameters.map do |row|
-      seat = event.council_session.seats.find(row['seat_id'])
+      seat = Seat.find(row['seat_id'])
       seat.destroy!
 
       row.delete(:seat_id)
       row
     end
+
+    council_session = CouncilSession.find_by!(commenced_on: event.occurred_on)
+    council_session.destroy!
+
     save!
   end
 

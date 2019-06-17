@@ -1,16 +1,21 @@
 class Event < ApplicationRecord
-  belongs_to :council_session
   belongs_to :eventable, polymorphic: true, dependent: :destroy
 
-  validates :council_session, presence: true
   validates :eventable, presence: true
   validates :occurred_on, presence: true
 
-  before_validation :set_occurred_on, :set_council_session, :set_related_seat_ids
+  after_create :commit!
+  before_destroy :rollback!
+
+  before_validation :set_occurred_on, :set_related_seat_ids
 
   scope :uncommitted, -> { where("committed_at IS NULL") }
   scope :by_occurred_on, -> { order("events.occurred_on desc") }
   scope :related_to_seat, -> (id) { where('related_seat_ids @> ?', "{#{ id }}") }
+  scope :related_to_seats, -> (ids) { where('related_seat_ids && ARRAY[?]::bigint[]', ids) }
+  scope :co_option, -> { where(eventable_type: 'CoOption') }
+  scope :change_of_affiliation, -> { where(eventable_type: 'ChangeOfAffiliation') }
+  scope :election, -> { where(eventable_type: 'Election') }
 
   def commit!
     raise "Can't commit unless uncommitted" unless !committed?
@@ -32,15 +37,15 @@ class Event < ApplicationRecord
     Seat.where id: self.related_seat_ids
   end
 
+  def council_session
+    @council_session ||= CouncilSession.current_on(self.occurred_on).take
+  end
+
   private
 
   def set_occurred_on
     return unless eventable && eventable.occurred_on.present?
     self.occurred_on = eventable.occurred_on
-  end
-
-  def set_council_session
-    self.council_session = CouncilSession.current_on(self.occurred_on).take
   end
 
   def set_related_seat_ids

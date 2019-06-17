@@ -1,5 +1,5 @@
+Event.destroy_all
 CouncilSession.destroy_all
-CouncilSession.create!(commenced_on: Date.new(2014,5,23)) # TODO: elections should _create_ these
 
 # Parties
 
@@ -9,7 +9,7 @@ CouncilSession.create!(commenced_on: Date.new(2014,5,23)) # TODO: elections shou
   {name: "Labour Party", colour_hex: 'CC0000'},
   {name: "People Before Profit", colour_hex: '660000'},
   {name: "Green Party", colour_hex: '99CC33'},
-  {name: "Anti-Austerity Alliance", colour_hex: 'FFFF00'},
+  {name: "Solidarity", colour_hex: 'BF2D2E'},
   {name: "United Left", colour_hex: 'FF5555'},
   {name: "Independent", colour_hex: 'EFEFEF'},
   {name: "Social Democrats", colour_hex: '752F8B'},
@@ -30,8 +30,6 @@ end
 Election.destroy_all
 
 Election.create_from_date_and_csv!(Date.new(2014,5,23), File.read('./db/election-20140523.csv'))
-
-Event.uncommitted.order('occurred_on asc').each { |e| e.commit! }
 
 # Changes in Affiliation
 
@@ -135,9 +133,3 @@ CoOption.create!(
   reason: 'Elected to Seanad Éireann',
   occurred_on: Date.new(2016,4,1)
 )
-
-# Run all events
-
-Event.uncommitted.order('occurred_on asc').each do |e|
-  e.commit!
-end

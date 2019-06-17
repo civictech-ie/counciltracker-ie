@@ -1,9 +1,11 @@
 class HomeController < ApplicationController
   def show
+
     @motions = Motion.published
     @interesting_motions = @motions.where(interesting: true).by_occurred_on.limit(5)
-    @parties = Party.by_name
-    @local_electoral_areas = LocalElectoralArea.by_name
+    @council_session = CouncilSession.current_on(Date.current).take
+    @parties = @council_session.parties.by_name
+    @local_electoral_areas = @council_session.local_electoral_areas.by_name
 
     @recent_meetings = Meeting.where(meeting_type: ['monthly', 'annual']).where(occurred_on: (Date.current - 1.year)..Date.current)
 

@@ -1,10 +1,9 @@
 class Party < ApplicationRecord
-  has_many :seats
-  has_many :active_seats, -> { active }, class_name: 'Seat'
+  has_many :party_affiliations
+  has_many :seats, -> { distinct }, through: :party_affiliations
 
   has_many :councillors, -> { distinct }, through: :seats
   has_many :local_electoral_areas, -> { distinct }, through: :seats
-  has_many :active_councillors, source: :councillor, through: :active_seats
 
   validates :name, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
@@ -15,6 +14,10 @@ class Party < ApplicationRecord
 
   def to_param
     self.slug
+  end
+
+  def active_councillors
+    self.councillors.merge(Seat.active)
   end
 
   private

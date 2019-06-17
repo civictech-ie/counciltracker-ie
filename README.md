@@ -2,8 +2,6 @@
 
 This runs [counciltracker.ie](https://www.counciltracker.ie) which tracks and publishes the motions, amendments, and votes of Dublin City councillors. It's a fairly straightforward Rails app with a few little hacks to speed up the annoying data entry involved in keeping this up to date. It needs more documentation and test coverage!
 
-[![CircleCI](https://circleci.com/gh/DublinInquirer/counciltracker-ie/tree/master.svg?style=svg)](https://circleci.com/gh/DublinInquirer/counciltracker-ie/tree/master)
-
 ## Get set up
 
 Setting up the database and running `rake db:seed` will provide CouncilTracker with the composition of Dublin City Council as of February 2019 (councillors, party affiliations, etc).
