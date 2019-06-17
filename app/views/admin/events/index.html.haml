@@ -8,15 +8,10 @@
 .primary-main_content
   .wrapper{role: 'layout'}
     %section
-      %header.table-header
-        = link_to "New Change of Affiliation", [:new, :admin, :change_of_affiliation]
-        = link_to "New Co-Option", [:new, :admin, :co_option]
-        = link_to "New Election", [:new, :admin, :election]
-
       %ul.list.-enumerable
         - @events.each do |event|
           %li
-            = link_to [:edit, :admin, event.eventable] do
+            = link_to [:admin, event] do
               .row
                 .col-xs-2
                   .text.-fixed= event.occurred_on.strftime('%d.%m.%y')
