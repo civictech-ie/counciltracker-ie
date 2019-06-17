@@ -20,6 +20,10 @@ class Eventable < ApplicationRecord
     @occurred_on = date
   end
 
+  def committed?
+    event.committed?
+  end
+
   def council_session
     @council_session ||= CouncilSession.current_on(occurred_on).take
   end

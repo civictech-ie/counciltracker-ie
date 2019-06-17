@@ -9,8 +9,6 @@ class ChangeOfAffiliation < Eventable
 
   def commit!
     raise "No current seat" unless seat.present?
-    raise "seat.party and outgoing don't match for: #{ seat.councillor.inspect } & #{ self.inspect }" unless seat.party == outgoing_party
-
     seat.set_party_affiliation_starting_on(incoming_party, self.occurred_on)
     seat.save!
     save!
@@ -18,8 +16,6 @@ class ChangeOfAffiliation < Eventable
 
   def rollback!
     raise "No current seat" unless seat.present?
-    raise "Incoming party doesn't match" unless seat.party == incoming_party
-
     pa = seat.party_affiliations.where(commenced_on: self.occurred_on).take
     pa.destroy!
     save!
