@@ -27,13 +27,13 @@
           .row
             .col-xs-4
               .logos
-                = link_to "https://www.civictech.ie" do
-                  %figure.figure.-logo= image_tag "civic-tech.svg", style: 'margin-top: -1px; height: 1.25rem; width: auto'
-                %span +
                 = link_to "https://www.dublininquirer.com" do
                   %figure.figure.-logo= image_tag "dublin-inquirer.svg", style: 'height: 1.125rem; width: auto'
+                %span +
+                = link_to "https://www.civictech.ie" do
+                  %figure.figure.-logo= image_tag "civic-tech.svg", style: 'margin-top: -1px; height: 1.25rem; width: auto'
               :markdown
-                [Council Tracker](/) is a [CivicTech·ie](https://www.civictech.ie)/[Dublin Inquirer](https://www.dublininquirer.com) project. It is not affiliated with [Dublin City Council](http://www.dublincity.ie).
+                [Council Tracker](/) is a [Dublin Inquirer](https://www.dublininquirer.com)/[CivicTech·ie](https://www.civictech.ie) project. It is not affiliated with [Dublin City Council](http://www.dublincity.ie).
             .col-xs-4.col-xs-offset-4
               %ul.list
                 - if logged_in?
