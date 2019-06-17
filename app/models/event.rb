@@ -12,6 +12,7 @@ class Event < ApplicationRecord
   scope :uncommitted, -> { where("committed_at IS NULL") }
   scope :by_occurred_on, -> { order("events.occurred_on desc") }
   scope :related_to_seat, -> (id) { where('related_seat_ids @> ?', "{#{ id }}") }
+  scope :related_to_seats, -> (ids) { where('related_seat_ids && ARRAY[?]::bigint[]', ids) }
   scope :co_option, -> { where(eventable_type: 'CoOption') }
   scope :change_of_affiliation, -> { where(eventable_type: 'ChangeOfAffiliation') }
   scope :election, -> { where(eventable_type: 'Election') }

@@ -35,5 +35,7 @@ class CreatePartyAffiliations < ActiveRecord::Migration[5.2]
     end
 
     remove_column :seats, :party_id, :bigint
+
+    Event.all.each(&:save)
   end
 end

@@ -26,7 +26,7 @@ class CoOption < Eventable
   end
 
   def related_seat_ids
-    [incoming_seat, outgoing_seat].compact.map(&:id)
+    @related_seat_ids ||= [incoming_seat.try(:id), outgoing_seat.try(:id)].compact
   end
 
   def incoming_seat

@@ -32,7 +32,7 @@ class Seat < ApplicationRecord
   end
 
   def events
-    @events ||= council_session.events.where 'related_seat_ids @> ARRAY[CAST(? as bigint)]', self.id
+    @events ||= council_session.events.where('related_seat_ids @> ARRAY[CAST(? as bigint)]', self.id).order('occurred_on desc')
   end
 
   def election

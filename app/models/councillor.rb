@@ -72,8 +72,8 @@ class Councillor < ApplicationRecord
     Amendment.proposed_by(self)
   end
 
-  def events # replace with scope on event so it's orderable
-    self.seats.map(&:events).flatten
+  def events
+    Event.related_to_seats(self.seats.map(&:id).compact).order('occurred_on desc')
   end
 
   private
