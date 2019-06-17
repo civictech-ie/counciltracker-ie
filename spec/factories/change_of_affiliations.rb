@@ -3,6 +3,6 @@ FactoryBot.define do
     association :councillor, factory: [:councillor, :active]
     association :outgoing_party, factory: :party
     association :incoming_party, factory: :party
-    occurred_on { Faker::Date.backward(365) }
+    occurred_on { Faker::Date.unique.backward(365) }
   end
 end
