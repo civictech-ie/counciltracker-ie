@@ -32,6 +32,7 @@ gem 'sitemap_generator'
 gem 'meta-tags'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'scout_apm'
+gem 'redis', '~> 4.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

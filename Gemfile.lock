@@ -434,6 +434,7 @@ GEM
       json (>= 1.8)
       nokogiri (~> 1.5)
       optimist (~> 3.0)
+    redis (4.1.2)
     ref (2.0.0)
     regexp_parser (1.5.1)
     representable (3.0.4)
@@ -590,6 +591,7 @@ DEPENDENCIES
   rack-livereload
   rails (~> 5.2.3)
   rails_12factor
+  redis (~> 4.0)
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   scout_apm
