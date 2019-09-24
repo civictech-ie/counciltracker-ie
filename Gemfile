@@ -1,4 +1,4 @@
-ruby '2.6.1'
+ruby '2.6.3'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -21,10 +21,10 @@ gem 'turbolinks'
 gem 'groupdate'
 gem 'kramdown'
 gem 'httparty'
-gem 'nokogiri'
+gem "nokogiri", ">= 1.10.4"
 gem 'carrierwave'
 gem 'fog'
-gem 'mini_magick'
+gem "mini_magick", ">= 4.9.4"
 gem 'date_validator'
 gem "sentry-raven"
 gem 'dalli'

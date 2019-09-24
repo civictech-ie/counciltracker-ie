@@ -29,7 +29,7 @@ This code exists to run counciltracker.ie and would need some amount of rejigger
 
 ## Contact
 
-Email me at [brian@elbow.ie](mailto:brian@elbow.ie) and I'd be happy to answer any questions.
+Email me at [brian@civictech.ie](mailto:brian@civictech.ie) and I'd be happy to answer any questions.
 
 ## License
 
