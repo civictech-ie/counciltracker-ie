@@ -10,7 +10,7 @@ class CouncillorsController < ApplicationController
   end
 
   def show
-    @councillor = Councillor.find_by(slug: params[:id])
+    @councillor = Councillor.find_by!(slug: params[:id])
     @proposed_motions = @councillor.proposed_motions.published.by_occurred_on.includes(:votes)
     @proposed_amendments = @councillor.proposed_amendments.published.by_occurred_on.includes(:votes)
     @seat = @councillor.seat
