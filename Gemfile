@@ -1,4 +1,4 @@
-ruby '2.6.3'
+ruby '2.6.5'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -6,15 +6,15 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.2.3'
-gem 'pg', '< 1.0.0'
+gem 'rails', '~> 6.0.0'
+gem 'pg'
 gem 'haml'
 gem 'jquery-rails'
-gem 'puma', '~> 3.7'
+gem 'puma'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'therubyracer', platforms: :ruby
-gem 'coffee-rails', '~> 4.2'
+gem 'coffee-rails'
 gem 'sorcery'
 gem 'rails_12factor'
 gem 'turbolinks'
@@ -32,12 +32,12 @@ gem 'sitemap_generator'
 gem 'meta-tags'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'scout_apm'
-gem 'redis', '~> 4.0'
+gem 'redis'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.0'
-  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+  gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
