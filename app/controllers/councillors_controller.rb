@@ -2,6 +2,11 @@ class CouncillorsController < ApplicationController
   def index
     @local_electoral_areas = LocalElectoralArea.by_name
     @councillors = current_council_session.active_councillors.by_name
+
+    respond_to do |f|
+      f.html { render action: 'index' }
+      f.json { render json: @councillors }
+    end
   end
 
   def show
