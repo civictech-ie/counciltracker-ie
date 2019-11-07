@@ -3,12 +3,12 @@
 - keywords "city council, motions, #{ @motion.tags.join(',') }"
 
 - cache [@motion, :show] do
-  %header.page-header
+  %header.view-header
     .wrapper{role: 'layout'}
       .breadcrumbs
-        .breadcrumbs_crumb= link_to @motion.meeting.title, meeting_path(meeting_type: @motion.meeting.meeting_type, occurred_on: @motion.meeting.occurred_on)
+        .breadcrumbs_crumb= link_to @motion.meeting.occurred_on.strftime('%d/%m/%y'), meeting_path(meeting_type: @motion.meeting.meeting_type, occurred_on: @motion.meeting.occurred_on)
         .breadcrumbs_crumb
-          %h1= link_to truncate(@motion.title, length: 48), @motion
+          %h1= link_to @motion.title, @motion
 
   .primary-main_content
     .wrapper{role: 'layout'}

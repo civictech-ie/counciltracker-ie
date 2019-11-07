@@ -1,0 +1,29 @@
+.view-header
+  border-bottom: 1px solid var(--black)
+  position: sticky
+  top: 0
+  background: var(--white)
+  padding: 2.5rem 0 0.5rem
+  z-index: 15
+
+  .breadcrumbs, .breadcrumbs_crumb
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+
+  .breadcrumbs_crumb + .breadcrumbs_crumb
+    &:before
+      display: block
+      content: ' — '
+  
+  h1
+    font-weight: 400
+    white-space: nowrap
+    overflow: hidden
+    height: 1.3em
+    max-width: calc(100vw - 40rem)
+    text-overflow: ellipsis
+
+  a, a:link, a:visited
+    &:hover
+      color: var(--blue)

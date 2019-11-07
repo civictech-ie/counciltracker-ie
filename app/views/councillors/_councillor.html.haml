@@ -1,0 +1,8 @@
+- cache councillor do
+  .enumerable.-councillor
+    .content
+      .name= councillor.full_name
+    .party= councillor.party.name
+    .area= councillor.local_electoral_area.name
+
+    %figure.figure.-portrait= image_tag councillor.portrait.url(:small), loading: 'lazy', alt: "Portrait of #{ councillor.full_name }"

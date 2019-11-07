@@ -16,7 +16,7 @@
             - seat = councillor.seats.where(local_electoral_area: @local_electoral_area).take
             %li
               = link_to councillor, class: 'councillor' do
-                %figure.figure.-portrait= image_tag councillor.portrait.url(:small)
+                %figure.figure.-portrait= image_tag councillor.portrait.url, loading: 'lazy', alt: "Portrait of #{ councillor.full_name }"(:small)
                 %p.text.-display= councillor.full_name
                 %ul.list.-inline.-dotted
                   %li

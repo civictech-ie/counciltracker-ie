@@ -3,117 +3,111 @@
 - keywords "#{ @councillor.full_name }, #{ @councillor.local_electoral_area.name }, #{ @councillor.party.name }"
 
 - cache [@councillor, :show] do
-  %header.page-header
-    .wrapper{role: 'layout'}
-      .breadcrumbs
-        .breadcrumbs_crumb= link_to "Councillors", :councillors
-        .breadcrumbs_crumb
-          %h1= link_to @councillor.full_name, @councillor
+  %header.view-header
+    .breadcrumbs
+      .breadcrumbs_crumb= link_to "Councillors", :councillors
+      .breadcrumbs_crumb
+        %h1= link_to @councillor.full_name, @councillor
 
-  .primary-main_content
-    .wrapper{role: 'layout'}
-      .row
-        .col-xs-3
-          %section.bio
-            %figure.figure.-portrait= image_tag @councillor.portrait.url(:medium)
-            .bio_data
-              .bio_data_content
-                %p
-                  %strong= @councillor.full_name
-                %p
-                  = link_to @councillor.party do
-                    .party-affiliated
-                      .party-icon{style: "background-color: ##{ @councillor.party.colour_hex };", title: @councillor.party_name} &nbsp;
-                      = @councillor.party_name
+  .view{role: 'layout'}
+    %section.bio
+      %figure.figure.-portrait= image_tag @councillor.portrait.url(:medium), loading: 'lazy', alt: "Portrait of #{ @councillor.full_name }"
+      .bio_data
+        .bio_data_content
+          %p
+            %strong= @councillor.full_name
+          %p
+            = link_to @councillor.party do
+              .party-affiliated
+                .party-icon{style: "background-color: ##{ @councillor.party.colour_hex };", title: @councillor.party_name} &nbsp;
+                = @councillor.party_name
 
-                %p
-                  = link_to @councillor.local_electoral_area do
-                    = @councillor.local_electoral_area_name
+          %p
+            = link_to @councillor.local_electoral_area do
+              = @councillor.local_electoral_area_name
 
-          - if @councillor.events.any?
-            %section
-              %header.subheader
-                %h2 History
-              %main
-                %ul.list
-                  - @councillor.events.each do |event|
-                    %li
-                      %span.text.-fixed.-info
-                        #{ event.occurred_on.strftime('%b \'%y') } &mdash;
-                      %span= raw summarize_event_for_councillor event, @councillor
+    - if @councillor.events.any?
+      %section
+        %header.subheader
+          %h2 History
+        %main
+          %ul.list
+            - @councillor.events.each do |event|
+              %li
+                %span.text.-fixed.-info
+                  #{ event.occurred_on.strftime('%b \'%y') } &mdash;
+                %span= raw summarize_event_for_councillor event, @councillor
 
-          - if @councillor.media_mentions.any?
-            %section
-              %header.subheader
-                %h2 Media
-              %main
-                %ul.list.-small
-                  - @councillor.media_mentions.each do |media_mention|
-                    %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
+    - if @councillor.media_mentions.any?
+      %section
+        %header.subheader
+          %h2 Media
+        %main
+          %ul.list.-small
+            - @councillor.media_mentions.each do |media_mention|
+              %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
 
-        .col-xs-9.box.-delineated-h
-          %section
-            %header.subheader
-              %h2 Proposed motions
-            %main
-              - if @proposed_motions.any?
-                %ul.list.-enumerable
-                  - @proposed_motions.each do |motion|
-                    %li
-                      = link_to motion do
-                        = render partial: 'motions/motion', locals: {motion: motion}
-              - else
-                %p.empty (None present)
+    %header.view-subheader
+      %h2 Proposed motions
+    %main
+      - if @proposed_motions.any?
+        %ul.list.-enumerable
+          - @proposed_motions.each do |motion|
+            %li
+              = link_to motion do
+                = render partial: 'motions/motion', locals: {motion: motion}
+      - else
+        %p.empty (None present)
 
-          %section
-            %header.subheader
-              %h2 Proposed amendments
-            %main
-              - if @proposed_amendments.any?
-                %ul.list.-enumerable
-                  - @proposed_amendments.each do |amendment|
-                    %li
-                      = link_to amendment do
-                        = render partial: 'amendments/amendment', locals: {amendment: amendment}
+  %section
+    %header.subheader
+      %h2 Proposed amendments
+    %main
+      - if @proposed_amendments.any?
+        %ul.list.-enumerable
+          - @proposed_amendments.each do |amendment|
+            %li
+              = link_to amendment do
+                = render partial: 'amendments/amendment', locals: {amendment: amendment}
 
-              - else
-                %p.empty (None present)
+      - else
+        %p.empty (None present)
 
-          %section
-            %header.subheader
-              %h2 Past votes
-            %main
-              - if @votes.any?
-                %ul.list.-enumerable
-                  - @votes.each do |vote|
-                    %li
-                      = link_to vote.voteable do
-                        = render partial: 'votes/vote', locals: {vote: vote}
+    %section
+      %header.subheader
+        %h2 Past votes
+      %main
+        - if @votes.any?
+          %ul.list.-enumerable
+            - @votes.each do |vote|
+              %li
+                = link_to vote.voteable do
+                  = render partial: 'votes/vote', locals: {vote: vote}
 
-              - else
-                %p.empty (None present)
+        - else
+          %p.empty (None present)
 
-          %section
-            %header.subheader
-              %h2 Attendance
-            %main
-              - if @attendances.any?
-                .breakdown
-                  .row
-                    .col-xs-6.box.-delineated-h
-                      .breakdown_item{class: "-present"}
-                        %label attended
-                        %big= @attendances.attended.count
-                    .col-xs-6.box.-delineated-h
-                      .breakdown_item{class: "-absent"}
-                        %label absent
-                        %big= @attendances.where(status: 'absent').count
+    %section
+      %header.subheader
+        %h2 Attendance
+      %main
+        - if @attendances.any?
+          .breakdown
+            .row
+              .col-xs-6.box.-delineated-h
+                .breakdown_item{class: "-present"}
+                  %label attended
+                  %big= @attendances.attended.count
+              .col-xs-6.box.-delineated-h
+                .breakdown_item{class: "-absent"}
+                  %label absent
+                  %big= @attendances.where(status: 'absent').count
 
-                %ul.list.-enumerable.-fat
-                  - @attendances.sort_by(&:occurred_on).reverse.each do |attendance|
-                    %li
-                      = link_to meeting_path(meeting_type: attendance.attendable.meeting_type, occurred_on: attendance.attendable.occurred_on) do
-                        = render partial: 'attendances/attendance', locals: {attendance: attendance}
+          %ul.list.-enumerable.-fat
+            - @attendances.sort_by(&:occurred_on).reverse.each do |attendance|
+              %li
+                = link_to meeting_path(meeting_type: attendance.attendable.meeting_type, occurred_on: attendance.attendable.occurred_on) do
+                  = render partial: 'attendances/attendance', locals: {attendance: attendance}
 
-              - else
-                %p.empty (None present)
+        - else
+          %p.empty (None present)

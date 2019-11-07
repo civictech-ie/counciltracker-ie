@@ -20,6 +20,8 @@ class Councillor < ApplicationRecord
 
   mount_uploader :portrait, PortraitUploader, mount_on: :portrait_file
 
+  paginates_per 20
+
   def to_param
     self.slug_was
   end

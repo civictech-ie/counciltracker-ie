@@ -1,0 +1,25 @@
+.primary-nav
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: flex-start
+
+  .logo
+    font-weight: 400
+
+  a, a:link, a:visited
+    background-color: var(--black)
+    color: var(--white)
+    display: flex
+    margin-bottom: 0.25rem
+    padding: 0.5rem 0.75rem 0.4rem
+    text-decoration: none
+    transition: ease 0.225s background-position, ease 0.325s padding
+    background-image: url(image-path('arrow.svg'))
+    background-position: -2.5rem center
+    background-size: auto 1.25rem
+    background-repeat: no-repeat
+
+    &:hover
+      background-position: 0.5rem center
+      padding-left: 2.5rem

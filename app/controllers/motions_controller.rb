@@ -1,6 +1,6 @@
 class MotionsController < ApplicationController
   def index
-    @motions = Motion.published.order('motions.updated_at desc')
+    @motions = Motion.published.by_occurred_on.page(params[:p])
 
     respond_to do |format|
       format.html { render :index }

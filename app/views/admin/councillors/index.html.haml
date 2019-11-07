@@ -1,9 +1,8 @@
-%header.page-header
-  .wrapper{role: 'layout'}
-    .breadcrumbs
-      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
-      .breadcrumbs_crumb
-        %h1= link_to "Councillors", [:admin, :councillors]
+%header.view-header
+  .breadcrumbs
+    .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
+    .breadcrumbs_crumb
+      %h1= link_to "Councillors", [:admin, :councillors]
 
 .primary-main_content
   .wrapper{role: 'layout'}
@@ -12,7 +11,7 @@
         - @councillors.each do |councillor|
           %li
             = link_to [:admin, councillor], class: 'councillor' do
-              %figure.figure.-portrait= image_tag councillor.portrait.url(:small)
+              %figure.figure.-portrait= image_tag councillor.portrait.url(:small), loading: 'lazy', alt: "Portrait of #{ councillor.full_name }"
               %p.text.-display= councillor.full_name
               %ul.list.-inline.-dotted
                 %li= councillor.council_sessions.map(&:commenced_on).map(&:year).map { |y| "#{y} Council" }.to_sentence

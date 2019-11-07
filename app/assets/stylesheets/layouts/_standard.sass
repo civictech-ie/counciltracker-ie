@@ -1,0 +1,22 @@
+.standard[role='layout']
+  & > header
+    display: none
+
+  & > main
+
+  @media screen and (min-width: '800px')
+    display: flex
+    flex-direction: row
+    justify-content: stretch
+    align-items: stretch
+
+    & > header
+      display: block
+      flex-basis: 24rem
+      flex-grow: 0
+      flex-shrink: 0
+      position: relative
+
+    & > main
+      flex-grow: 1
+      max-width: calc(100vw - 24rem)

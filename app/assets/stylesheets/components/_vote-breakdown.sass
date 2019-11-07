@@ -1,0 +1,49 @@
+.breakdown
+  width: 100%
+  display: flex
+  flex-direction: row
+  justify-content: stretch
+  align-items: center
+  font-size: var(--t5)
+  font-weight: 800
+  font-family: var(--mono)
+  
+  .voice-override
+    width: 100%
+    font-family: var(--sans)
+    text-transform: uppercase
+    display: flex
+    flex-direction: row
+    justify-content: center
+    label
+      color: var(--black)
+      padding: 0 1rem
+      background: var(--faint)
+      opacity: 0.8
+
+.breakdown_votes
+.breakdown_chart
+  display: flex
+  flex-direction: row
+  justify-content: stretch
+  align-items: stretch
+  height: 0.5rem
+  width: 100%
+  overflow: hidden
+
+  .pct
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    overflow: hidden
+    text-indent: -9999rem
+    &.-for
+      background-color: var(--green)
+      color: var(--white)
+    &.-against
+      background-color: var(--red)
+      color: var(--white)
+    &.-abstain
+      background-color: var(--faint)
+      color: var(--black)

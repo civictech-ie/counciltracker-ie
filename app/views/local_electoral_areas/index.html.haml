@@ -1,10 +1,3 @@
-%header.page-header
-  .wrapper{role: 'layout'}
-    .row
-      .col-xs-12.col-md-6
-        :markdown
-          Dublin is divided into **#{ pluralize @local_electoral_areas.count, 'local electoral area' }**.
-
 %ul.list.-enumerable
   - @local_electoral_areas.each do |local_electoral_area|
     %li

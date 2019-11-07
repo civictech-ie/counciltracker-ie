@@ -33,6 +33,7 @@ gem 'meta-tags'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'scout_apm'
 gem 'redis'
+gem 'kaminari'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

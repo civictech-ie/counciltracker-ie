@@ -1,6 +1,6 @@
 class MeetingsController < ApplicationController
   def index
-    @meetings = Meeting.has_countable_attendances.order('occurred_on desc')
+    @meetings = Meeting.has_countable_attendances.order('occurred_on desc').page(params[:p])
   end
 
   def show

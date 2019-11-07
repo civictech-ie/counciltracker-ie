@@ -1,37 +1,10 @@
 - cache motion do
-  .row
-    .col-xs-2
-      .text.-fixed= motion.occurred_on.strftime('%d.%m.%y')
-    .col-xs-5
-      %p.text.-one-line=motion.title
-      %ul.list.-inline.-tags
-        - motion.tags.each do |tag|
-          %li
-            .tag= tag
+  .enumerable.-motion
+    .content
+      .title #{ motion.title }
 
-    .col-xs-3
-      - if motion.rollcall?
-        .box.-twofer-v
-          .mini-vote
-            - total = motion.votes.countable.count.to_f
-            - pct_for = ((motion.votes.in_favour.count * 100) / total)
-            - pct_against = ((motion.votes.in_opposition.count * 100) / total)
-            - pct_abstain = ((motion.votes.in_abstention.count * 100) / total)
-            .mini-vote_for{style: "flex-basis: #{ pct_for }%"} &nbsp;
-            .mini-vote_against{style: "flex-basis: #{ pct_against }%"} &nbsp;
-            .mini-vote_abstain{style: "flex-basis: #{ pct_abstain }%"} &nbsp;
+    .date #{ raw motion.occurred_on.strftime('%d %b \'%y') }
 
-          .mini-breakdown
-            - motion.votes.countable.by_status.group_by(&:status).each do |status, votes|
-              .mini-breakdown_column
-                %label= status
-                %big= votes.count
-      - else
-        .mini-vote.-voice
-          %label Voice vote
-
-    .col-xs-2
-      .status{class: "-#{ motion.result.to_s }"}
-        .status_icon
-        .status_text
-          %p #{ motion.result }
+    .outcome
+      = render partial: 'votes/breakdown', locals: {voteable: motion}
+      = render partial: 'votes/result', locals: {voteable: motion}

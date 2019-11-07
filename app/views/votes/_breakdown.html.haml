@@ -1,0 +1,16 @@
+.breakdown
+  - if voteable.rollcall?
+    .breakdown_chart
+      - total = voteable.votes.countable.count.to_f
+      - pct_for = ((voteable.votes.in_favour.count * 100) / total)
+      - pct_against = ((voteable.votes.in_opposition.count * 100) / total)
+      - pct_abstain = ((voteable.votes.in_abstention.count * 100) / total)
+      .pct.-for{style: "flex-basis: #{ pct_for }%"}
+        %label= voteable.votes.in_favour.count
+      .pct.-against{style: "flex-basis: #{ pct_against }%"}
+        %label= voteable.votes.in_opposition.count
+      .pct.-abstain{style: "flex-basis: #{ pct_abstain }%"}
+        %label= voteable.votes.in_abstention.count
+  - else
+    .voice-override
+      %label Voice vote

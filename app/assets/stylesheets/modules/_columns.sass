@@ -1,0 +1,13 @@
+.row
+  display: flex
+  flex-direction: column
+
+  @media screen and (min-width: '800px')
+    flex-direction: row
+    justify-content: stretch
+    align-items: stretch
+
+    .col
+      flex-grow: 1
+      flex-shrink: 1
+      

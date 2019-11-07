@@ -18,12 +18,18 @@ class Meeting < ApplicationRecord
 
   accepts_nested_attributes_for :attendances, reject_if: :incomplete_attendance
 
+  paginates_per 20
+
   def to_param
     self.hashed_id
   end
 
   def title
-    "#{ self.meeting_type_in_english } #{ occurred_on.strftime('%d.%m.%y') }"
+    "#{ self.meeting_type_in_english } #{ occurred_on.strftime('%d/%m/%Y') }"
+  end
+
+  def tags
+    motions.map(&:tags).flatten.uniq
   end
 
   def meeting_type_in_english
