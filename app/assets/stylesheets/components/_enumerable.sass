@@ -4,14 +4,14 @@
   flex-direction: row
   justify-content: space-between
   align-items: center
-  overflow: hidden
+  position: relative
 
   .content
     flex-grow: 1
     flex-shrink: 1
-    overflow: hidden
     text-align: left
-    padding-right: 4rem
+    padding-right: 6rem
+    overflow: hidden
 
     .title, .name
       font-weight: 400
@@ -35,9 +35,9 @@
     .content
 
     .date
-      width: 15%
+      width: 20%
     .outcome
-      width: 35%
+      width: 30%
     
     .outcome
       display: flex
@@ -55,13 +55,23 @@
       flex-grow: 0
       flex-shrink: 0
       width: 25%
+    
+    .party-indicator
+      position: absolute
+      left: -1.675rem
+      top: -0.1375rem
+      width: 1rem
+      height: 1rem
+      svg
+        width: 90%
+        height: auto
 
     figure
       opacity: 0
       position: absolute
-      width: 24rem
-      height: 24rem
-      right: 50%
+      width: 18rem
+      height: 18rem
+      right: calc(50% + var(--unit))
       background: var(--blue)
       transition: opacity ease 1s
       img

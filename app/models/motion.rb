@@ -38,7 +38,7 @@ class Motion < ApplicationRecord
 
   delegate :occurred_on, to: :meeting
 
-  paginates_per 20
+  paginates_per 28
 
   def to_param
     self.hashed_id

@@ -2,112 +2,75 @@
 - description "#{ @councillor.full_name } is #{ indefinitly_article(@councillor.party.name) } councillor for #{ @councillor.local_electoral_area.name }"
 - keywords "#{ @councillor.full_name }, #{ @councillor.local_electoral_area.name }, #{ @councillor.party.name }"
 
-- cache [@councillor, :show] do
-  %header.view-header
-    .breadcrumbs
-      .breadcrumbs_crumb= link_to "Councillors", :councillors
-      .breadcrumbs_crumb
-        %h1= link_to @councillor.full_name, @councillor
+%header.view-header
+  .wrapper{role: 'layout'}
+    %h1= link_to @councillor.full_name, @councillor
 
-  .view{role: 'layout'}
-    %section.bio
-      %figure.figure.-portrait= image_tag @councillor.portrait.url(:medium), loading: 'lazy', alt: "Portrait of #{ @councillor.full_name }"
-      .bio_data
-        .bio_data_content
-          %p
-            %strong= @councillor.full_name
-          %p
-            = link_to @councillor.party do
-              .party-affiliated
-                .party-icon{style: "background-color: ##{ @councillor.party.colour_hex };", title: @councillor.party_name} &nbsp;
-                = @councillor.party_name
+.view-content.-alpha
+  .wrapper{role: 'layout'}
+    .councillor-card
+      %figure.-portrait= image_tag @councillor.portrait.url(:medium), loading: 'lazy', alt: "Portrait of #{ @councillor.full_name }"
+      .bio
+        %p.p.-t1= @councillor.full_name
+        %p= link_to @councillor.party_name, @councillor.party
+        %p= link_to @councillor.local_electoral_area_name, @councillor.local_electoral_area
 
-          %p
-            = link_to @councillor.local_electoral_area do
-              = @councillor.local_electoral_area_name
+%nav.view-subnav
+  .wrapper{role: 'layout'}
+    .subnav-items
+      .subnav-item
+        %a Proposed motions
+      .subnav-item
+        %a Proposed amendments
+      .subnav-item
+        %a Votes
+      .subnav-item
+        %a Attendance
 
-    - if @councillor.events.any?
-      %section
-        %header.subheader
-          %h2 History
-        %main
-          %ul.list
-            - @councillor.events.each do |event|
-              %li
-                %span.text.-fixed.-info
-                  #{ event.occurred_on.strftime('%b \'%y') } &mdash;
-                %span= raw summarize_event_for_councillor event, @councillor
+.view-content.-omega
+  .wrapper{role: 'layout'}
+    .text-block
+      :markdown
+        ### Which votes do you track?
 
-    - if @councillor.media_mentions.any?
-      %section
-        %header.subheader
-          %h2 Media
-        %main
-          %ul.list.-small
-            - @councillor.media_mentions.each do |media_mention|
-              %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
+        We post votes from the monthly full council meeting, budget meetings, and special council meetings. Warning though: this is not everything that councillors have discussed and voted on.
 
-    %header.view-subheader
-      %h2 Proposed motions
-    %main
-      - if @proposed_motions.any?
-        %ul.list.-enumerable
-          - @proposed_motions.each do |motion|
-            %li
-              = link_to motion do
-                = render partial: 'motions/motion', locals: {motion: motion}
-      - else
-        %p.empty (None present)
+        At City Hall, Dublin's councillors just mostly shout yes or no to pass an item on the agenda. Sometimes, though, for the votes they want to make sure are on the record, they'll use the electronic voting system.
 
-  %section
-    %header.subheader
-      %h2 Proposed amendments
-    %main
-      - if @proposed_amendments.any?
-        %ul.list.-enumerable
-          - @proposed_amendments.each do |amendment|
-            %li
-              = link_to amendment do
-                = render partial: 'amendments/amendment', locals: {amendment: amendment}
+        We've loaded up the vast majority of the votes that councillors have recorded using that electronic system since the beginning of the 2014 council term. We have left off some of the more procedural votes, or those votes that – wrestle as we might – we couldn't match up with an agenda item.
 
-      - else
-        %p.empty (None present)
+        The sheets we get from the council showing the results of these roll-roll votes mostly don't say clearly what a vote was about. Instead, they have a couple of words like "Motion No. 35" or "Vote 4". Putting the votes in means matching these notes to the more detailed passages in meeting minutes, to explain what the vote really was about. This is often a challenge, and sometimes impossible.
 
-    %section
-      %header.subheader
-        %h2 Past votes
-      %main
-        - if @votes.any?
-          %ul.list.-enumerable
-            - @votes.each do |vote|
-              %li
-                = link_to vote.voteable do
-                  = render partial: 'votes/vote', locals: {vote: vote}
+        ### How is the data entered?
 
-        - else
-          %p.empty (None present)
+        There isn't, yet, a way to automatically get the individual votes from the Dublin City Council website. So the votes have been entered in by hand by volunteers.
 
-    %section
-      %header.subheader
-        %h2 Attendance
-      %main
-        - if @attendances.any?
-          .breakdown
-            .row
-              .col-xs-6.box.-delineated-h
-                .breakdown_item{class: "-present"}
-                  %label attended
-                  %big= @attendances.attended.count
-              .col-xs-6.box.-delineated-h
-                .breakdown_item{class: "-absent"}
-                  %label absent
-                  %big= @attendances.where(status: 'absent').count
+        Each month, we ask the folks at Dublin City Council for copies of the voting sheets for meetings that have taken place. We have a [Facebook group](https://www.facebook.com/groups/233775687189015/) of volunteers who then input the votes.
 
-          %ul.list.-enumerable.-fat
-            - @attendances.sort_by(&:occurred_on).reverse.each do |attendance|
-              %li
-                = link_to meeting_path(meeting_type: attendance.attendable.meeting_type, occurred_on: attendance.attendable.occurred_on) do
-                  = render partial: 'attendances/attendance', locals: {attendance: attendance}
+        After a vote has been loaded up, we at Dublin Inquirer double-check that entry. If you're interested in getting involved in that process, you can email us at [info@dublininquirer.com](mailto:info@dublininquirer.com), and we'll add you to group. Thanks for your interest!
 
-        - else
-          %p.empty (None present)
+        ### I've noticed a mistake. How can I tell you?
+
+        We do our best to make sure that the data is correct, so we're really sorry if you've noticed an error creep in. Please let us know by sending us a link to the vote that is wrong, why it is wrong, and the source or sources you are relying on, to [info@dublininquirer.com](mailto:info@dublininquirer.com).
+
+        ### Why doesn't my local authority have one of these?
+
+        If you don't live in Dublin and are interested in adding your local councillors' votes to the website, or using the code to make your own council tracker, please get in touch at [brian@civictech.ie](mailto:brian@civictech.ie). The code that powers this site is [available under the Apache 2.0 license](https://github.com/civictech-ie/counciltracker-ie), and we would love to see other groups or individuals use it.
+
+        ### I know ways you can make this better!
+
+        We're working on improving the site, and are open to suggestions at [brian@civictech.ie](mailto:brian@civictech.ie). Please bear in mind we are a *really* small team (👋), so we'll do our best to get back to you, but we might not always be as fast as we'd like.
+
+        If you're a web developer, check out the [github repository](https://github.com/civictech-ie/counciltracker-ie) to contribute.
+
+        ### What is Dublin Inquirer?
+
+        Dublin Inquirer is an independent website and monthly newspaper based in Dublin, Ireland. It's dedicated to original local journalism, whether that means council coverage, housing and homelessness, transport, arts and culture, or food.
+
+        Importantly, it's primarily funded by readers, rather than advertisers. If you value independent journalism and would like to support it, you can [learn more about subscriptions on its website](https://www.dublininquirer.com/subscribe/).
+
+%footer.view-footer
+  .wrapper{role: 'layout'}
+    %nav.api
+      = link_to "CSV", :root, class: 'other-format'
+      = link_to "JSON", :root, class: 'other-format'

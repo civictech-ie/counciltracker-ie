@@ -2,18 +2,20 @@
 - description "Motions tabled and voted upon by Dublin City Council"
 - keywords "city council, motions, votes"
 
-- cache @motions do
-  %header.view-header
-    .breadcrumbs
-      .breadcrumbs_crumb
-        %h1 Motions
 
-  .view{role: 'layout'}
-    %ul.list.-enumerable
-      - @motions.each do |motion|
-        %li
-          = link_to motion do
-            = render partial: 'motion', locals: {motion: motion}
+
+.view{role: 'layout'}
+  %header.view-header
+    .wrapper{role: 'layout'}
+      %h1= link_to "Motions", :motions
+
+  %main.view-content
+    .wrapper{role: 'layout'}
+      %ul.list.-enumerable
+        - @motions.each do |motion|
+          %li
+            = link_to motion do
+              = render partial: 'motion', locals: {motion: motion}
 
   %footer.view-footer
-    = render partial: 'shared/pagination', locals: {records: @motions}
+    .wrapper{role: 'layout'}= render partial: 'shared/pagination', locals: {records: @motions}

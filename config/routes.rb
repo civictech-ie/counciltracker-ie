@@ -10,7 +10,15 @@ Rails.application.routes.draw do
   get 'signin' => 'user_sessions#new', as: :signin
   get 'logout' => 'user_sessions#destroy', as: :logout
 
-  resources :councillors, only: [:index, :show]
+  resources :councillors, only: [:index, :show] do
+    member do
+      get 'votes'
+      get 'motions'
+      get 'amendments'
+      get 'attendance'
+    end
+  end
+
   resources :local_electoral_areas, path: 'areas', only: [:index, :show]
   resources :parties, only: [:index, :show]
   resources :meetings, only: [:index]

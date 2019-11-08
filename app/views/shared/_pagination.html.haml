@@ -1,7 +1,4 @@
 .pagination
-
-  .current #{ records.current_page }/#{ records.total_pages }
-
   %nav
     - if !records.first_page?
       = link_to request.query_parameters.merge(p: (records.current_page - 1)) do
@@ -15,3 +12,5 @@
     - else
       %a.-disabled
         = render partial: 'icons/arrow-fwd'
+
+  .current #{ records.current_page }/#{ records.total_pages }

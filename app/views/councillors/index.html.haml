@@ -2,18 +2,18 @@
 - description "#{ pluralize @councillors.count, 'councillor' } currently serve on the Dublin City Council. #{ (@councillors.count - current_council_session.co_options.count) } elected in #{ current_council_session.election.occurred_on.strftime('%b \'%y') } and #{ pluralize current_council_session.co_options.count, 'councillor' } appointed via co-option."
 - keywords 'dublin city council, councillors'
 
-- cache @councillors do
-  %header.view-header
-    .breadcrumbs
-      .breadcrumbs_crumb
-        %h1= link_to "Councillors", :councillors
+%header.view-header
+  .wrapper{role: 'layout'}
+    %h1= link_to "Councillors", :councillors
 
-  .view{role: 'layout'}
+%main.view-content{role: 'layout'}
+  .wrapper{role: 'layout'}
     %ul.list.-enumerable
       - @councillors.each do |councillor|
         %li
           = link_to councillor do
             = render partial: 'councillors/councillor', locals: {councillor: councillor}
-  
-  %footer.view-footer
+
+%footer.view-footer
+  .wrapper{role: 'layout'}
     = render partial: 'shared/pagination', locals: {records: @councillors}
