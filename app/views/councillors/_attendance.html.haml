@@ -1,0 +1,5 @@
+%ul.list.-enumerable
+  - councillor.meetings.has_countable_attendances.by_occurred_on.includes(:attendances).each do |meeting|
+    %li
+      = link_to meeting_path(meeting_type: meeting.meeting_type, occurred_on: meeting.occurred_on) do
+        = render partial: 'meetings/meeting', locals: {meeting: meeting}

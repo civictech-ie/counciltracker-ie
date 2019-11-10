@@ -10,10 +10,30 @@ class CouncillorsController < ApplicationController
 
   def show
     @councillor = Councillor.find_by!(slug: params[:id])
-    @proposed_motions = @councillor.proposed_motions.published.by_occurred_on.includes(:votes)
-    @proposed_amendments = @councillor.proposed_amendments.published.by_occurred_on.includes(:votes)
-    @seat = @councillor.seat
-    @attendances = @councillor.attendances.countable.includes(:attendable)
-    @votes = @councillor.votes.countable.sort_by(&:occurred_on).reverse
+    @view = :votes
+  end
+
+  def votes
+    @councillor = Councillor.find_by!(slug: params[:id])
+    @view = :votes
+    render :show
+  end
+
+  def motions
+    @councillor = Councillor.find_by!(slug: params[:id])
+    @view = :motions
+    render :show
+  end
+
+  def amendments
+    @councillor = Councillor.find_by!(slug: params[:id])
+    @view = :amendments
+    render :show
+  end
+
+  def attendance
+    @councillor = Councillor.find_by!(slug: params[:id])
+    @view = :attendance
+    render :show
   end
 end

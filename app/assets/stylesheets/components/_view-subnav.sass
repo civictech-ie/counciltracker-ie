@@ -1,7 +1,9 @@
 .view-subnav
   position: sticky
-  top: calc(5.2rem - 1px)
+  top: 0
+  padding-top: 5.2rem
   background-color: var(--white)
+  z-index: 14
 
   .wrapper[role="layout"]
 
@@ -19,12 +21,17 @@
       flex-direction: row
       justify-content: stretch
 
+      &.-current
+        a, a:link, a:visited
+          border-bottom-color: var(--black)
+          color: var(--black)
+
       a, a:link, a:visited
         display: block
         flex: 1
         padding-top: 2.5rem
         padding-bottom: 0.5rem
-        border-bottom: 1px solid var(--black)
+        border-bottom: 1px solid var(--grey)
         color: var(--grey)
         &:hover
           color: var(--black)

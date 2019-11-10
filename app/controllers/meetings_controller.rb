@@ -4,9 +4,19 @@ class MeetingsController < ApplicationController
   end
 
   def show
-    @council_session = CouncilSession.current
     @meeting = Meeting.where(meeting_type: params[:meeting_type], occurred_on: params[:occurred_on]).take
-    @motions = @meeting.motions.published.by_position
-    @attendances = @meeting.attendances.countable.by_status
+    @view = :motions
+  end
+
+  def motions
+    @meeting = Meeting.find_by(hashed_id: params[:id])
+    @view = :motions
+    render :show
+  end
+
+  def attendance
+    @meeting = Meeting.find_by(hashed_id: params[:id])
+    @view = :attendance
+    render :show
   end
 end

@@ -9,6 +9,8 @@ class Vote < ApplicationRecord
   validates :status, presence: true, inclusion: %w(for against abstain absent not_voted exception)
   validates :councillor, presence: true, uniqueness: { scope: :voteable }
 
+  scope :on_amendment, -> { where(voteable_type: 'Amendment') }
+  scope :on_motion, -> { where(voteable_type: 'Motion') }
   scope :missing, -> { where(status: '') }
   scope :countable, -> { where(status: %w(for against abstain)) }
   scope :in_favour, -> { where(status: 'for') }

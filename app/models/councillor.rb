@@ -5,8 +5,7 @@ class Councillor < ApplicationRecord
   has_many :media_mentions, as: :mentionable
   has_many :council_sessions, through: :seats
 
-  has_many :meetings, through: :attendances
-  has_many :motions, through: :votes
+  has_many :meetings, through: :attendances, source: :attendable, source_type: 'Meeting'
 
   validates :full_name, presence: true
 
@@ -60,6 +59,10 @@ class Councillor < ApplicationRecord
 
   def local_electoral_area_name
     self.local_electoral_area.present? ? self.local_electoral_area.name : ''
+  end
+
+  def vote_on(motion)
+    votes.where(voteable: motion).take
   end
 
   def attended?(meeting)

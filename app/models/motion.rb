@@ -35,6 +35,7 @@ class Motion < ApplicationRecord
   scope :has_countable_votes, -> { joins(:votes).merge(Vote.countable).distinct }
   scope :published, -> { where.not(published_at: nil) }
   scope :interesting, -> { where(interesting: true) }
+  scope :voted_on_by, -> (c) { joins(:votes).merge(Vote.countable.where(councillor: c)) }
 
   delegate :occurred_on, to: :meeting
 

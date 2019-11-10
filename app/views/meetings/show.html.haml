@@ -2,38 +2,29 @@
 - description "Dublin City Council #{ @meeting.meeting_type } meeting on #{ @meeting.occurred_on.strftime('%d/%m/%y') } at which #{ pluralize @meeting.attendances.presentish.count, 'councillor' } were present."
 - keywords "city council, meetings, #{ @meeting.meeting_type }"
 
-- cache [@meeting, :show] do
-  %header.view-header
-    .breadcrumbs
-      .breadcrumbs_crumb= link_to "Meetings", :meetings
-      .breadcrumbs_crumb
-        %h1= link_to @meeting.title, meeting_path(meeting_type: @meeting.meeting_type, occurred_on: @meeting.occurred_on)
+%header.view-header
+  .wrapper{role: 'layout'}
+    %h1= link_to @meeting.title, meeting_path(meeting_type: @meeting.meeting_type, occurred_on: @meeting.occurred_on)
 
-  .view{role: 'layout'}
-    %ul.list.-enumerable
-      - @meeting.motions.each do |motion|
-        %li
-          = link_to motion do
-            = render partial: 'motions/motion', locals: {motion: motion}
+.view-content.-alpha
+  .wrapper{role: 'layout'}
+    .motion-card
+      #{ @meeting.inspect }
 
-    %section
-      %header.subheader
-        %h3 Attendance
-      %main
-        .breakdown
-          .row
-            - ['expected', 'present', 'absent'].each do |status|
-              - attendances = @attendances.where(status: status)
-              - next if (status != 'absent') && attendances.empty?
-              .col-xs-4.box.-delineated-h
-                .breakdown_item{class: "-#{ status }"}
-                  %label= status
-                  %big= attendances.count
+%nav.view-subnav
+  .wrapper{role: 'layout'}
+    .subnav-items
+      .subnav-item{class: (@view == :motions) ? '-current' : nil}
+        = link_to "Motions", [:motions, @meeting]
+      .subnav-item{class: (@view == :attendance) ? '-current' : nil}
+        = link_to "Attendance", [:attendance, @meeting]
 
-                %ul.list.-small
-                  - attendances.by_councillor_name.each do |attendance|
-                    %li
-                      = link_to attendance.councillor do
-                        .party-affiliated
-                          .party-icon{style: "background-color: ##{ attendance.councillor.party_on(@meeting.occurred_on).colour_hex };", title: attendance.councillor.party_on(@meeting.occurred_on).name} &nbsp;
-                          = attendance.full_name
+.view-content.-omega
+  .wrapper{role: 'layout'}
+    .view-partial= render partial: "meetings/#{ @view.to_s }", locals: {meeting: @meeting}
+
+%footer.view-footer
+  .wrapper{role: 'layout'}
+    %nav.api
+      = link_to "CSV", :root, class: 'other-format'
+      = link_to "JSON", :root, class: 'other-format'

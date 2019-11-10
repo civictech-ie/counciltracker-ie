@@ -21,8 +21,21 @@ Rails.application.routes.draw do
 
   resources :local_electoral_areas, path: 'areas', only: [:index, :show]
   resources :parties, only: [:index, :show]
-  resources :meetings, only: [:index]
-  resources :motions, only: [:index, :show]
+
+  resources :meetings, only: [:index] do
+    member do
+      get 'motions'
+      get 'attendance'
+    end
+  end
+
+  resources :motions, only: [:index, :show] do
+    member do
+      get 'votes'
+      get 'amendments'
+    end
+  end
+
   resources :amendments, only: [:show]
   resources :topics, only: [:show]
 

@@ -13,6 +13,19 @@ class MotionsController < ApplicationController
 
   def show
     @motion = Motion.published.find_by(hashed_id: params[:id])
-    @council_session = @motion.council_session
+    @view = :votes
+    render :show
+  end
+
+  def votes
+    @motion = Motion.published.find_by(hashed_id: params[:id])
+    @view = :votes
+    render :show
+  end
+
+  def amendments
+    @motion = Motion.published.find_by(hashed_id: params[:id])
+    @view = :amendments
+    render :show
   end
 end
