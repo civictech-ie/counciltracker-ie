@@ -1,31 +1,7 @@
-- cache amendment do
-  .row
-    .col-xs-6
-      :markdown
-        #{ truncate(amendment.body, length: 150) }
+.enumerable.-motion.-amendment
+  .content
+    .title #{ amendment.body }
 
-    .col-xs-4
-      - if amendment.rollcall?
-        .box.-twofer-v
-          .mini-vote
-            - total = amendment.votes.countable.count.to_f
-            - pct_for = ((amendment.votes.in_favour.count * 100) / total)
-            - pct_against = ((amendment.votes.in_opposition.count * 100) / total)
-            - pct_abstain = ((amendment.votes.in_abstention.count * 100) / total)
-            .mini-vote_for{style: "flex-basis: #{ pct_for }%"} &nbsp;
-            .mini-vote_against{style: "flex-basis: #{ pct_against }%"} &nbsp;
-            .mini-vote_abstain{style: "flex-basis: #{ pct_abstain }%"} &nbsp;
-
-          .mini-breakdown
-            - amendment.votes.countable.by_status.group_by(&:status).each do |status, votes|
-              .mini-breakdown_column
-                %label= status
-                %big= votes.count
-      - else
-        .text.-fixed.-info Voice vote
-
-    .col-xs-2
-      .status{class: "-#{ amendment.vote_result.to_s }"}
-        .status_icon
-        .status_text
-          %p #{ amendment.vote_result }
+  .outcome
+    = render partial: 'votes/breakdown', locals: {voteable: amendment}
+    = render partial: 'votes/result', locals: {voteable: amendment}

@@ -1,0 +1,15 @@
+.cols[role='layout']
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  
+  & > .col
+
+  @media screen and (min-width: '800px')
+    flex-direction: row
+    justify-content: space-between
+    margin-left: -1rem
+    margin-right: -1rem
+    & > .col
+      padding: 0 1rem
+      flex: 1

@@ -27,8 +27,22 @@
       flex-shrink: 0
       width: 25%
   
+  &.-vote
+    .date, .outcome, .verdict
+      flex-grow: 0
+      flex-shrink: 0
+      width: 12.5rem
+    
+    .outcome
+      display: flex
+      flex-direction: row
+      justify-content: flex-end
+
+      .vote-result
+        width: 10rem
+  
   &.-motion
-    .date, .outcome
+    .date, .outcome, .verdict
       flex-grow: 0
       flex-shrink: 0
     
@@ -57,13 +71,11 @@
       width: 25%
     
     .party-indicator
-      position: absolute
-      left: -1.675rem
-      top: -0.1375rem
-      width: 1rem
-      height: 1rem
+      width: 2.75rem
       svg
-        width: 90%
+        display: block
+        margin: 0 auto 0 0
+        width: 75%
         height: auto
 
     figure

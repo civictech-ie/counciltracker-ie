@@ -1,0 +1,30 @@
+.view-content.-omega
+  - if voteable.rollcall?
+    - votes_by_status = voteable.votes.includes(:councillor).by_councillor_name.countable.group_by(&:status).sort_by { |k,v| k }.reverse # this is a hack but kind of works
+    .wrapper{role: 'layout'}
+      .cols.-scrollable{role: 'layout'}
+        - votes_by_status.each do |status, votes|
+          .col
+            %nav.view-subnav.-two
+              .subnav-heading
+                .vote-status-heading
+                  .text
+                    .status= status.capitalize
+                    .count= pluralize votes.count, 'councillor'
+                  = render partial: 'votes/vote-visualiser', locals: {votes: votes}
+
+            %ul.list.-enumerable
+              - votes.each do |vote|
+                %li
+                  = link_to vote.councillor do
+                    .enumerable.-councillor
+                      .party-indicator{title: vote.councillor.party.name}
+                        = render partial: 'icons/party', locals: {party: vote.councillor.party}
+                      .content
+                        .name= vote.councillor.full_name
+  - else
+    .wrapper{role: 'layout'}
+      .voice-vote
+        %div
+          %label Voice vote
+          %p This motion #{ voteable.result }ed by a 'voice' vote, so we don't have a breakdown of how each councillor voted.

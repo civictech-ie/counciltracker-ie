@@ -20,3 +20,17 @@
       padding: 1rem 0
       &:hover
         color: var(--blue)
+
+.list.-inline
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: flex-start
+  flex-wrap: wrap
+
+  li
+    &:after
+      content: ', '
+    &:last-child
+      &:after
+        content: ''

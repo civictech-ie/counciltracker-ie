@@ -36,7 +36,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :amendments, only: [:show]
+  resources :amendments, only: [:show] do
+    member do
+      get 'votes'
+    end
+  end
+
   resources :topics, only: [:show]
 
   get 'meetings/:meeting_type/:occurred_on' => 'meetings#show', as: :meeting

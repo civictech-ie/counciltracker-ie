@@ -3,73 +3,56 @@
 - keywords "city council, motions, amendments, #{ @motion.tags.join(',') }"
 
 %header.view-header
-  .breadcrumbs
-    .breadcrumbs_crumb= link_to @motion.meeting.title, meeting_path(meeting_type: @motion.meeting.meeting_type, occurred_on: @motion.meeting.occurred_on)
-    .breadcrumbs_crumb= link_to truncate(@motion.title, length: 48), @motion
-    .breadcrumbs_crumb
-      %h1= link_to truncate(@amendment.body, length: 48), @amendment
+  .wrapper{role: 'layout'}
+    #{ link_to raw("Amendment to &lsquo;#{@amendment.motion.title}&rsquo;"), @amendment }
 
-.wrapper{role: 'layout'}
-  .row
-    .col-xs-3
-      %section
-        %main
-          .box.-highlighted.-padded
-            .text.-fixed Amendment to:
-            .text.-display= @motion.title
+.view-content.-alpha
+  .wrapper{role: 'layout'}
+    .motion-card
+      .meta-data
+        .meta-data_block.-full
+          %label Amendment text
 
-      %section
-        %main
-          .box.-padded.-result{class: "-#{ @amendment.vote_result }"}
-            .text
-              :markdown
-                **#{ @amendment.vote_result.capitalize }ed**
-            .text by #{ @amendment.vote_method } vote.
-
-      %section
-        %header.subheader
-          %h3 Proposers
-        %main
-          - if @amendment.proposers.any?
-            %ul.list
-              - @amendment.proposers.each do |councillor|
-                %li
-                  = link_to councillor do
-                    .party-affiliated
-                      .party-icon{style: "background-color: ##{ councillor.party_on(@amendment.occurred_on).colour_hex };", title: councillor.party_on(@amendment.occurred_on).name}
-                      = councillor.full_name
-          - else
-            %p.empty (Not present)
-
-    .col-xs-9
-      - if @amendment.body.present?
-        %section
-          %header.subheader
-            %h3 Text
-          %main
-            .text.-body
+          - if @amendment.body.present?
+            .text-block.p.-t2
               :markdown
                 #{ @amendment.body }
+          - else
+            .empty-value None recorded
+      
+        .meta-data_block
+          %label Result
+          #{ @amendment.result.capitalize }ed
+      
+        .meta-data_block
+          %label Vote method
+          #{ @amendment.rollcall? ? 'Roll-call' : 'Voice' }
+      
+        .meta-data_block
+          %label Proposed by
+          - if @amendment.proposers.any?
+            %ul.list.-inline
+              - @amendment.proposers.each do |councillor|
+                %li= link_to councillor.full_name, councillor
+          - else
+            .empty-value None recorded
+          
+        .meta-data_block
+          %label Attachments
+          %ul
+            - @motion.attachments.each do |attachment|
+              %li= link_to "Attached PDF", @motion.pdf_url
 
-      - if @amendment.rollcall?
-        %section
-          %header.subheader
-            %h3 Vote
+%nav.view-subnav
+  .wrapper{role: 'layout'}
+    .subnav-items
+      .subnav-item{class: (@view == :votes) ? '-current' : nil}
+        = link_to "Vote", [:votes, @amendment]
 
-        %main
-          .breakdown
-            .row
-              - ['for', 'against', 'abstain'].each do |status|
-                - votes = @amendment.votes.where(status: status)
-                .col-xs-4.box.-delineated-h
-                  .breakdown_item{class: "-#{ status }"}
-                    %label= status
-                    %big= votes.count
+.view-partial= render partial: "amendments/votes", locals: {amendment: @amendment}
 
-                  %ul.list.-small
-                    - votes.by_councillor_name.each do |vote|
-                      %li
-                        = link_to vote.councillor do
-                          .party-affiliated
-                            .party-icon{style: "background-color: ##{ vote.councillor.party.colour_hex };", title: vote.councillor.party.name} &nbsp;
-                            = vote.councillor.full_name
+%footer.view-footer
+  .wrapper{role: 'layout'}
+    %nav.api
+      = link_to "CSV", :root, class: 'other-format'
+      = link_to "JSON", :root, class: 'other-format'

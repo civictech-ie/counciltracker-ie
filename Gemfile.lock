@@ -619,7 +619,7 @@ DEPENDENCIES
   puma
   rack-livereload
   rack-mini-profiler
-  rails (~> 6.0.0)
+  rails (~> 6.0.x)
   rails_12factor
   redis
   rspec-rails (~> 3.0)

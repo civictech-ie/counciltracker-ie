@@ -47,11 +47,6 @@ class Meeting < ApplicationRecord
     self.council_session.councillors.active_on(self.occurred_on)
   end
 
-  def refresh_hashed_id!
-    set_hashed_id
-    save!
-  end
-
   private
 
   def set_council_session

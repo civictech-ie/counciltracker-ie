@@ -69,6 +69,10 @@ class Motion < ApplicationRecord
     itm.gsub(/[)()]/,'').downcase
   end
 
+  def attachments
+    [self.pdf_url]
+  end
+
   def meeting_date
     self.occurred_on
   end
@@ -103,11 +107,6 @@ class Motion < ApplicationRecord
 
   def in_category?(cat)
     self.tags.include?(cat.downcase)
-  end
-
-  def refresh_hashed_id!
-    set_hashed_id
-    save!
   end
 
   def as_json(options={})

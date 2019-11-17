@@ -9,22 +9,80 @@
 .view-content.-alpha
   .wrapper{role: 'layout'}
     .motion-card
-      #{ @motion.inspect }
+      .meta-data
+        .meta-data_block.-full
+          %label Motion text
+
+          - if @motion.body.present?
+            .text-block.p.-t2
+              :markdown
+                #{ @motion.body }
+          - else
+            .empty-value None recorded
+      
+        .meta-data_block
+          %label Result
+          #{ @motion.result.capitalize }ed
+      
+        .meta-data_block
+          %label Vote method
+          #{ @motion.rollcall? ? 'Roll-call' : 'Voice' }
+      
+        .meta-data_block
+          %label Proposed by
+          - if @motion.proposers.any?
+            %ul.list.-inline
+              - @motion.proposers.each do |councillor|
+                %li= link_to councillor.full_name, councillor
+          - else
+            .empty-value None recorded
+        
+        .meta-data_block
+          %label Related areas
+          - if @motion.local_electoral_areas.any?
+            %ul.list.-inline
+              - @motion.local_electoral_areas.each do |local_electoral_area|
+                %li= link_to local_electoral_area.name, local_electoral_area
+          - else
+            .empty-value None recorded
+        
+        .meta-data_block
+          %label Executive recommendation
+          - if @motion.executive_recommendation.present? or @motion.executive_vote.present?
+            .text-block
+              - if @motion.executive_vote.present?
+                %strong= @motion.executive_vote
+              
+              #{ simple_format @motion.executive_recommendation }
+          - else
+            .empty-value None recorded
+        
+        .meta-data_block
+          %label Related topics
+          - if @motion.tags.any?
+            %ul.tag-list.-inline
+              - @motion.tags.each do |tag|
+                %li= link_to tag, :root
+          - else
+            .empty-value None recorded
+          
+        .meta-data_block
+          %label Attachments
+          %ul
+            - @motion.attachments.each do |attachment|
+              %li= link_to "Attached PDF", @motion.pdf_url
 
 %nav.view-subnav
   .wrapper{role: 'layout'}
     .subnav-items
       .subnav-item{class: (@view == :votes) ? '-current' : nil}
         = link_to "Vote", [:votes, @motion]
-      .subnav-item{class: (@view == :amendments) ? '-current' : nil}
-        = link_to [:amendments, @motion] do
-          Amendments
-          - if @motion.amendments.any?
-            (#{ @motion.amendments.count })
+      - if @motion.amendments.any?
+        .subnav-item{class: (@view == :amendments) ? '-current' : nil}
+          = link_to [:amendments, @motion] do
+            Amendments (#{ @motion.amendments.count })
 
-.view-content.-omega
-  .wrapper{role: 'layout'}
-    .view-partial= render partial: "motions/#{ @view.to_s }", locals: {motion: @motion}
+.view-partial= render partial: "motions/#{ @view.to_s }", locals: {motion: @motion}
 
 %footer.view-footer
   .wrapper{role: 'layout'}
