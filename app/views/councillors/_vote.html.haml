@@ -4,7 +4,7 @@
   .content
     .title #{ motion.title }
 
-  .date #{ raw motion.occurred_on.strftime('%d %b \'%y') }
+  .date #{ raw motion.occurred_on.strftime('%-d %b \'%y') }
 
   .outcome
     = render partial: 'votes/result', locals: {voteable: motion}

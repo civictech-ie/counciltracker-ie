@@ -1,4 +1,7 @@
 .motion-card
+  display: flex
+  flex-direction: row
+  justify-content: space-between
 
   a, a:link, a:visited
     &:hover
@@ -12,23 +15,23 @@
 
   .meta-data
     display: flex
-    flex-direction: row
+    flex-direction: column
     flex-wrap: wrap
     justify-content: flex-start
     align-items: flex-start
     
-    .meta-data_block
-      flex-basis: 50%
-      flex-grow: 1
-      flex-shrink: 1
-      margin-bottom: 1rem
-      display: flex
-      flex-direction: column
-      justify-content: flex-start
-      align-items: flex-start
+  .meta-data_block
+    flex-basis: 50%
+    flex-grow: 1
+    flex-shrink: 1
+    margin-bottom: var(--gutter)
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
 
-      &.-full
-        flex-basis: 100%
+    &.-full
+      flex-basis: 100%
   
   .empty-value
     display: inline-block

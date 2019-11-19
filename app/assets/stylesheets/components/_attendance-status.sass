@@ -1,0 +1,13 @@
+.attendance-status
+  color: var(--white)
+  font-size: var(--t5)
+  text-transform: uppercase
+  padding: 0 0.5rem
+  text-align: center
+  font-weight: 600
+  background-color: var(--grey)
+  
+  &.-expected, &.-present
+    background-color: var(--green)
+  &.-absent, &.-apologies
+    background-color: var(--red)

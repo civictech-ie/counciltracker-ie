@@ -1,18 +1,18 @@
-.councillor-card
+.party-card
   display: flex
   flex-direction: row
   justify-content: flex-start
   padding-bottom: 2rem
 
-  figure.-portrait
+  figure.-logo
     display: block
     margin: 0
     padding: 0
     margin-right: 2rem
     position: relative
     background: var(--blue)
-    width: 14rem
-    height: 14rem
+    width: 7rem
+    height: 7rem
     overflow: hidden
 
     &.-sinn-fein
@@ -40,8 +40,9 @@
     &.-workers-party
       background-color: #D73D3D
 
+    // if we ever add logos
     img
-      display: block
+      display: none
       position: absolute
       top: 0
       left: 0
@@ -50,6 +51,6 @@
       object-fit: cover
       object-position: center center
 
-  .bio
+  .data
     display: flex
     flex-direction: column

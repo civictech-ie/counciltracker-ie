@@ -1,47 +1,44 @@
-- title "Amendment to #{@motion.title}"
-- description "Amendment to #{ @motion.title } proposed by #{ @amendment.proposers.map(&:full_name).to_sentence } on #{ @amendment.occurred_on.strftime('%d/%m/%y') }."
-- keywords "city council, motions, amendments, #{ @motion.tags.join(',') }"
+- title "Amendment to #{@amendment.motion.title}"
+- description "Amendment to #{ @amendment.motion.title } proposed by #{ @amendment.proposers.map(&:full_name).to_sentence } on #{ @amendment.occurred_on.strftime('%d/%m/%y') }."
+- keywords "city council, motions, amendments, #{ @amendment.motion.tags.join(',') }"
 
 %header.view-header
   .wrapper{role: 'layout'}
-    #{ link_to raw("Amendment to &lsquo;#{@amendment.motion.title}&rsquo;"), @amendment }
+    .breadcrumbs
+      .breadcrumb= link_to 'Meeting', @amendment.motion.meeting.path
+      .breadcrumb= link_to 'Motion', @amendment.motion
+      .breadcrumb= link_to 'Amendment', @amendment
 
 .view-content.-alpha
   .wrapper{role: 'layout'}
     .motion-card
-      .meta-data
-        .meta-data_block.-full
-          %label Amendment text
+      .cols{role: 'layout'}
+        .col.-three
+          .meta-data
+            .meta-data_block
+              %label Amendment text
 
-          - if @amendment.body.present?
-            .text-block.p.-t2
-              :markdown
-                #{ @amendment.body }
-          - else
-            .empty-value None recorded
+              - if @amendment.body.present?
+                .text-block.p.-t2
+                  :markdown
+                    #{ @amendment.body }
+              - else
+                .empty-value None recorded
+        
+            .meta-data_block
+              %label Proposed by
+              - if @amendment.proposers.any?
+                = render partial: 'councillors/inline-list', locals: {councillors: @amendment.proposers}
+              - else
+                .empty-value None recorded
       
-        .meta-data_block
-          %label Result
-          #{ @amendment.result.capitalize }ed
-      
-        .meta-data_block
-          %label Vote method
-          #{ @amendment.rollcall? ? 'Roll-call' : 'Voice' }
-      
-        .meta-data_block
-          %label Proposed by
-          - if @amendment.proposers.any?
-            %ul.list.-inline
-              - @amendment.proposers.each do |councillor|
-                %li= link_to councillor.full_name, councillor
-          - else
-            .empty-value None recorded
-          
-        .meta-data_block
-          %label Attachments
-          %ul
-            - @motion.attachments.each do |attachment|
-              %li= link_to "Attached PDF", @motion.pdf_url
+        .col.-one
+          .meta-data
+            .meta-data_block
+              %label Attachments
+              %ul
+                - @amendment.attachments.each do |attachment|
+                  %li= link_to "Attached PDF", @amendment.pdf_url
 
 %nav.view-subnav
   .wrapper{role: 'layout'}

@@ -49,6 +49,10 @@ class Amendment < ApplicationRecord
     @proposers ||= Councillor.where(id: self.proposers_ids)
   end
 
+  def attachments
+    [self.pdf_url]
+  end
+
   private
 
   def append_to_motion

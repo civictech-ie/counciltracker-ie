@@ -24,8 +24,12 @@ class Meeting < ApplicationRecord
     self.hashed_id
   end
 
+  def path
+    "/meetings/#{ self.meeting_type }/#{ self.occurred_on }"
+  end
+
   def title
-    "#{ self.meeting_type_in_english } #{ occurred_on.strftime('%d/%m/%Y') }"
+    "#{ self.meeting_type_in_english } on #{ occurred_on.strftime('%-d %B \'%y') }"
   end
 
   def tags

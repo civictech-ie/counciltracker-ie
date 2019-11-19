@@ -3,5 +3,5 @@
     _"#{ media_mention.body }"_
   .text.-fixed.-info
     %ul.list.-inline.-dotted
-      %li= media_mention.published_on.strftime('%d.%m.%y').strip
+      %li= media_mention.published_on.strftime('%-d.%m.%y').strip
       %li= media_mention.domain

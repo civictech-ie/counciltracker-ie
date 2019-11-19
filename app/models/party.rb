@@ -17,7 +17,7 @@ class Party < ApplicationRecord
   end
 
   def active_councillors
-    self.councillors.merge(Seat.active)
+    self.councillors.active_on(Date.today)
   end
 
   private

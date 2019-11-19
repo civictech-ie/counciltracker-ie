@@ -3,22 +3,30 @@
 - keywords "city council, parties, #{ @party.name }"
 
 %header.view-header
-  .breadcrumbs
-    .breadcrumbs_crumb= link_to "Parties", :parties
-    .breadcrumbs_crumb
-      %h1= link_to @party.name, @party
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumb= link_to 'Parties', :parties
+      .breadcrumb= link_to @party.name, @party
 
-.wrapper{role: 'layout'}
-  %ul.list.-councillors.-enumerable
-    - @party.active_councillors.each do |councillor|
-      %li
-        = link_to councillor, class: 'councillor' do
-          %figure.figure.-portrait= image_tag councillor.portrait.url(:small), loading: 'lazy', alt: "Portrait of #{ councillor.full_name }"
-          %p.text.-display= councillor.full_name
-          %ul.list.-inline.-dotted
-            %li
-              %span.party-affiliated
-                %span.party-icon.party-icon{style: "background-color: ##{ councillor.party.colour_hex };", title: councillor.party.name} &nbsp;
-                = councillor.party.name
-            %li= councillor.local_electoral_area.name
+.view-content.-alpha
+  .wrapper{role: 'layout'}
+    .party-card
+      %figure.-logo{class: "-#{ @party.slug }"} &nbsp;
+      .data
+        %h1.p.-t1= @party.name
+        %p
+          #{ pluralize @party.active_councillors.count, 'member' } currently on the council
 
+%nav.view-subnav
+  .wrapper{role: 'layout'}
+    .subnav-items
+      .subnav-item{class: (@view == :councillors) ? '-current' : nil}
+        = link_to "Current councillors", [:councillors, @party], data: {scroll: 'maintain'}
+
+.view-partial= render partial: "parties/#{ @view.to_s }", locals: {party: @party}
+
+%footer.view-footer
+  .wrapper{role: 'layout'}
+    %nav.api
+      = link_to "CSV", :root, class: 'other-format'
+      = link_to "JSON", :root, class: 'other-format'

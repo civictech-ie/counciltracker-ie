@@ -6,6 +6,38 @@
   background: var(--white)
   z-index: 15
 
+  .breadcrumbs
+    border-bottom: 1px solid var(--black)
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+
+    a, a:link, a:visited
+      display: block
+      flex: none
+      padding: 0
+      border-bottom: none
+      color: var(--grey)
+      &:hover
+        color: var(--black)
+      
+    .breadcrumb + .breadcrumb
+      a, a:link, a:visited
+        &:before
+          content: ' / '
+          color: var(--grey)
+
+    .breadcrumb
+      padding-top: 2.5rem
+      padding-bottom: 0.5rem
+
+      a, a:link, a:visited
+        color: var(--grey)
+    .breadcrumb:last-of-type
+      a, a:link, a:visited
+        color: var(--black)
+
+
   .nav-items
     display: flex
     flex-direction: row

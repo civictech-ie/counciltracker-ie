@@ -1,27 +1,29 @@
 - title ['Meetings', @meeting.title]
-- description "Dublin City Council #{ @meeting.meeting_type } meeting on #{ @meeting.occurred_on.strftime('%d/%m/%y') } at which #{ pluralize @meeting.attendances.presentish.count, 'councillor' } were present."
+- description "Dublin City Council #{ @meeting.meeting_type } meeting on #{ @meeting.occurred_on.strftime('%-d %B \'%y') } at which #{ pluralize @meeting.attendances.presentish.count, 'councillor' } were present."
 - keywords "city council, meetings, #{ @meeting.meeting_type }"
 
 %header.view-header
   .wrapper{role: 'layout'}
-    %h1= link_to @meeting.title, meeting_path(meeting_type: @meeting.meeting_type, occurred_on: @meeting.occurred_on)
+    .breadcrumbs
+      .breadcrumb= link_to 'Meetings', :meetings
+      .breadcrumb= link_to @meeting.title, @meeting.path
 
 .view-content.-alpha
   .wrapper{role: 'layout'}
-    .motion-card
-      #{ @meeting.inspect }
+    .meeting-card
+      .formatted-data
+        %p.p.-t1= @meeting.meeting_type_in_english
+        %p= @meeting.occurred_on.strftime('%-d %B \'%y')
 
 %nav.view-subnav
   .wrapper{role: 'layout'}
     .subnav-items
       .subnav-item{class: (@view == :motions) ? '-current' : nil}
         = link_to "Motions", [:motions, @meeting]
-      .subnav-item{class: (@view == :attendance) ? '-current' : nil}
-        = link_to "Attendance", [:attendance, @meeting]
+      .subnav-item{class: (@view == :attendances) ? '-current' : nil}
+        = link_to "Attendance", [:attendances, @meeting]
 
-.view-content.-omega
-  .wrapper{role: 'layout'}
-    .view-partial= render partial: "meetings/#{ @view.to_s }", locals: {meeting: @meeting}
+.view-partial= render partial: "meetings/#{ @view.to_s }", locals: {meeting: @meeting}
 
 %footer.view-footer
   .wrapper{role: 'layout'}

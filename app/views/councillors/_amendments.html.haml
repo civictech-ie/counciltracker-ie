@@ -1,5 +1,13 @@
-%ul.list.-enumerable
-  - councillor.proposed_amendments.published.by_occurred_on.each do |amendment|
-    %li
-      = link_to amendment do
-        = render partial: 'amendments/amendment', locals: {amendment: amendment}
+.view-content.-omega
+  - if councillor.proposed_amendments.published.any?
+    .wrapper{role: 'layout'}
+      %ul.list.-enumerable
+        - councillor.proposed_amendments.published.by_occurred_on.each do |amendment|
+          %li
+            = link_to amendment do
+              = render partial: 'amendments/amendment', locals: {amendment: amendment}
+  - else
+    .wrapper{role: 'layout'}
+      .empty-explanation
+        %div
+          %label None recorded

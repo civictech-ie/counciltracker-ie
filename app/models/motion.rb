@@ -58,11 +58,11 @@ class Motion < ApplicationRecord
   end
 
   def local_electoral_areas
-    LocalElectoralArea.where id: self.local_electoral_area_ids
+    @local_electoral_areas ||= LocalElectoralArea.where(id: self.local_electoral_area_ids)
   end
 
   def proposers
-    @proposers ||= Councillor.where(id: self.proposers_ids)
+    @proposers ||= Councillor.where(id: self.proposers_ids).by_name
   end
 
   def self.cleanup_agenda_item(itm)

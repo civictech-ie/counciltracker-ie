@@ -3,7 +3,7 @@
     .breadcrumbs
       .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
       .breadcrumbs_crumb= link_to "Meetings", [:admin, :meetings]
-      .breadcrumbs_crumb= link_to @meeting.occurred_on_was.strftime('%d.%m.%y'), [:admin, @meeting]
+      .breadcrumbs_crumb= link_to @meeting.occurred_on_was.strftime('%-d.%m.%y'), [:admin, @meeting]
       .breadcrumbs_crumb= link_to "Motion #{ @motion.agenda_item }", [:admin, @motion]
       .breadcrumbs_crumb= link_to "Amendment #{ @amendment.position }", [:admin, @amendment]
       .breadcrumbs_crumb

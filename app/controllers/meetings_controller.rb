@@ -1,6 +1,6 @@
 class MeetingsController < ApplicationController
   def index
-    @meetings = Meeting.has_countable_attendances.order('occurred_on desc').page(params[:p])
+    @meetings = Meeting.has_countable_attendances.by_occurred_on.page(params[:p])
   end
 
   def show
@@ -14,9 +14,9 @@ class MeetingsController < ApplicationController
     render :show
   end
 
-  def attendance
+  def attendances
     @meeting = Meeting.find_by(hashed_id: params[:id])
-    @view = :attendance
+    @view = :attendances
     render :show
   end
 end

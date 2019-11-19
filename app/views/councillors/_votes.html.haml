@@ -1,5 +1,14 @@
-%ul.list.-enumerable
-  - Motion.published.by_occurred_on.voted_on_by(councillor).includes(:votes).each do |motion|
-    %li
-      = link_to motion do
-        = render partial: 'councillors/vote', locals: {motion: motion, vote: motion.votes.find_by(councillor: councillor)}
+.view-content.-omega
+  - motions = Motion.published.by_occurred_on.voted_on_by(councillor).includes(:votes)
+  - if motions.any?
+    .wrapper{role: 'layout'}
+      %ul.list.-enumerable
+        - motions.each do |motion|
+          %li
+            = link_to motion do
+              = render partial: 'councillors/vote', locals: {motion: motion, vote: motion.votes.find_by(councillor: councillor)}
+  - else
+    .wrapper{role: 'layout'}
+      .empty-explanation
+        %div
+          %label None recorded

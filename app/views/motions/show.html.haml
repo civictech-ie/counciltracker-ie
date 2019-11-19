@@ -1,76 +1,76 @@
 - title ['Motions', @motion.title]
-- description "Motion: #{ @motion.title } proposed by #{ @motion.proposers.map(&:full_name).to_sentence } on #{ @motion.occurred_on.strftime('%d/%m/%y') }."
+- description "Motion: #{ @motion.title } proposed by #{ @motion.proposers.map(&:full_name).to_sentence } on #{ @motion.occurred_on.strftime('%-d/%m/%y') }."
 - keywords "city council, motions, #{ @motion.tags.join(',') }"
 
 %header.view-header
   .wrapper{role: 'layout'}
-    %h1= link_to raw("#{@motion.occurred_on.strftime('%d %b %Y')} &mdash; #{@motion.title}"), @motion
+    .breadcrumbs
+      .breadcrumb= link_to 'Meeting', @motion.meeting.path
+      .breadcrumb= link_to 'Motion', @motion
 
 .view-content.-alpha
   .wrapper{role: 'layout'}
     .motion-card
-      .meta-data
-        .meta-data_block.-full
-          %label Motion text
+      .cols{role: 'layout'}
+        .col.-three
+          .meta-data
+            .meta-data_block
+              %label Motion text
 
-          - if @motion.body.present?
-            .text-block.p.-t2
-              :markdown
-                #{ @motion.body }
-          - else
-            .empty-value None recorded
-      
-        .meta-data_block
-          %label Result
-          #{ @motion.result.capitalize }ed
-      
-        .meta-data_block
-          %label Vote method
-          #{ @motion.rollcall? ? 'Roll-call' : 'Voice' }
-      
-        .meta-data_block
-          %label Proposed by
-          - if @motion.proposers.any?
-            %ul.list.-inline
-              - @motion.proposers.each do |councillor|
-                %li= link_to councillor.full_name, councillor
-          - else
-            .empty-value None recorded
-        
-        .meta-data_block
-          %label Related areas
-          - if @motion.local_electoral_areas.any?
-            %ul.list.-inline
-              - @motion.local_electoral_areas.each do |local_electoral_area|
-                %li= link_to local_electoral_area.name, local_electoral_area
-          - else
-            .empty-value None recorded
-        
-        .meta-data_block
-          %label Executive recommendation
-          - if @motion.executive_recommendation.present? or @motion.executive_vote.present?
-            .text-block
-              - if @motion.executive_vote.present?
-                %strong= @motion.executive_vote
-              
-              #{ simple_format @motion.executive_recommendation }
-          - else
-            .empty-value None recorded
-        
-        .meta-data_block
-          %label Related topics
-          - if @motion.tags.any?
-            %ul.tag-list.-inline
-              - @motion.tags.each do |tag|
-                %li= link_to tag, :root
-          - else
-            .empty-value None recorded
+              - if @motion.body.present?
+                .text-block.p.-t2
+                  :markdown
+                    #{ @motion.body }
+              - else
+                .empty-value None recorded
           
-        .meta-data_block
-          %label Attachments
-          %ul
-            - @motion.attachments.each do |attachment|
-              %li= link_to "Attached PDF", @motion.pdf_url
+            .meta-data_block
+              %label Proposed by
+              - if @motion.proposers.any?
+                = render partial: 'councillors/inline-list', locals: {councillors: @motion.proposers}
+              - else
+                .empty-value None recorded
+          
+            .meta-data_block
+              %label Date
+              %p.p= @motion.occurred_on.strftime('%-d/%m/%Y')
+
+            .meta-data_block
+              %label Executive recommendation
+              - if @motion.executive_recommendation.present? or @motion.executive_vote.present?
+                .text-block
+                  - if @motion.executive_vote.present?
+                    %strong= @motion.executive_vote.capitalize
+                  
+                  #{ simple_format @motion.executive_recommendation }
+              - else
+                .empty-value None recorded
+      
+        .col.-one
+          .meta-data
+            .meta-data_block
+              %label Attachments
+              %ul
+                - @motion.attachments.each do |attachment|
+                  %li= link_to "Attached PDF", @motion.pdf_url
+          
+            .meta-data_block
+              %label Related areas
+              - if @motion.local_electoral_areas.any?
+                %ul.list.-inline
+                  - @motion.local_electoral_areas.each do |local_electoral_area|
+                    %li= link_to local_electoral_area.name, local_electoral_area
+              - else
+                .empty-value None recorded
+            
+            .meta-data_block
+              %label Related topics
+              - if @motion.tags.any?
+                %ul.tag-list.-inline
+                  - @motion.tags.each do |tag|
+                    %li= link_to tag, :root
+              - else
+                .empty-value None recorded
 
 %nav.view-subnav
   .wrapper{role: 'layout'}
