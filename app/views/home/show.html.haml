@@ -2,10 +2,14 @@
 - keywords "city council, vote tracking, open government"
 
 .view{role: 'layout'}
-  %header.view-subheader
-    %h3 Recent motions
-  %ul.list.-enumerable
-    - @interesting_motions.each do |motion|
-      %li
-        = link_to motion do
-          = render partial: 'motions/motion', locals: {motion: motion}
+  %header.view-header
+    .wrapper{role: 'layout'}
+      %h1= link_to "Recent motions", :motions
+
+  %main.view-content
+    .wrapper{role: 'layout'}
+      %ul.list.-enumerable
+        - @interesting_motions.each do |motion|
+          %li
+            = link_to motion do
+              = render partial: 'motions/motion', locals: {motion: motion}

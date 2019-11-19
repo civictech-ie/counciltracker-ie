@@ -1,10 +1,14 @@
-%ul.list.-enumerable
-  - @local_electoral_areas.each do |local_electoral_area|
-    %li
-      = link_to local_electoral_area do
-        .wrapper{role: 'layout'}
-          .row
-            .col-xs-6
-              = local_electoral_area.name
-            .col-xs-6
-              = pluralize local_electoral_area.active_seats.count, 'councillor'
+%header.view-header
+  .wrapper{role: 'layout'}
+    %h1= link_to "Electoral areas", :local_electoral_areas
+
+%main.view-content{role: 'layout'}
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - @local_electoral_areas.each do |local_electoral_area|
+        %li
+          = link_to local_electoral_area do
+            = render partial: 'local_electoral_area', locals: {local_electoral_area: local_electoral_area}
+
+%footer.view-footer
+  .wrapper{role: 'layout'} &nbsp;
