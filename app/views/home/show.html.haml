@@ -2,14 +2,23 @@
 - keywords "city council, vote tracking, open government"
 
 .view{role: 'layout'}
-  %header.view-header
+  .intro-slide
     .wrapper{role: 'layout'}
-      %h1= link_to "Recent motions", :motions
+      %h1 How are you local councillors representing you?
+      :markdown
+        Every five years Dubliners elect councillors to represent them in the city council.
 
-  %main.view-content
+  %nav.view-subnav
     .wrapper{role: 'layout'}
-      %ul.list.-enumerable
-        - @interesting_motions.each do |motion|
-          %li
-            = link_to motion do
-              = render partial: 'motions/motion', locals: {motion: motion}
+      .subnav-items
+        .subnav-item.-current
+          = link_to "Some recent motions", :motions
+
+  .view-partial
+    .view-content.-omega
+      .wrapper{role: 'layout'}
+        %ul.list.-enumerable
+          - @interesting_motions.each do |motion|
+            %li
+              = link_to motion do
+                = render partial: 'motions/motion', locals: {motion: motion}

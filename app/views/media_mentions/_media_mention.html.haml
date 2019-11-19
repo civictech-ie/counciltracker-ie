@@ -1,7 +1,4 @@
 = link_to media_mention.url do
-  :markdown
-    _"#{ media_mention.body }"_
-  .text.-fixed.-info
-    %ul.list.-inline.-dotted
-      %li= media_mention.published_on.strftime('%-d.%m.%y').strip
-      %li= media_mention.domain
+  %em #{ media_mention.body }
+  .p.-t4
+    #{ media_mention.published_on.strftime('%-d %b \'%y').strip }, #{ media_mention.domain }

@@ -45,15 +45,15 @@
                   #{ simple_format @motion.executive_recommendation }
               - else
                 .empty-value None recorded
-      
-        .col.-one
-          .meta-data
+
             .meta-data_block
               %label Attachments
               %ul
                 - @motion.attachments.each do |attachment|
                   %li= link_to "Attached PDF", @motion.pdf_url
-          
+      
+        .col.-one
+          .meta-data
             .meta-data_block
               %label Related areas
               - if @motion.local_electoral_areas.any?
@@ -71,6 +71,13 @@
                     %li= link_to tag, :root
               - else
                 .empty-value None recorded
+
+            - if @motion.media_mentions.any?
+              .meta-data_block
+                %label Media
+                %ul.list.-emmed
+                  - @motion.media_mentions.each do |media_mention|
+                    %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
 
 %nav.view-subnav
   .wrapper{role: 'layout'}

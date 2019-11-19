@@ -1,2 +1,7 @@
-= party.name
-= party.active_councillors.count
+.enumerable.-party
+  .party-indicator= render partial: 'icons/party', locals: {party: party}
+  .content
+    .name #{ party.name }
+
+  .count
+    = pluralize party.active_councillors.count, 'councillor'
