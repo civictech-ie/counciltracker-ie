@@ -2,10 +2,26 @@
 - keywords "city council, vote tracking, open government"
 
 .view{role: 'layout'}
-  %header.view-subheader
-    %h3 Recent motions
-  %ul.list.-enumerable
-    - @interesting_motions.each do |motion|
-      %li
-        = link_to motion do
-          = render partial: 'motions/motion', locals: {motion: motion}
+  .slide
+    .wrapper{role: 'layout'}
+      .text-block
+        %h1.p.-t1 How are your city councillors representing you?
+        
+        .p.-t2
+          :markdown
+            Council Tracker tracks and publishes Dublin City Council's votes, motions, and amendments.
+
+  %nav.view-subnav
+    .wrapper{role: 'layout'}
+      .subnav-items
+        .subnav-item.-current
+          = link_to "Some recent motions", :motions
+
+  .view-partial
+    .view-content.-omega
+      .wrapper{role: 'layout'}
+        %ul.list.-enumerable
+          - @interesting_motions.each do |motion|
+            %li
+              = link_to motion do
+                = render partial: 'motions/motion', locals: {motion: motion}

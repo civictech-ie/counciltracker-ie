@@ -1,0 +1,7 @@
+.view-content.-omega
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - local_electoral_area.active_councillors.each do |councillor|
+        %li
+          = link_to councillor do
+            = render partial: 'councillors/councillor', locals: {councillor: councillor}

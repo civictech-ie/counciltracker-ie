@@ -1,0 +1,29 @@
+.cols[role='layout']
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  flex: 1
+  
+  & > .col
+
+  @media screen and (min-width: '800px')
+    flex-direction: row
+    justify-content: space-between
+    margin-left: calc(var(--gutter)/-2)
+    margin-right: calc(var(--gutter)/-2)
+
+    & > .col
+      padding: 0 calc(var(--gutter)/2)
+      flex: 1
+
+      &.-one
+        flex: 1
+
+      &.-two
+        flex: 2
+
+      &.-three
+        flex: 3
+
+      &.-four
+        flex: 4

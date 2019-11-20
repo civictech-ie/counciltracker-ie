@@ -1,0 +1,5 @@
+.vote-visualiser
+  .votes
+    - votes.group_by(&:party).each do |party,votes|
+      - votes.each do |vote|
+        .party-icon{style: "background-color: ##{ party.colour_hex };", title: "#{vote.councillor.full_name}, #{vote.councillor.party.name}"}

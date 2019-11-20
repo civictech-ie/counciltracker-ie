@@ -4,7 +4,7 @@
       .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
       .breadcrumbs_crumb= link_to "Events", [:admin, :events]
       .breadcrumbs_crumb
-        %h1 #{ @event.eventable_type } on #{ @event.occurred_on.strftime('%d.%m.%y') }
+        %h1 #{ @event.eventable_type } on #{ @event.occurred_on.strftime('%-d.%m.%y') }
 
 .primary-main_content
   .wrapper{role: 'layout'}

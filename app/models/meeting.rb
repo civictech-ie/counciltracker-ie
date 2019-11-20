@@ -24,8 +24,12 @@ class Meeting < ApplicationRecord
     self.hashed_id
   end
 
+  def path
+    "/meetings/#{ self.meeting_type }/#{ self.occurred_on }"
+  end
+
   def title
-    "#{ self.meeting_type_in_english } #{ occurred_on.strftime('%d/%m/%Y') }"
+    "#{ self.meeting_type_in_english } on #{ occurred_on.strftime('%-d %B \'%y') }"
   end
 
   def tags
@@ -45,11 +49,6 @@ class Meeting < ApplicationRecord
   def expected_attendance # todo: rename to expected_councillors?
     return nil unless self.council_session
     self.council_session.councillors.active_on(self.occurred_on)
-  end
-
-  def refresh_hashed_id!
-    set_hashed_id
-    save!
   end
 
   private

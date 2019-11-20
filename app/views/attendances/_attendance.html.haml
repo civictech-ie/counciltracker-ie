@@ -1,9 +1,0 @@
-.row
-  .col-xs-2
-    .text.-fixed= attendance.attendable.occurred_on.strftime('%d.%m.%y')
-  .col-xs-8= attendance.attendable.meeting_type_in_english
-  .col-xs-2
-    .status{class: "-#{ attendance.status.to_s }"}
-      .status_icon
-      .status_text
-        %p= attendance.status

@@ -1,1 +1,7 @@
-= @meeting.motions.inspect
+.view-content.-omega
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - meeting.motions.published.each do |motion|
+        %li
+          = link_to motion do
+            = render partial: 'motions/motion', locals: {motion: motion}

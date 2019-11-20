@@ -20,3 +20,70 @@
       padding: 1rem 0
       &:hover
         color: var(--blue)
+
+.list.-emmed
+  li
+    &:before
+      content: '— '
+      color: var(--grey)
+
+.list.-inline
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: flex-start
+  flex-wrap: wrap
+
+  li
+    &:after
+      content: ', '
+    &:last-child
+      &:after
+        content: ''
+  
+  &.-councillors
+  
+  .councillor, .party
+    display: inline
+
+    &.-party, &.party
+      &:before
+        content: '• '
+        font-weight: 600
+
+      &.-sinn-fein
+        &:before
+          color: #008800
+      &.-fianna-fail
+        &:before
+          color: #66BB66
+      &.-fine-gael
+        &:before
+          color: #6699FF
+      &.-labour-party
+        &:before
+          color: #CC0000
+      &.-people-before-profit
+        &:before
+          color: #660000
+      &.-green-party
+        &:before
+          color: #99CC33
+      &.-solidarity
+        &:before
+          color: #BF2D2E
+      &.-united-left
+        &:before
+          color: #FF5555
+      &.-independent
+        &:before
+          color: #CCC
+      &.-independents-4-change
+        &:before
+          color: #FFC0CB
+      &.-social-democrats
+        &:before
+          color: #752F8B
+      &.-workers-party
+        &:before
+          color: #D73D3D

@@ -15,6 +15,7 @@ class Councillor < ApplicationRecord
   after_validation :generate_slug
 
   scope :by_name, -> { order('sort_name asc') }
+  scope :inactive_on, -> (date) { joins(:seats).merge(Seat.active_on(date)).distinct }
   scope :active_on, -> (date) { joins(:seats).merge(Seat.active_on(date)).distinct }
 
   mount_uploader :portrait, PortraitUploader, mount_on: :portrait_file

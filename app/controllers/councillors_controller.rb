@@ -31,9 +31,9 @@ class CouncillorsController < ApplicationController
     render :show
   end
 
-  def attendance
+  def attendances
     @councillor = Councillor.find_by!(slug: params[:id])
-    @view = :attendance
+    @view = :attendances
     render :show
   end
 end

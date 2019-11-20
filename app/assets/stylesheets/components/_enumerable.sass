@@ -3,8 +3,9 @@
   display: flex
   flex-direction: row
   justify-content: space-between
-  align-items: center
+  align-items: flex-start
   position: relative
+  height: 2rem
 
   .content
     flex-grow: 1
@@ -27,8 +28,37 @@
       flex-shrink: 0
       width: 25%
   
+  &.-attendance
+    .attendance
+      height: 100%
+      flex-grow: 0
+      flex-shrink: 0
+      width: 12.5rem
+      display: flex
+      flex-direction: row
+      justify-content: flex-end
+      align-items: center
+      .attendance-status
+        width: 10rem
+  
+  &.-vote
+    .date, .outcome, .verdict
+      flex-grow: 0
+      flex-shrink: 0
+      width: 12.5rem
+    
+    .outcome
+      height: 100%
+      display: flex
+      flex-direction: row
+      justify-content: flex-end
+      align-items: center
+
+      .vote-result
+        width: 10rem
+  
   &.-motion
-    .date, .outcome
+    .date, .outcome, .verdict
       flex-grow: 0
       flex-shrink: 0
     
@@ -40,14 +70,16 @@
       width: 30%
     
     .outcome
+      height: 100%
       display: flex
       flex-direction: row
       justify-content: space-between
+      align-items: center
 
       .breakdown
+        margin-right: 4rem
 
       .vote-result
-        margin-left: 4rem
         width: 10rem
   
   &.-councillor
@@ -57,20 +89,13 @@
       width: 25%
     
     .party-indicator
-      position: absolute
-      left: -1.675rem
-      top: -0.1375rem
-      width: 1rem
-      height: 1rem
-      svg
-        width: 90%
-        height: auto
 
     figure
       opacity: 0
       position: absolute
       width: 18rem
       height: 18rem
+      top: -8rem
       right: calc(50% + var(--unit))
       background: var(--blue)
       transition: opacity ease 1s
@@ -82,6 +107,31 @@
         height: 100%
         object-fit: cover
         object-position: center
+
+      &.-sinn-fein
+        background-color: #008800
+      &.-fianna-fail
+        background-color: #66BB66
+      &.-fine-gael
+        background-color: #6699FF
+      &.-labour-party
+        background-color: #CC0000
+      &.-people-before-profit
+        background-color: #660000
+      &.-green-party
+        background-color: #99CC33
+      &.-solidarity
+        background-color: #BF2D2E
+      &.-united-left
+        background-color: #FF5555
+      &.-independent
+        background-color: #CCC
+      &.-independents-4-change
+        background-color: #FFC0CB
+      &.-social-democrats
+        background-color: #752F8B
+      &.-workers-party
+        background-color: #D73D3D
     
     &:hover
       figure

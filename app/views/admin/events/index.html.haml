@@ -14,6 +14,6 @@
             = link_to [:admin, event] do
               .row
                 .col-xs-2
-                  .text.-fixed= event.occurred_on.strftime('%d.%m.%y')
+                  .text.-fixed= event.occurred_on.strftime('%-d.%m.%y')
                 .col-xs-9
                   = raw admin_summarize_event(event)

@@ -1,1 +1,7 @@
-= @motion.amendments.inspect
+.view-content.-omega
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - motion.amendments.each do |amendment|
+        %li
+          = link_to amendment do
+            = render partial: 'amendments/amendment', locals: {amendment: amendment}

@@ -11,7 +11,9 @@ class Seat < ApplicationRecord
 
   delegate :full_name, to: :councillor
 
+  scope :inactive, -> { inactive_on(Date.today) }
   scope :active, -> { active_on(Date.today) }
+  scope :inactive_on, -> (date) { where('(seats.commenced_on <= ?) AND (seats.concluded_on <= ?)', date, date) }
   scope :active_on, -> (date) { where('(seats.commenced_on <= ?) AND ((seats.concluded_on IS NULL) OR (seats.concluded_on > ?))', date, date) }
 
   def self.find_by_councillor_name(name) # should only be one per councillor per council_session

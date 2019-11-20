@@ -4,7 +4,7 @@
       .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
       .breadcrumbs_crumb= link_to "Meetings", [:admin, :meetings]
       .breadcrumbs_crumb
-        %h1= link_to @meeting.occurred_on_was.strftime('%d.%m.%y'), [:admin, @meeting]
+        %h1= link_to @meeting.occurred_on_was.strftime('%-d.%m.%y'), [:admin, @meeting]
 
 .primary-main_content
   .wrapper{role: 'layout'}

@@ -2,24 +2,17 @@
 - description "Political parties with councillors on Dublin City Council"
 - keywords "city council, parties"
 
-%header.page-header
+%header.view-header
   .wrapper{role: 'layout'}
-    .breadcrumbs
-      .breadcrumbs_crumb
-        %h1= link_to "Parties", :parties
+    %h1= link_to "Parties", :parties
 
-.primary-main_content
+%main.view-content{role: 'layout'}
   .wrapper{role: 'layout'}
-    .row
-      .col-xs-12
-        - cache @parties do
-          %ul.list.-enumerable
-            - @parties.each do |party|
-              - next if party.active_councillors.empty?
-              %li
-                = link_to party do
-                  - cache party do
-                    .party-affiliated
-                      .party-icon.party-icon{style: "background-color: ##{ party.colour_hex };", title: party.name} &nbsp;
-                      .text.-display= party.name
-                    .text.-fixed= pluralize party.active_councillors.count, 'councillor'
+    %ul.list.-enumerable
+      - @parties.each do |party|
+        %li
+          = link_to party do
+            = render partial: 'party', locals: {party: party}
+
+%footer.view-footer
+  .wrapper{role: 'layout'} &nbsp;

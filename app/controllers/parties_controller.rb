@@ -4,7 +4,18 @@ class PartiesController < ApplicationController
   end
 
   def show
-    @party = current_council_session.parties.find_by(slug: params[:id])
-    @councillors = @party.active_councillors
+    @party = Party.find_by(slug: params[:id])
+    @view = :councillors
+
+    respond_to do |f|
+      f.html { render action: 'show' }
+      f.json { render json: @party }
+    end
+  end
+
+  def councillors
+    @party = Party.find_by(slug: params[:id])
+    @view = :councillors
+    render :show
   end
 end

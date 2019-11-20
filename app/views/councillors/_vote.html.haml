@@ -1,10 +1,10 @@
-.enumerable.-vote.-motion
-  .verdict= vote.status
+.enumerable.-vote
+  .verdict #{ vote.status.capitalize }
+
   .content
     .title #{ motion.title }
 
-  .date #{ raw motion.occurred_on.strftime('%d %b \'%y') }
+  .date #{ raw motion.occurred_on.strftime('%-d %b \'%y') }
 
   .outcome
-    = render partial: 'votes/breakdown', locals: {voteable: motion}
     = render partial: 'votes/result', locals: {voteable: motion}

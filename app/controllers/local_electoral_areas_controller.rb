@@ -4,8 +4,24 @@ class LocalElectoralAreasController < ApplicationController
   end
 
   def show
-    @local_electoral_area = current_council_session.local_electoral_areas.find_by(slug: params[:id])
-    @councillors = @local_electoral_area.councillors
-    @motions = @local_electoral_area.motions.published
+    @local_electoral_area = LocalElectoralArea.find_by(slug: params[:id])
+    @view = :councillors
+
+    respond_to do |f|
+      f.html { render action: 'show' }
+      f.json { render json: @local_electoral_area }
+    end
+  end
+
+  def councillors
+    @local_electoral_area = LocalElectoralArea.find_by(slug: params[:id])
+    @view = :councillors
+    render :show
+  end
+
+  def motions
+    @local_electoral_area = LocalElectoralArea.find_by(slug: params[:id])
+    @view = :motions
+    render :show
   end
 end

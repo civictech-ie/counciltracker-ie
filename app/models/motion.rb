@@ -58,15 +58,19 @@ class Motion < ApplicationRecord
   end
 
   def local_electoral_areas
-    LocalElectoralArea.where id: self.local_electoral_area_ids
+    @local_electoral_areas ||= LocalElectoralArea.where(id: self.local_electoral_area_ids)
   end
 
   def proposers
-    @proposers ||= Councillor.where(id: self.proposers_ids)
+    @proposers ||= Councillor.where(id: self.proposers_ids).by_name
   end
 
   def self.cleanup_agenda_item(itm)
     itm.gsub(/[)()]/,'').downcase
+  end
+
+  def attachments
+    [self.pdf_url]
   end
 
   def meeting_date
@@ -103,11 +107,6 @@ class Motion < ApplicationRecord
 
   def in_category?(cat)
     self.tags.include?(cat.downcase)
-  end
-
-  def refresh_hashed_id!
-    set_hashed_id
-    save!
   end
 
   def as_json(options={})

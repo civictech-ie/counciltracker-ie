@@ -19,7 +19,7 @@
           = link_to [:admin, meeting] do
             .row
               .col-xs-2
-                .text.-fixed= meeting.occurred_on.strftime('%d.%m.%y')
+                .text.-fixed= meeting.occurred_on.strftime('%-d.%m.%y')
               .col-xs-6
                 = meeting.meeting_type_in_english
               .col-xs-4

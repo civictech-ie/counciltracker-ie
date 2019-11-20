@@ -1,0 +1,6 @@
+.enumerable.-area
+  .content
+    .name #{ local_electoral_area.name }
+
+  .count
+    = pluralize local_electoral_area.active_councillors.count, 'councillor'
