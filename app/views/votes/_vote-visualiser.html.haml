@@ -3,4 +3,4 @@
     - votes.group_by(&:party).each do |party,votes|
       - votes.each do |vote|
         .vote
-          .party-icon{style: "background-color: ##{ party.colour_hex };", title: "#{vote.councillor.full_name}, #{vote.councillor.party.name}"}
+          .party-icon{title: "#{vote.councillor.full_name}, #{vote.councillor.party.name}", class: "-#{ vote.councillor.party.slug }"}

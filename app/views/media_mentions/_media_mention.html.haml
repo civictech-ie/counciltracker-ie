@@ -1,4 +1,4 @@
 = link_to media_mention.url do
-  %em #{ media_mention.body }
-  .p.-t4
-    #{ media_mention.published_on.strftime('%-d %b \'%y').strip }, #{ media_mention.domain }
+  #{ media_mention.body } /
+  #{ media_mention.domain } /
+  #{ media_mention.published_on.strftime('%-d %b \'%y').strip }

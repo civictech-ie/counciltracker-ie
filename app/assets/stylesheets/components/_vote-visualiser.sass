@@ -1,0 +1,62 @@
+.vote-visualiser
+  flex: 1
+  display: flex
+  flex-direction: row
+  justify-content: flex-end
+  align-items: flex-end
+
+  .votes
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-content: flex-end
+    align-items: flex-end
+    flex-wrap: wrap
+    height: 3rem
+    overflow: hidden
+    width: 100%
+  
+  .vote
+    margin: 0
+    flex-basis: 1rem
+    flex-grow: 0
+    flex-shrink: 0
+    height: 1rem
+    width: 1rem
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+  .party-icon
+    flex-shrink: 0
+    flex-grow: 0
+    width: 0.75rem
+    height: 0.75rem
+    border-radius: 0.375rem
+    background: var(--black)
+
+    &.-sinn-fein
+      background-color: #008800
+    &.-fianna-fail
+      background-color: #66BB66
+    &.-fine-gael
+      background-color: #6699FF
+    &.-labour-party
+      background-color: #CC0000
+    &.-people-before-profit
+      background-color: #660000
+    &.-green-party
+      background-color: #99CC33
+    &.-solidarity
+      background-color: #BF2D2E
+    &.-united-left
+      background-color: #FF5555
+    &.-independent
+      background-color: #ccc
+    &.-independents-4-change
+      background-color: #FFC0CB
+    &.-social-democrats
+      background-color: #752F8B
+    &.-workers-party
+      background-color: #D73D3D

@@ -6,14 +6,15 @@
   .wrapper{role: 'layout'}
     .breadcrumbs
       .breadcrumb= link_to 'Meetings', :meetings
-      .breadcrumb= link_to @meeting.title, @meeting.path
+      .breadcrumb= link_to @meeting.occurred_on_formatted, @meeting.path
 
 .view-content.-alpha
   .wrapper{role: 'layout'}
     .meeting-card
-      .formatted-data
-        %p.p.-t1= @meeting.meeting_type_in_english
-        %p= @meeting.occurred_on.strftime('%-d %B \'%y')
+      .meta-data
+        .meta-data_block
+          %h1= @meeting.meeting_type_in_english
+          %p= @meeting.occurred_on.strftime('%-d %B \'%y')
 
 %nav.view-subnav
   .wrapper{role: 'layout'}

@@ -4,24 +4,25 @@
 .view{role: 'layout'}
   .slide
     .wrapper{role: 'layout'}
-      .text-block
-        %h1.p.-t1 How are your city councillors representing you?
-        
-        .p.-t2
-          :markdown
-            Council Tracker tracks and publishes Dublin City Council's votes, motions, and amendments.
+      .text-block.p.-t2
+        %h1 CouncilTracker.ie tracks and publishes Dublin City Council's votes, motions, and amendments.
+      
+        %h3 Select your electoral area to see what your local representatives are doing on the council:
 
-  %nav.view-subnav
-    .wrapper{role: 'layout'}
-      .subnav-items
-        .subnav-item.-current
-          = link_to "Some recent motions", :motions
+        %ul.list.-sentence
+          - @local_electoral_areas.each do |area|
+            - count = area.active_councillors.count
+            %li= link_to raw("#{ render partial: 'icons/count', locals: {count: count} } #{ area.name }"), area
+      
+        %h3 Select a political party to see how its councillors vote on council motions:
 
-  .view-partial
-    .view-content.-omega
-      .wrapper{role: 'layout'}
-        %ul.list.-enumerable
-          - @interesting_motions.each do |motion|
-            %li
-              = link_to motion do
-                = render partial: 'motions/motion', locals: {motion: motion}
+        %ul.list.-sentence
+          - @parties.each do |party|
+            %li= link_to raw("#{ render partial: 'icons/party', locals: {party: party} } #{ party.name }"), party
+
+        %h3 You can also view votes on motions that relate to particular topics:
+
+        %ul.list.-sentence
+          - @topics.each do |topic|
+            - count = Motion.published.in_category(topic).count
+            %li= link_to raw("#{ render partial: 'icons/count', locals: {count: count} } #{ topic }"), topic_path(topic.parameterize)

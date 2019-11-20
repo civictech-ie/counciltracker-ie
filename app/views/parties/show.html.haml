@@ -13,9 +13,11 @@
     .party-card
       %figure.-logo{class: "-#{ @party.slug }"} &nbsp;
       .data
-        %h1.p.-t1= @party.name
-        %p
-          #{ pluralize @party.active_councillors.count, 'member' } currently on the council
+        .meta-data
+          .meta-data_block
+            %h1= @party.name
+            %p
+              #{ pluralize @party.active_councillors.count, 'member' } currently on the council
 
 %nav.view-subnav
   .wrapper{role: 'layout'}

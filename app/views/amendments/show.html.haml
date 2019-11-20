@@ -5,40 +5,36 @@
 %header.view-header
   .wrapper{role: 'layout'}
     .breadcrumbs
-      .breadcrumb= link_to 'Meeting', @amendment.motion.meeting.path
+      .breadcrumb= link_to @amendment.motion.meeting.occurred_on_formatted, @amendment.motion.meeting.path
       .breadcrumb= link_to 'Motion', @amendment.motion
       .breadcrumb= link_to 'Amendment', @amendment
 
 .view-content.-alpha
   .wrapper{role: 'layout'}
     .motion-card
-      .cols{role: 'layout'}
-        .col.-three
-          .meta-data
-            .meta-data_block
-              %label Amendment text
+      .meta-data
+        .meta-data_block
+          %label Amendment text
 
-              - if @amendment.body.present?
-                .text-block.p.-t2
-                  :markdown
-                    #{ @amendment.body }
-              - else
-                .empty-value None recorded
-        
-            .meta-data_block
-              %label Proposed by
-              - if @amendment.proposers.any?
-                = render partial: 'councillors/inline-list', locals: {councillors: @amendment.proposers}
-              - else
-                .empty-value None recorded
-      
-        .col.-one
-          .meta-data
-            .meta-data_block
-              %label Attachments
-              %ul
-                - @amendment.attachments.each do |attachment|
-                  %li= link_to "Attached PDF", @amendment.pdf_url
+          - if @amendment.body.present?
+            .text-block
+              :markdown
+                #{ @amendment.body }
+          - else
+            .empty-value None recorded
+    
+        .meta-data_block
+          %label Proposed by
+          - if @amendment.proposers.any?
+            = render partial: 'councillors/inline-list', locals: {councillors: @amendment.proposers}
+          - else
+            .empty-value None recorded
+  
+        .meta-data_block
+          %label Attachments
+          %ul.list.-emmed
+            - @amendment.attachments.each do |attachment|
+              %li= link_to "Attached PDF", @amendment.pdf_url
 
 %nav.view-subnav
   .wrapper{role: 'layout'}

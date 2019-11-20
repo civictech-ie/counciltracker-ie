@@ -13,34 +13,33 @@
     .councillor-card
       %figure.-portrait{class: "-#{ @councillor.party.slug }"}= image_tag @councillor.portrait.url(:medium), loading: 'lazy', alt: "Portrait of #{ @councillor.full_name }"
       .bio
-        .cols{role: 'layout'}
-          .col.-three
-            .meta-data
-              .meta-data_block.-label
-                %h1.p.-t1= @councillor.full_name
+        .meta-data
+          .meta-data_block.-label
+            %h1= @councillor.full_name
 
-              .meta-data_block
-                %ul.list.-inline.-parties
-                  %li= link_to @councillor.party_name, @councillor.party, class: "party -#{ @councillor.party.slug }"
-                %p= link_to @councillor.local_electoral_area_name, @councillor.local_electoral_area
+          .meta-data_block
+            %p
+              = link_to @councillor.party do
+                = render partial: 'icons/party', locals: {party: @councillor.party}
+                = @councillor.party.name
+            %p= link_to @councillor.local_electoral_area_name, @councillor.local_electoral_area
 
-          .col.-one
-            - if @councillor.events.any?
-              .meta-data_block
-                %label Electoral history
-                %ol.list
-                  - @councillor.events.each do |event|
-                    %li
-                      %span.text.-fixed.-info
-                        #{ event.occurred_on.strftime('%b \'%y') } &mdash;
-                      %span= raw summarize_event_for_councillor event, @councillor
+          - if @councillor.events.any?
+            .meta-data_block
+              %label Electoral history
+              %ol.list
+                - @councillor.events.includes(:eventable).each do |event|
+                  %li
+                    %span.text.-fixed.-info
+                      #{ event.occurred_on.strftime('%b \'%y') } &mdash;
+                    %span= raw summarize_event_for_councillor event, @councillor
 
-            - if @councillor.media_mentions.any?
-              .meta-data_block
-                %label Media
-                %ul.list.-emmed
-                  - @councillor.media_mentions.each do |media_mention|
-                    %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
+          - if @councillor.media_mentions.any?
+            .meta-data_block
+              %label Media
+              %ul.list.-emmed
+                - @councillor.media_mentions.each do |media_mention|
+                  %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
 
 %nav.view-subnav
   .wrapper{role: 'layout'}

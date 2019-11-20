@@ -32,6 +32,10 @@ class Meeting < ApplicationRecord
     "#{ self.meeting_type_in_english } on #{ occurred_on.strftime('%-d %B \'%y') }"
   end
 
+  def occurred_on_formatted
+    occurred_on.strftime('%-d %B \'%y')
+  end
+
   def tags
     motions.map(&:tags).flatten.uniq
   end

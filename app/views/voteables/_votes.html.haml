@@ -2,7 +2,7 @@
   - if voteable.rollcall?
     - votes_by_status = voteable.votes.includes(:councillor).by_councillor_name.countable.group_by(&:status).sort_by { |k,v| k }.reverse # this is a hack but kind of works
     .wrapper{role: 'layout'}
-      .cols.-scrollable{role: 'layout'}
+      .cols{role: 'layout'}
         - votes_by_status.each do |status, votes|
           .col
             %nav.view-subnav.-two

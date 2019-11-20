@@ -1,7 +1,8 @@
 .view-content.-omega
+  - attendances = councillor.attendances.countable.includes(:attendable)
   .wrapper{role: 'layout'}
     %ul.list.-enumerable
-      - councillor.attendances.countable.each do |attendance|
+      - attendances.each do |attendance|
         %li
           = link_to attendance.attendable.path do
             = render partial: 'councillors/attendance', locals: {attendance: attendance}

@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
   def show
-    @interesting_motions = Motion.published.where(interesting: true).by_occurred_on.limit(10)
     @council_session = CouncilSession.current_on(Date.current).take
+    @local_electoral_areas = @council_session.local_electoral_areas.by_name
     @parties = @council_session.parties.by_name
+    @topics = Motion.published.pluck(:tags).flatten.uniq
   end
 end

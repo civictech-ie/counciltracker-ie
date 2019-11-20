@@ -14,22 +14,37 @@ h1, h2, h3, h4, h5
   &.-t5
     font-size: var(--t5)
 
-.text-block
-  max-width: 64rem
+.footer-block
   padding-right: 3rem
+
+  p, ul, ol
+    margin-bottom: 2rem
+
+    &:last-child
+      margin: 0
 
   a, a:link, a:visited
     font-weight: 600
     &:hover
-      text-decoration: underline
+      color: var(--blue)
+
+.text-block
+  max-width: var(--text-block-width)
+  padding-right: 3rem
+
+  a, a:link, a:visited
+    font-weight: 400
+    &:hover
+      color: var(--blue)
   
   h1
     margin-bottom: 2rem
 
   h3
-    font-weight: 600
-    &:before
-      content: '—'
+    font-weight: 400
+  
+  h3 + p, h3 + ul, h3 + ol
+    text-indent: 5rem
 
   p + h3
     margin-top: 4rem
@@ -39,3 +54,21 @@ h1, h2, h3, h4, h5
 
     &:last-child
       margin: 0
+    
+  ul, ol
+    &.list.-sentence
+      display: block
+      li
+        display: inline
+        white-space: nowrap
+        a, a:link, a:visited
+          display: inline
+          white-space: nowrap
+        &:after
+          content: ', '
+        &:last-child
+          &:after
+            content: ''
+      li:last-child
+        &:after
+          content: '.'
