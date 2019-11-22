@@ -36,6 +36,7 @@ gem 'scout_apm'
 gem 'redis'
 gem 'kaminari'
 gem 'oj' # json
+gem 'webpacker-svelte'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

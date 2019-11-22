@@ -3,13 +3,18 @@
 - keywords "city council, motions, #{ @tag }"
 
 %header.view-header
-  .breadcrumbs
-    .breadcrumbs_crumb
-      %h1= @tag
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumb= link_to 'Topics', :topics
+      .breadcrumb= link_to @tag, topic_path(@tag.parameterize)
 
-.wrapper{role: 'layout'}
-  %ul.list.-enumerable
-    - @motions.each do |motion|
-      %li
-        = link_to motion do
-          = render partial: 'motions/motion', locals: {motion: motion}
+%main.view-content
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - @motions.each do |motion|
+        %li
+          = link_to motion do
+            = render partial: 'motions/motion', locals: {motion: motion}
+
+%footer.view-footer
+  .wrapper{role: 'layout'}= render partial: 'shared/pagination', locals: {records: @motions}

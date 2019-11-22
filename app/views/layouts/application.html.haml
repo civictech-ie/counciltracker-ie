@@ -4,7 +4,10 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
+    = javascript_pack_tag 'application'
+    = stylesheet_pack_tag 'application'
     = display_meta_tags site: 'Council Tracker', reverse: true
+    <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no' />
 
     = yield :snippets
   %body
@@ -28,5 +31,6 @@
 
               :markdown
                 [Council Tracker](/) is a project by [Dublin Inquirer](https://www.dublininquirer.com) and [CivicTech·ie](https://www.civictech.ie).
-            
+
+      %nav#menu= svelte_component('Menu')
       %main.primary-main= yield

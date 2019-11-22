@@ -32,9 +32,14 @@
           - if @motion.executive_recommendation.present? or @motion.executive_vote.present?
             .text-block
               - if @motion.executive_vote.present?
-                %strong= @motion.executive_vote.capitalize
-              
-              #{ simple_format @motion.executive_recommendation }
+                %strong
+                  - if @motion.executive_recommendation.present?
+                    #{ @motion.executive_vote.capitalize }:
+                  - else
+                    #{ @motion.executive_vote.capitalize }
+
+              - if @motion.executive_recommendation.present?
+                #{ simple_format @motion.executive_recommendation }
           - else
             .empty-value None recorded
 
@@ -58,7 +63,7 @@
           - if @motion.tags.any?
             %ul.tag-list.-inline
               - @motion.tags.each do |tag|
-                %li= link_to tag, :root
+                %li= link_to tag, topic_path(tag.parameterize)
           - else
             .empty-value None recorded
 

@@ -52,7 +52,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :topics, only: [:show]
+  resources :topics, only: [:index, :show]
 
   get 'meetings/:meeting_type/:occurred_on' => 'meetings#show', as: :meeting
   get 'meetings/:meeting_type/:occurred_on/motions/:id' => 'motion#show', as: :meeting_motion

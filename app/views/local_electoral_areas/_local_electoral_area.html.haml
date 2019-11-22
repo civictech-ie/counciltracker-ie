@@ -1,6 +1,4 @@
 .enumerable.-area
+  .count-icon= render partial: 'icons/count', locals: {count: local_electoral_area.active_councillors.count}
   .content
     .name #{ local_electoral_area.name }
-
-  .count
-    = pluralize local_electoral_area.active_councillors.count, 'councillor'

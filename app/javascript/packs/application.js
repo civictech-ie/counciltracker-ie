@@ -15,4 +15,10 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-console.log('Hello World from Webpacker')
+import Menu from '../menu.svelte';
+import Switcher from '../switcher.svelte';
+import WebpackerSvelte from "webpacker-svelte";
+import Turbolinks from "turbolinks";
+
+Turbolinks.start();
+WebpackerSvelte.setup({ Menu, Switcher });

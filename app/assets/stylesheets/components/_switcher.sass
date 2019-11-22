@@ -1,0 +1,31 @@
+.switcher
+  position: relative
+
+.switcher-nav
+  position: relative
+  select
+    width: 100%
+    -moz-appearance: none
+    -webkit-appearance: none
+    appearance: none
+    font-size: var(--t3)
+    font-family: var(--sans)
+    border-radius: 0
+    background-color: var(--white)
+    background-image: url("data:image/svg+xml,%3Csvg width='122px' height='154px' viewBox='0 0 154 122' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cline x1='61' y1='139' x2='61' y2='0' stroke='%23090909' stroke-width='12' stroke-linecap='square'%3E%3C/line%3E%3Cpolyline fill='none' stroke='%23090909' stroke-width='12' points='5 80 61 145 117 80'%3E%3C/polyline%3E%3C/svg%3E")
+    background-position: right 0.5rem top calc(50% - 0.175rem)
+    background-size: auto 2rem 
+    background-repeat: no-repeat
+    padding: 0.5rem 1rem
+
+    &:hover
+      border-color: var(--blue)
+      color: var(--blue)
+      cursor: pointer
+      background-image: url("data:image/svg+xml,%3Csvg width='122px' height='154px' viewBox='0 0 154 122' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cline x1='61' y1='139' x2='61' y2='0' stroke='%235b5cfe' stroke-width='12' stroke-linecap='square'%3E%3C/line%3E%3Cpolyline fill='none' stroke='%235b5cfe' stroke-width='12' points='5 80 61 145 117 80'%3E%3C/polyline%3E%3C/svg%3E")
+
+.switcher-view
+  .loader
+    margin: var(--unit) 0
+    text-align: center
+    font-size: var(--t2)

@@ -1,8 +1,9 @@
 .view-content.-omega
-  - if local_electoral_area.motions.any?
+  - motions = local_electoral_area.motions.published.includes(:meeting)
+  - if motions.any?
     .wrapper{role: 'layout'}
       %ul.list.-enumerable
-        - local_electoral_area.motions.published.each do |motion|
+        - motions.each do |motion|
           %li
             = link_to motion do
               = render partial: 'motions/motion', locals: {motion: motion}

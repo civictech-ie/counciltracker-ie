@@ -41,19 +41,7 @@
                 - @councillor.media_mentions.each do |media_mention|
                   %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
 
-%nav.view-subnav
-  .wrapper{role: 'layout'}
-    .subnav-items
-      .subnav-item{class: (@view == :votes) ? '-current' : nil}
-        = link_to "Votes", [:votes, @councillor], data: {scroll: 'maintain'}
-      .subnav-item{class: (@view == :attendances) ? '-current' : nil}
-        = link_to "Attendance", [:attendances, @councillor], data: {scroll: 'maintain'}
-      .subnav-item{class: (@view == :motions) ? '-current' : nil}
-        = link_to "Proposed motions", [:motions, @councillor], data: {scroll: 'maintain'}
-      .subnav-item{class: (@view == :amendments) ? '-current' : nil}
-        = link_to "Proposed amendments", [:amendments, @councillor], data: {scroll: 'maintain'}
-
-.view-partial= render partial: "councillors/#{ @view.to_s }", locals: {councillor: @councillor}
+= svelte_component('Switcher')
 
 %footer.view-footer
   .wrapper{role: 'layout'}

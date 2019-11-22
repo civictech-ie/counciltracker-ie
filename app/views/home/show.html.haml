@@ -1,28 +1,27 @@
 - description "Tracking and publishing Dublin City Council's votes, motions, and amendments. See how your councillors are representing you on the council."
 - keywords "city council, vote tracking, open government"
 
-.view{role: 'layout'}
-  .slide
-    .wrapper{role: 'layout'}
-      .text-block.p.-t2
-        %h1 CouncilTracker.ie tracks and publishes Dublin City Council's votes, motions, and amendments.
-      
-        %h3 Select your electoral area to see what your local representatives are doing on the council:
+.slide
+  .wrapper{role: 'layout'}
+    .text-block.p.-t2
+      %h1 <a href="/">CouncilTracker.ie</a> tracks and publishes Dublin City Council's votes, motions, and amendments.
+    
+      %h3 Select your electoral area to see what your local representatives are doing on the council:
 
-        %ul.list.-sentence
-          - @local_electoral_areas.each do |area|
-            - count = area.active_councillors.count
-            %li= link_to raw("#{ render partial: 'icons/count', locals: {count: count} } #{ area.name }"), area
-      
-        %h3 Select a political party to see how its councillors vote on council motions:
+      %ul.list.-sentence
+        - @local_electoral_areas.each do |area|
+          - count = area.active_councillors.count
+          %li= link_to raw("#{ render partial: 'icons/count', locals: {count: count} } #{ area.name }"), area
+    
+      %h3 Select a political party to see how its councillors vote on council motions:
 
-        %ul.list.-sentence
-          - @parties.each do |party|
-            %li= link_to raw("#{ render partial: 'icons/party', locals: {party: party} } #{ party.name }"), party
+      %ul.list.-sentence
+        - @parties.each do |party|
+          %li= link_to raw("#{ render partial: 'icons/party', locals: {party: party} } #{ party.name }"), party
 
-        %h3 You can also view votes on motions that relate to particular topics:
+      %h3 You can also view votes on motions that relate to particular topics:
 
-        %ul.list.-sentence
-          - @topics.each do |topic|
-            - count = Motion.published.in_category(topic).count
-            %li= link_to raw("#{ render partial: 'icons/count', locals: {count: count} } #{ topic }"), topic_path(topic.parameterize)
+      %ul.list.-sentence
+        - @topics.each do |topic|
+          - count = Motion.published.in_category(topic).count
+          %li= link_to raw("#{ render partial: 'icons/count', locals: {count: count} } #{ topic }"), topic_path(topic.parameterize)

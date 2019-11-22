@@ -1,0 +1,48 @@
+.mobile-header
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  padding: 1.5rem
+
+  a, a:link, a:visited
+    &:hover
+      cursor: pointer
+
+  .logo
+    a, a:link, a:visited
+      background-color: var(--white)
+      color: var(--black)
+      border: 0.55px solid var(--black)
+      display: flex
+      margin-bottom: 0.25rem
+      padding: 0.5rem 0.75rem 0.4rem
+      text-decoration: none
+      transition: ease 0.225s background-position, ease 0.325s padding
+      background-image: url(image-path('arrow.svg'))
+      background-position: -2.5rem center
+      background-size: auto 1.25rem
+      background-repeat: no-repeat
+
+      &:hover
+        background-position: 0.5rem center
+        padding-left: 2.5rem
+  
+  a.toggle
+    display: block
+
+    svg
+      width: 2.5rem
+      height: auto
+      fill: none
+      rect
+        stroke: none
+      line
+        stroke: var(--black)
+
+.mobile-nav
+  padding: 1.5rem 0 5rem
+  margin: 0 1.5rem
+  border-bottom: 0.55px solid var(--black)
+  display: flex
+  flex-direction: row
+  justify-content: space-between

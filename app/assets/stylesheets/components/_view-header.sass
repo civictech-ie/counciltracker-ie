@@ -1,13 +1,11 @@
 .view-header
-  position: fixed
-  top: 0
-  right: 0
-  left: 0
-  background: var(--white)
   z-index: 15
+  position: sticky
+  top: 0
+  background: var(--white)
 
   .breadcrumbs
-    border-bottom: 1px solid var(--black)
+    border-bottom: 0.55px solid var(--black)
     display: flex
     flex-direction: row
     justify-content: flex-start
@@ -37,7 +35,6 @@
       a, a:link, a:visited
         color: var(--black)
 
-
   .nav-items
     display: flex
     flex-direction: row
@@ -65,7 +62,7 @@
     flex: 1
     padding-top: 2.5rem
     padding-bottom: 0.5rem
-    border-bottom: 1px solid var(--black)
+    border-bottom: 0.55px solid var(--black)
     color: var(--grey)
     &:hover
       color: var(--black)
@@ -73,4 +70,7 @@
   .wrapper[role='layout']
 
   @media screen and (min-width: '800px')
+    position: fixed
+    right: 0
+    top: 0
     left: var(--sidebar-width)

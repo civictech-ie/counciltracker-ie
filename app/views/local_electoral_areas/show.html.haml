@@ -11,10 +11,10 @@
 .view-content.-alpha
   .wrapper{role: 'layout'}
     .local_electoral_area-card
-      .data
-        %h1.p.-t1= @local_electoral_area.name
-        %p
-          #{ pluralize @local_electoral_area.active_councillors.count, 'member' } currently on the council
+      .meta-data
+        .meta-data_block
+          %h1= @local_electoral_area.name
+          %p #{ pluralize @local_electoral_area.active_councillors.count, 'member' } currently on the council
 
 %nav.view-subnav
   .wrapper{role: 'layout'}

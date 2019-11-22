@@ -1,31 +1,30 @@
 .view-content + .view-subnav
-  margin-top: -5.2rem
 
 .view-subnav
   position: sticky
-  top: 0
+  top: 5rem
   background-color: var(--white)
+  min-height: 3.2rem
   z-index: 14
-  padding-top: calc(5.2rem + 1px)
+  padding-top: 0.2rem
   font-size: var(--t3)
 
   &.-two
-    top: calc(5.2rem - 2rem + 5.2rem)
+    top: calc(5rem - 2rem + 5.2rem)
     z-index: 13
-    padding-top: 0
 
   .subnav-heading
     display: block
     flex: 1
     padding-top: 0.5rem
     padding-bottom: 0.5rem
-    border-bottom: 1px solid var(--black)
+    border-bottom: 0.55px solid var(--black)
     color: var(--black)
 
   .wrapper[role="layout"]
 
   .subnav-items
-    display: flex
+    display: none
     flex-direction: row
     justify-content: stretch
     margin-left: calc(var(--gutter)/-2)
@@ -35,12 +34,10 @@
       display: none
       padding: 0 calc(var(--gutter)/2)
       flex: 1
-      display: flex
       flex-direction: row
       justify-content: stretch
 
       &.-current
-        display: block
         a, a:link, a:visited
           border-bottom-color: var(--black)
           color: var(--black)
@@ -50,12 +47,21 @@
         flex: 1
         padding-top: 0.5rem
         padding-bottom: 0.5rem
-        border-bottom: 1px solid var(--grey)
+        border-bottom: 0.55px solid var(--grey)
         color: var(--grey)
         &:hover
           color: var(--black)
 
+  .mobile-subnav
+    display: block
+    background-color: var(--white)
+    padding: 1rem 0
+
   @media screen and (min-width: '800px')
+    .mobile-subnav
+      display: none
+
     .subnav-items
+      display: flex
       .subnav-item
-        display: block
+        display: flex

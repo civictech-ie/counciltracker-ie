@@ -1,10 +1,13 @@
 .view-content
-  padding: calc(6rem + 5.2rem) 0
+  padding: 6rem 0
 
-  &.-alpha
-    padding-top: calc(6rem + 5.2rem)
-    padding-bottom: 6rem
+  @media screen and (min-width: '800px')
+    padding: calc(6rem + 5.2rem) 0
 
-  &.-omega
-    padding-top: 6rem
-    padding-bottom: calc(6rem + 5.2rem)
+    &.-alpha
+      padding-top: calc(6rem + 5.2rem)
+      padding-bottom: 6rem
+
+    &.-omega
+      padding-top: 6rem
+      padding-bottom: calc(6rem + 5.2rem)
