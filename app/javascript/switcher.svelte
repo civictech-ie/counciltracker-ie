@@ -42,6 +42,15 @@
       </div>
     </div>
   </div>
+  <div class="desktop-nav">
+    <div role="layout" class="wrapper">
+      <div class="subnav-items">
+        <div class="subnav-item -current">
+          <a href="/">Votes</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>
 
 <div class="view-partial switcher-view">

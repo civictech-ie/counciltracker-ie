@@ -24,7 +24,7 @@
   .wrapper[role="layout"]
 
   .subnav-items
-    display: none
+    display: flex
     flex-direction: row
     justify-content: stretch
     margin-left: calc(var(--gutter)/-2)
@@ -51,6 +51,9 @@
         color: var(--grey)
         &:hover
           color: var(--black)
+  
+  .destop-subnav
+    display: none
 
   .mobile-subnav
     display: block
@@ -60,8 +63,10 @@
   @media screen and (min-width: '800px')
     .mobile-subnav
       display: none
+  
+    .destop-subnav
+      display: block
 
     .subnav-items
-      display: flex
       .subnav-item
         display: flex
