@@ -1,43 +1,34 @@
 <script>
-  let renderedView;
-  let currentView;
-  let viewSelect;
-  export let viewOptions;
+  export let links, currentView, basePath, renderedView;
 
-  function handleSelectClick() {
-    viewSelect.click();
+  $: if (currentView != renderedView) {
+    const viewEl;
+    // viewEl = document.getElementById("switcher-view");
+    // viewEl.innerHTML = '';
   }
 
-  function getHeaders() {
-    return {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest'
-    }
-  }
+  // async function changeView() {
+  //   const response = await fetch(`${basePath}/votes`,
+  //   {
+  //     method: 'GET'
+  //   });
 
-  async function changeView() {
-    const response = await fetch('/councillors/christy-burke/votes',
-    {
-      method: 'GET'
-    });
-
-    console.log(response);
-  }
+  //   console.log(response);
+  // }
 </script>
 
 <style>
 </style>
 
 <nav class="view-subnav switcher-nav">
+  {currentView}
   <div class="mobile-subnav">
     <div role="layout" class="wrapper">
       <div class="switcher">
-        <select bind:this={viewSelect} bind:value={currentView} on:change={changeView}>
-          <option>Votes</option>
-          <option>Attendance</option>
-          <option>Proposed motions</option>
-          <option>Proposed amendments</option>
+        <select bind:value={currentView}>
+          {#each links as { view, label }}
+            <option value="{view}" selected={ view === currentView }>{label}</option>
+          {/each}
         </select>
       </div>
     </div>
@@ -45,16 +36,12 @@
   <div class="desktop-nav">
     <div role="layout" class="wrapper">
       <div class="subnav-items">
-        <div class="subnav-item -current">
-          <a href="/">Votes</a>
-        </div>
+        {#each links as { view, label }}
+          <div class="subnav-item" class:current={ view === currentView }>
+            <a href={basePath + '/' + view} on:click|preventDefault={ e => (currentView = view) }>{label}</a>
+          </div>
+        {/each}
       </div>
     </div>
   </div>
 </nav>
-
-<div class="view-partial switcher-view">
-  <div role="layout" class="wrapper">
-    <div class="loader"><p>Loading&hellip;</div>
-  </div>
-</div>

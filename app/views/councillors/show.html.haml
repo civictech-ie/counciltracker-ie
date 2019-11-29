@@ -41,7 +41,9 @@
                 - @councillor.media_mentions.each do |media_mention|
                   %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
 
-= svelte_component('Switcher', props: {links: })
+= svelte_component('Switcher', {basePath: councillor_path(@councillor), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'votes', label: 'Votes'},{view: 'attendances', label: 'Attendance'},{view: 'motions', label: 'Proposed motions'},{view: 'amendments', label: 'Proposed amendments'}]})
+
+#switcherView= render partial: @view.to_s, locals: {councillor: @councillor}
 
 %footer.view-footer
   .wrapper{role: 'layout'}
