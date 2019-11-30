@@ -36,13 +36,9 @@
             - @amendment.attachments.each do |attachment|
               %li= link_to "Attached PDF", @amendment.pdf_url
 
-%nav.view-subnav
-  .wrapper{role: 'layout'}
-    .subnav-items
-      .subnav-item{class: (@view == :votes) ? '-current' : nil}
-        = link_to "Vote", [:votes, @amendment]
+= svelte_component('Switcher', {basePath: amendment_path(@amendment), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'votes', label: 'Votes'}]}, class: 'view-subnav')
 
-.view-partial= render partial: "amendments/votes", locals: {amendment: @amendment}
+#switcherView= render partial: @view.to_s, locals: {amendment: @amendment}
 
 %footer.view-footer
   .wrapper{role: 'layout'}

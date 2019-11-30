@@ -74,17 +74,9 @@
               - @motion.media_mentions.each do |media_mention|
                 %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
 
-%nav.view-subnav
-  .wrapper{role: 'layout'}
-    .subnav-items
-      .subnav-item{class: (@view == :votes) ? '-current' : nil}
-        = link_to "Vote", [:votes, @motion]
-      - if @motion.amendments.any?
-        .subnav-item{class: (@view == :amendments) ? '-current' : nil}
-          = link_to [:amendments, @motion] do
-            Amendments (#{ @motion.amendments.count })
+= svelte_component('Switcher', {basePath: motion_path(@motion), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'votes', label: 'Votes'},{view: 'amendments', label: 'Amendments'}]}, class: 'view-subnav')
 
-.view-partial= render partial: "motions/#{ @view.to_s }", locals: {motion: @motion}
+#switcherView= render partial: @view.to_s, locals: {motion: @motion}
 
 %footer.view-footer
   .wrapper{role: 'layout'}

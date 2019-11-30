@@ -5,17 +5,16 @@ class PartiesController < ApplicationController
 
   def show
     @party = Party.find_by(slug: params[:id])
-    @view = :councillors
+    @view = params[:view].try(:to_sym) || :councillors
+    @context = params[:context].try(:to_sym) || :full
 
-    respond_to do |f|
-      f.html { render action: 'show' }
-      f.json { render json: @party }
+    case @context
+    when :full
+      render action: :show
+    when :partial
+      render partial: "parties/#{ @view }", locals: {party: @party}
+    else
+      raise 'Unhandled render context'
     end
-  end
-
-  def councillors
-    @party = Party.find_by(slug: params[:id])
-    @view = :councillors
-    render :show
   end
 end

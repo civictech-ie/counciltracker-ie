@@ -11,7 +11,7 @@
     %ul.list.-enumerable
       - @meetings.each do |meeting|
         %li
-          = link_to meeting_path(meeting_type: meeting.meeting_type, occurred_on: meeting.occurred_on) do
+          = link_to meeting.path do
             = render partial: 'meetings/meeting', locals: {meeting: meeting}
 
 %footer.view-footer

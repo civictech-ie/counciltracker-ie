@@ -1,7 +1,13 @@
 .view-content.-omega
-  .wrapper{role: 'layout'}
-    %ul.list.-enumerable
-      - motion.amendments.each do |amendment|
-        %li
-          = link_to amendment do
-            = render partial: 'amendments/amendment', locals: {amendment: amendment}
+  - if motion.amendments.published.any?
+    .wrapper{role: 'layout'}
+      %ul.list.-enumerable
+        - motion.amendments.each do |amendment|
+          %li
+            = link_to amendment do
+              = render partial: 'amendments/amendment', locals: {amendment: amendment}
+  - else
+    .wrapper{role: 'layout'}
+      .empty-explanation
+        %div
+          %label None recorded

@@ -10,53 +10,26 @@ Rails.application.routes.draw do
   get 'signin' => 'user_sessions#new', as: :signin
   get 'logout' => 'user_sessions#destroy', as: :logout
 
-  resources :councillors, only: [:index, :show] do
-    member do
-      get 'votes'
-      get 'motions'
-      get 'amendments'
-      get 'attendances'
-    end
-  end
+  resources :councillors, only: [:index, :show]
+  get 'councillors/:id/:view(/:context)' => 'councillors#show'
 
-  resources :local_electoral_areas, path: 'areas', only: [:index, :show] do
-    member do
-      get 'councillors'
-      get 'motions'
-    end
-  end
+  resources :local_electoral_areas, path: 'areas', only: [:index, :show]
+  get 'areas/:id/:view(/:context)' => 'local_electoral_areas#show'
 
-  resources :parties, only: [:index, :show] do
-    member do
-      get 'councillors'
-    end
-  end
+  resources :parties, only: [:index, :show]
+  get 'parties/:id/:view(/:context)' => 'parties#show'
 
-  resources :meetings, only: [:index] do
-    member do
-      get 'motions'
-      get 'attendances'
-    end
-  end
+  resources :meetings, only: [:index]
+  get 'meetings/:meeting_type/:occurred_on' => 'meetings#show', as: :meeting_path
+  get 'meetings/:meeting_type/:occurred_on/:view(/:context)' => 'meetings#show'
 
-  resources :motions, only: [:index, :show] do
-    member do
-      get 'votes'
-      get 'amendments'
-    end
-  end
+  resources :motions, only: [:index, :show]
+  get 'motions/:id/:view(/:context)' => 'motions#show'
 
-  resources :amendments, only: [:show] do
-    member do
-      get 'votes'
-    end
-  end
+  resources :amendments, only: [:show]
+  get 'amendments/:id/:view(/:context)' => 'amendments#show'
 
   resources :topics, only: [:index, :show]
-
-  get 'meetings/:meeting_type/:occurred_on' => 'meetings#show', as: :meeting
-  get 'meetings/:meeting_type/:occurred_on/motions/:id' => 'motion#show', as: :meeting_motion
-  get 'meetings/:meeting_type/:occurred_on/motions/:motion_id/amendments/:id' => 'amendment#show', as: :meeting_motion_amendment
 
   namespace :admin do
     root to: 'dashboard#show'

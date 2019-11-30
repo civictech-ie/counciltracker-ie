@@ -8,6 +8,7 @@
   height: 1.8rem
 
   .content
+    display: block
     flex-grow: 1
     flex-shrink: 1
     text-align: left
@@ -101,7 +102,7 @@
       width: 18rem
       height: 18rem
       top: -8rem
-      right: calc(50% + var(--unit))
+      right: 0
       background: var(--blue)
       transition: opacity ease 1s
       img
@@ -143,3 +144,17 @@
         opacity: 1
         pointer-events: none
         transition: opacity ease 0
+
+  @media screen and (min-width: '800px')
+    & > div
+      display: block
+    
+      &.outcome
+        display: flex
+
+        .breakdown
+          display: flex
+    
+    &.-councillor
+      figure
+        right: calc(50% + var(--unit))

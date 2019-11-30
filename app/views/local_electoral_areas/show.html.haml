@@ -16,15 +16,9 @@
           %h1= @local_electoral_area.name
           %p #{ pluralize @local_electoral_area.active_councillors.count, 'member' } currently on the council
 
-%nav.view-subnav
-  .wrapper{role: 'layout'}
-    .subnav-items
-      .subnav-item{class: (@view == :councillors) ? '-current' : nil}
-        = link_to "Councillors", [:councillors, @local_electoral_area], data: {scroll: 'maintain'}
-      .subnav-item{class: (@view == :motions) ? '-current' : nil}
-        = link_to "Motions", [:motions, @local_electoral_area], data: {scroll: 'maintain'}
+= svelte_component('Switcher', {basePath: local_electoral_area_path(@local_electoral_area), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'councillors', label: 'Councillors'}]}, class: 'view-subnav')
 
-.view-partial= render partial: "local_electoral_areas/#{ @view.to_s }", locals: {local_electoral_area: @local_electoral_area}
+#switcherView= render partial: @view.to_s, locals: {local_electoral_area: @local_electoral_area}
 
 %footer.view-footer
   .wrapper{role: 'layout'}

@@ -1,27 +1,38 @@
 <script>
   export let links, currentView, basePath, renderedView;
+  let loadingPromise;
 
   $: if (currentView != renderedView) {
-    const viewEl;
-    // viewEl = document.getElementById("switcher-view");
+    loadingPromise = rerenderView(currentView);
+    renderedView = currentView;
     // viewEl.innerHTML = '';
   }
 
-  // async function changeView() {
-  //   const response = await fetch(`${basePath}/votes`,
-  //   {
-  //     method: 'GET'
-  //   });
+  async function rerenderView(view) {
+    const viewEl = document.getElementById("switcherView");
+    const initialHeight = viewEl.clientHeight;
 
-  //   console.log(response);
-  // }
+    viewEl.innerHTML = `<div class="loader" style="height:${initialHeight}px">Loading&hellip;</div>`;
+
+    const res = await fetch(`${basePath}/${view}/partial`, {
+      'headers': {
+        "Content-Type": "application/js"
+      }});
+    const newView = await res.text();
+
+    if (res.ok) {
+      history.pushState({},'',`${basePath}/${view}`)
+      viewEl.innerHTML = newView;
+    } else {
+      throw new Error(res.statusText);
+    }
+  }
 </script>
 
 <style>
 </style>
 
-<nav class="view-subnav switcher-nav">
-  {currentView}
+<nav class="switcher-nav">
   <div class="mobile-subnav">
     <div role="layout" class="wrapper">
       <div class="switcher">

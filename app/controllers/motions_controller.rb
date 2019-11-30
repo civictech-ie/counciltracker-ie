@@ -13,19 +13,16 @@ class MotionsController < ApplicationController
 
   def show
     @motion = Motion.published.find_by(hashed_id: params[:id])
-    @view = :votes
-    render :show
-  end
+    @view = params[:view].try(:to_sym) || :votes
+    @context = params[:context].try(:to_sym) || :full
 
-  def votes
-    @motion = Motion.published.find_by(hashed_id: params[:id])
-    @view = :votes
-    render :show
-  end
-
-  def amendments
-    @motion = Motion.published.find_by(hashed_id: params[:id])
-    @view = :amendments
-    render :show
+    case @context
+    when :full
+      render action: :show
+    when :partial
+      render partial: "motions/#{ @view }", locals: {motion: @motion}
+    else
+      raise 'Unhandled render context'
+    end
   end
 end

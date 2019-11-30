@@ -25,7 +25,7 @@ gem 'httparty'
 gem "nokogiri", ">= 1.10.4"
 gem 'carrierwave'
 gem 'fog'
-gem "mini_magick", ">= 4.9.4"
+gem 'mini_magick'
 gem 'date_validator'
 gem "sentry-raven"
 gem 'dalli'
@@ -37,6 +37,7 @@ gem 'redis'
 gem 'kaminari'
 gem 'oj' # json
 gem 'webpacker-svelte'
+gem "autoprefixer-rails"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -5,23 +5,16 @@ class LocalElectoralAreasController < ApplicationController
 
   def show
     @local_electoral_area = LocalElectoralArea.find_by(slug: params[:id])
-    @view = :councillors
+    @view = params[:view].try(:to_sym) || :councillors
+    @context = params[:context].try(:to_sym) || :full
 
-    respond_to do |f|
-      f.html { render action: 'show' }
-      f.json { render json: @local_electoral_area }
+    case @context
+    when :full
+      render action: :show
+    when :partial
+      render partial: "local_electoral_areas/#{ @view }", locals: {local_electoral_area: @local_electoral_area}
+    else
+      raise 'Unhandled render context'
     end
-  end
-
-  def councillors
-    @local_electoral_area = LocalElectoralArea.find_by(slug: params[:id])
-    @view = :councillors
-    render :show
-  end
-
-  def motions
-    @local_electoral_area = LocalElectoralArea.find_by(slug: params[:id])
-    @view = :motions
-    render :show
   end
 end

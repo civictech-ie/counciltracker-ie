@@ -19,13 +19,9 @@
             %p
               #{ pluralize @party.active_councillors.count, 'member' } currently on the council
 
-%nav.view-subnav
-  .wrapper{role: 'layout'}
-    .subnav-items
-      .subnav-item{class: (@view == :councillors) ? '-current' : nil}
-        = link_to "Current councillors", [:councillors, @party], data: {scroll: 'maintain'}
+= svelte_component('Switcher', {basePath: party_path(@party), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'councillors', label: 'Councillors'}]}, class: 'view-subnav')
 
-.view-partial= render partial: "parties/#{ @view.to_s }", locals: {party: @party}
+#switcherView= render partial: @view.to_s, locals: {party: @party}
 
 %footer.view-footer
   .wrapper{role: 'layout'}

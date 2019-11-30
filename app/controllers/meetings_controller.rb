@@ -4,19 +4,17 @@ class MeetingsController < ApplicationController
   end
 
   def show
-    @meeting = Meeting.where(meeting_type: params[:meeting_type], occurred_on: params[:occurred_on]).take
-    @view = :motions
-  end
+    @meeting = Meeting.find_by!(meeting_type: params[:meeting_type], occurred_on: params[:occurred_on])
+    @view = params[:view].try(:to_sym) || :motions
+    @context = params[:context].try(:to_sym) || :full
 
-  def motions
-    @meeting = Meeting.find_by(hashed_id: params[:id])
-    @view = :motions
-    render :show
-  end
-
-  def attendances
-    @meeting = Meeting.find_by(hashed_id: params[:id])
-    @view = :attendances
-    render :show
+    case @context
+    when :full
+      render action: :show
+    when :partial
+      render partial: "meetings/#{ @view }", locals: {meeting: @meeting}
+    else
+      raise 'Unhandled render context'
+    end
   end
 end

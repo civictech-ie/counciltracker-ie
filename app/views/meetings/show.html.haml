@@ -16,15 +16,9 @@
           %h1= @meeting.meeting_type_in_english
           %p= @meeting.occurred_on.strftime('%-d %B \'%y')
 
-%nav.view-subnav
-  .wrapper{role: 'layout'}
-    .subnav-items
-      .subnav-item{class: (@view == :motions) ? '-current' : nil}
-        = link_to "Motions", [:motions, @meeting]
-      .subnav-item{class: (@view == :attendances) ? '-current' : nil}
-        = link_to "Attendance", [:attendances, @meeting]
+= svelte_component('Switcher', {basePath: @meeting.path, renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'motions', label: 'Motions'},{view: 'attendances', label: 'Attendance'}]}, class: 'view-subnav')
 
-.view-partial= render partial: "meetings/#{ @view.to_s }", locals: {meeting: @meeting}
+#switcherView= render partial: @view.to_s, locals: {meeting: @meeting}
 
 %footer.view-footer
   .wrapper{role: 'layout'}

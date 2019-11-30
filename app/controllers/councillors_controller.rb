@@ -10,30 +10,16 @@ class CouncillorsController < ApplicationController
 
   def show
     @councillor = Councillor.find_by!(slug: params[:id])
-    @view = :votes
-  end
+    @view = params[:view].try(:to_sym) || :votes
+    @context = params[:context].try(:to_sym) || :full
 
-  def votes
-    @councillor = Councillor.find_by!(slug: params[:id])
-    @view = :votes
-    render :show
-  end
-
-  def motions
-    @councillor = Councillor.find_by!(slug: params[:id])
-    @view = :motions
-    render :show
-  end
-
-  def amendments
-    @councillor = Councillor.find_by!(slug: params[:id])
-    @view = :amendments
-    render :show
-  end
-
-  def attendances
-    @councillor = Councillor.find_by!(slug: params[:id])
-    @view = :attendances
-    render :show
+    case @context
+    when :full
+      render action: :show
+    when :partial
+      render partial: "councillors/#{ @view }", locals: {councillor: @councillor}
+    else
+      raise 'Unhandled render context'
+    end
   end
 end
