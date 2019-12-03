@@ -1,3 +1,6 @@
 %ul.list.-inline.-councillors
   - councillors.each do |councillor|
-    %li= link_to councillor.full_name, councillor, class: "councillor -party -#{ councillor.party.slug }"
+    %li
+      = link_to councillor, class: "councillor" do
+        = render partial: 'icons/party', locals: {party: councillor.party}
+        = councillor.full_name

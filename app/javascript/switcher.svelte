@@ -5,14 +5,12 @@
   $: if (currentView != renderedView) {
     loadingPromise = rerenderView(currentView);
     renderedView = currentView;
-    // viewEl.innerHTML = '';
   }
 
   async function rerenderView(view) {
     const viewEl = document.getElementById("switcherView");
-    const initialHeight = viewEl.clientHeight;
 
-    viewEl.innerHTML = `<div class="loader" style="height:${initialHeight}px"><div class="wrapper" role="layout">Loading&hellip;</div></div>`;
+    viewEl.innerHTML = `<div class="loader"><div class="wrapper" role="layout">Loading&hellip;</div></div>`;
 
     const res = await fetch(`${basePath}/${view}/partial`, {
       'headers': {

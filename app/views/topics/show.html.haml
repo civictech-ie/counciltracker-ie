@@ -8,13 +8,19 @@
       .breadcrumb= link_to 'Topics', :topics
       .breadcrumb= link_to @tag, topic_path(@tag.parameterize)
 
-%main.view-content
+.view-content.-alpha
   .wrapper{role: 'layout'}
-    %ul.list.-enumerable
-      - @motions.each do |motion|
-        %li
-          = link_to motion do
-            = render partial: 'motions/motion', locals: {motion: motion}
+    .topic-card
+      .data
+        .meta-data
+          .meta-data_block
+            %h1= @tag
+            %p
+              #{ pluralize Motion.published.in_category(@tag).count, 'motion' }
+
+= svelte_component('Switcher', {basePath: topic_path(@tag.parameterize), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'motions', label: 'Motions'}]}, class: 'view-subnav')
+
+#switcherView= render partial: @view.to_s, locals: {motions: @motions}
 
 %footer.view-footer
   .wrapper{role: 'layout'}= render partial: 'shared/pagination', locals: {records: @motions}

@@ -21,6 +21,21 @@
       &:hover
         color: var(--blue)
 
+  &.-mini
+    padding: 0.325rem 0
+    & > li + li
+      border-top: 0.55px solid var(--faint)
+
+    & > li
+      padding: 0.325rem 0
+      font-size: var(--t4)
+
+      & > a
+        width: 100%
+        flex-grow: 1
+        margin: -0.325rem 0
+        padding: 0.325rem 0
+
 .list.-capitalize
   &:first-letter
     text-transform: capitalize

@@ -22,9 +22,3 @@
 = svelte_component('Switcher', {basePath: party_path(@party), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'councillors', label: 'Councillors'}]}, class: 'view-subnav')
 
 #switcherView= render partial: @view.to_s, locals: {party: @party}
-
-%footer.view-footer
-  .wrapper{role: 'layout'}
-    %nav.api
-      = link_to "CSV", :root, class: 'other-format'
-      = link_to "JSON", :root, class: 'other-format'
