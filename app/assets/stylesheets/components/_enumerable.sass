@@ -1,4 +1,57 @@
 .enumerable
+  position: relative
+  flex-grow: 1
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: flex-start
+  height: 1.8rem
+
+  & > div + div
+    padding-left: var(--gutter)
+
+  & > div.indicator + div
+    padding-left: calc(var(--gutter)/2)
+
+  .detail
+    display: none
+  
+  .breakdown
+    width: 8rem
+  
+  .content
+    display: block
+    flex-grow: 1
+    flex-shrink: 1
+    text-align: left
+    overflow: hidden
+    & > div
+      font-weight: 400
+      white-space: nowrap
+      overflow: hidden
+      height: 1.3em
+      width: 100%
+      text-overflow: ellipsis
+  
+  &.-absent
+    .content
+      text-decoration: line-through
+      text-decoration-color: rgba(#000,0.75)
+
+  @media screen and (min-width: '800px')
+    justify-content: space-between
+    .content
+      flex: 50% 1 1
+    .detail
+      flex: 50% 1 1
+      display: flex
+      flex-direction: row
+      justify-content: flex-start
+      align-items: center
+      & > div
+        flex: 1
+
+.old-enumerable
   flex-grow: 1
   display: flex
   flex-direction: row
@@ -74,7 +127,7 @@
       width: 20%
     .outcome
       width: 30%
-    
+
     .outcome
       height: 100%
       display: flex
@@ -88,73 +141,56 @@
       .vote-result
         width: 8rem
   
-  &.-councillor
-    .area, .party
-      flex-grow: 0
-      flex-shrink: 0
-      width: 25%
-    
-    .party-indicator
-
-    figure
-      opacity: 0
+.enumerable.-councillor
+  figure
+    opacity: 0
+    position: absolute
+    width: 18rem
+    height: 18rem
+    top: -8rem
+    right: 0
+    background: var(--blue)
+    transition: opacity ease 1s
+    img
       position: absolute
-      width: 18rem
-      height: 18rem
-      top: -8rem
-      right: 0
-      background: var(--blue)
-      transition: opacity ease 1s
-      img
-        position: absolute
-        left: 0
-        top: 0
-        width: 100%
-        height: 100%
-        object-fit: cover
-        object-position: center
+      left: 0
+      top: 0
+      width: 100%
+      height: 100%
+      object-fit: cover
+      object-position: center
 
-      &.-sinn-fein
-        background-color: #008800
-      &.-fianna-fail
-        background-color: #66BB66
-      &.-fine-gael
-        background-color: #6699FF
-      &.-labour-party
-        background-color: #CC0000
-      &.-people-before-profit
-        background-color: #660000
-      &.-green-party
-        background-color: #99CC33
-      &.-solidarity
-        background-color: #BF2D2E
-      &.-united-left
-        background-color: #FF5555
-      &.-independent
-        background-color: #CCC
-      &.-independents-4-change
-        background-color: #FFC0CB
-      &.-social-democrats
-        background-color: #752F8B
-      &.-workers-party
-        background-color: #D73D3D
-    
-    &:hover
-      figure
-        opacity: 1
-        pointer-events: none
-        transition: opacity ease 0
+    &.-sinn-fein
+      background-color: #008800
+    &.-fianna-fail
+      background-color: #66BB66
+    &.-fine-gael
+      background-color: #6699FF
+    &.-labour-party
+      background-color: #CC0000
+    &.-people-before-profit
+      background-color: #660000
+    &.-green-party
+      background-color: #99CC33
+    &.-solidarity
+      background-color: #BF2D2E
+    &.-united-left
+      background-color: #FF5555
+    &.-independent
+      background-color: #CCC
+    &.-independents-4-change
+      background-color: #FFC0CB
+    &.-social-democrats
+      background-color: #752F8B
+    &.-workers-party
+      background-color: #D73D3D
+  
+  &:hover
+    figure
+      opacity: 1
+      pointer-events: none
+      transition: opacity ease 0
 
   @media screen and (min-width: '800px')
-    & > div
-      display: block
-    
-      &.outcome
-        display: flex
-
-        .breakdown
-          display: flex
-    
-    &.-councillor
-      figure
-        right: calc(50% + var(--unit))
+    figure
+      right: calc(50% + var(--unit))

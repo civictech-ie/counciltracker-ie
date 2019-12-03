@@ -12,7 +12,7 @@
     const viewEl = document.getElementById("switcherView");
     const initialHeight = viewEl.clientHeight;
 
-    viewEl.innerHTML = `<div class="loader" style="height:${initialHeight}px">Loading&hellip;</div>`;
+    viewEl.innerHTML = `<div class="loader" style="height:${initialHeight}px"><div class="wrapper" role="layout">Loading&hellip;</div></div>`;
 
     const res = await fetch(`${basePath}/${view}/partial`, {
       'headers': {

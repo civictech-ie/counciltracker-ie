@@ -1,9 +1,10 @@
 .enumerable.-motion
+  .indicator.vote-indicator
+    = render partial: 'icons/vote', locals: {voteable: motion}
+
   .content
     .title #{ motion.title }
 
-  .date #{ motion.occurred_on.strftime('%-d %b \'%y') }
-
-  .outcome
-    = render partial: 'votes/breakdown', locals: {voteable: motion}
-    = render partial: 'votes/result', locals: {voteable: motion}
+  .detail
+    .date #{ motion.occurred_on.strftime('%-d %b \'%y') }
+    .votes= render partial: 'votes/breakdown', locals: {voteable: motion}

@@ -1,7 +1,9 @@
 .enumerable.-motion.-amendment
+  .indicator.vote-indicator
+    = render partial: 'icons/vote', locals: {voteable: amendment}
+
   .content
     .title #{ amendment.body }
 
-  .outcome
+  .detail
     = render partial: 'votes/breakdown', locals: {voteable: amendment}
-    = render partial: 'votes/result', locals: {voteable: amendment}

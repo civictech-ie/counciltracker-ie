@@ -1,5 +1,6 @@
 .enumerable.-meeting
   .content
     .title= meeting.meeting_type_in_english
-  .date #{ raw meeting.occurred_on.strftime('%-d %b \'%y') }
-  .attendees= pluralize meeting.attendances.attended.count, 'attendee'
+  .detail
+    .date #{ raw meeting.occurred_on.strftime('%-d %b \'%y') }
+    .attendees= pluralize meeting.attendances.attended.count, 'attendee'

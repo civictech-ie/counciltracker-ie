@@ -1,7 +1,7 @@
 .view-content.-omega
   .wrapper{role: 'layout'}
     %ul.list.-enumerable
-      - meeting.attendances.countable.includes(:councillor).each do |attendance|
+      - meeting.attendances.by_councillor_name.countable.includes(:councillor).each do |attendance|
         %li
           = link_to attendance.councillor do
             = render partial: 'meetings/attendance', locals: {attendance: attendance}

@@ -17,6 +17,10 @@
             %h1.text-block
               :markdown
                 #{ @motion.body }
+          - elsif @motion.title.present?
+            %h1.text-block
+              :markdown
+                #{ @motion.title }
           - else
             .empty-value None recorded
       
