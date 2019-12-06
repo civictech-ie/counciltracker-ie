@@ -1,10 +1,16 @@
 <script>
   export let links, currentView, basePath, renderedView;
+  export let redirect = false;
+
   let loadingPromise;
 
   $: if (currentView != renderedView) {
-    loadingPromise = rerenderView(currentView);
-    renderedView = currentView;
+    if (redirect) {
+      Turbolinks.visit(`${basePath}/${currentView}`);
+    } else {
+      loadingPromise = rerenderView(currentView);
+      renderedView = currentView;
+    }
   }
 
   async function rerenderView(view) {

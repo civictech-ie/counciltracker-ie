@@ -1,26 +1,15 @@
 %header.view-header
-  .breadcrumbs
-    .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
-    .breadcrumbs_crumb
-      %h1= link_to "Councillors", [:admin, :councillors]
-
-.primary-main_content
   .wrapper{role: 'layout'}
-    %main
-      %ul.list.-councillors.-enumerable
-        - @councillors.each do |councillor|
-          %li
-            = link_to [:admin, councillor], class: 'councillor' do
-              %figure.figure.-portrait= image_tag councillor.portrait.url(:small), loading: 'lazy', alt: "Portrait of #{ councillor.full_name }"
-              %p.text.-display= councillor.full_name
-              %ul.list.-inline.-dotted
-                %li= councillor.council_sessions.map(&:commenced_on).map(&:year).map { |y| "#{y} Council" }.to_sentence
-              
-                - if councillor.party
-                  %li
-                    %span.party-affiliated
-                      %span.party-icon.party-icon{style: "background-color: ##{ councillor.party.colour_hex };", title: councillor.party.name} &nbsp;
-                      = councillor.party.name
+    %h1= link_to "Councillors", [:admin, :councillors]
 
-                - if councillor.local_electoral_area
-                  %li= councillor.local_electoral_area.name
+%main.view-content{role: 'layout'}
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - @councillors.each do |councillor|
+        %li
+          = link_to [:admin, councillor] do
+            = render partial: 'councillors/councillor', locals: {councillor: councillor}
+
+%footer.view-footer
+  .wrapper{role: 'layout'}
+    = render partial: 'shared/pagination', locals: {records: @councillors}

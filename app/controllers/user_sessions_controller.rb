@@ -1,6 +1,6 @@
 class UserSessionsController < ApplicationController
   # skip_before_action :require_login, except: [:destroy]
-  layout 'modal'
+  layout 'admin'
 
   def new
     @user = User.new

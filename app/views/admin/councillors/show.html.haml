@@ -1,50 +1,37 @@
-%header.page-header
+%header.view-header
   .wrapper{role: 'layout'}
     .breadcrumbs
-      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
-      .breadcrumbs_crumb= link_to "Councillors", [:admin, :councillors]
-      .breadcrumbs_crumb
-        %h1= link_to @councillor.full_name_was, [:admin, @councillor]
+      .breadcrumb= link_to 'Councillors', [:admin, :councillors]
+      .breadcrumb= link_to @councillor.full_name, [:admin, @councillor]
 
-.primary-main_content
+.view-content.-alpha
   .wrapper{role: 'layout'}
-    .row
-      .col-xs-2
-        %nav.secondary-nav
-          %ul.list.-enumerable
-            %li= link_to "Overview", [:admin, @councillor]
-            %li= link_to "Edit", [:edit, :admin, @councillor]
+    .councillor-card
+      %figure.-portrait{class: "-#{ @councillor.party.slug }"}= image_tag @councillor.portrait.url(:medium), loading: 'lazy', alt: "Portrait of #{ @councillor.full_name }"
+      .bio
+        .meta-data
+          .meta-data_block.-label
+            %h1= @councillor.full_name
 
-      .col-xs-10
-        %section
-          %header.subheader
-            %h2 History
-          %main
-            %ul.list
-              - @councillor.events.each do |event|
-                %li
-                  %span.text.-fixed.-info
-                    #{ event.occurred_on.strftime('%b \'%y') } &mdash;
-                  %span= raw summarize_event_for_councillor event, @councillor
+          .meta-data_block
+            %p
+              = render partial: 'icons/party', locals: {party: @councillor.party}
+              = @councillor.party.name
+            %p= @councillor.local_electoral_area_name
 
-        %section
-          %header.subheader
-            .row
-              .col-xs-8
-                %h2 Media
-              .col-xs-4
-                .text.-right
-                  %nav.subheader_nav
-                    = link_to "New mention", [:new, :admin, @councillor, :media_mention]
-          %main
-            %ul.list.-enumerable
-              - @councillor.media_mentions.each do |media_mention|
-                %li
-                  = link_to [:edit, :admin, media_mention] do
-                    .row
-                      .col-xs-2
-                        .text.-fixed= media_mention.published_on
-                      .col-xs-7
-                        %p.text.-one-line= media_mention.body
-                      .col-xs-3
-                        .text.-fixed.-info.-right= media_mention.domain
+          - if @councillor.events.any?
+            .meta-data_block
+              %label Electoral history
+              %ol.list
+                - @councillor.events.includes(:eventable).each do |event|
+                  %li
+                    %span.text.-fixed.-info
+                      #{ event.occurred_on.strftime('%b \'%y') } &mdash;
+                    %span= raw summarize_event_for_councillor event, @councillor
+
+          - if @councillor.media_mentions.any?
+            .meta-data_block
+              %label Media
+              %ul.list.-emmed
+                - @councillor.media_mentions.each do |media_mention|
+                  %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}

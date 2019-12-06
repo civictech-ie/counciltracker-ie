@@ -1,0 +1,7 @@
+.view-content
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - motion.votes.by_councillor_name.each do |vote|
+        %li
+          %div
+            = svelte_component('Vote', {councillorId: vote.councillor_id, voteableId: vote.voteable_id, status: vote.status, voteableType: vote.voteable_type, name: vote.councillor.full_name})

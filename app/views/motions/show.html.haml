@@ -11,72 +11,76 @@
 .view-content.-alpha
   .wrapper{role: 'layout'}
     .motion-card
-      .meta-data
-        .meta-data_block
-          - if @motion.body.present?
-            %h1.text-block
-              :markdown
-                #{ @motion.body }
-          - elsif @motion.title.present?
-            %h1.text-block
-              :markdown
-                #{ @motion.title }
-          - else
-            .empty-value None recorded
-      
-        .meta-data_block
-          %label Proposed by
-          - if @motion.proposers.any?
-            = render partial: 'councillors/inline-list', locals: {councillors: @motion.proposers}
-          - else
-            .empty-value None recorded
+      .cols{role: 'layout'}
+        .col.-two
+          .meta-data
+            .meta-data_block
+              - if @motion.body.present?
+                %h1.text-block
+                  :markdown
+                    #{ @motion.body }
+              - elsif @motion.title.present?
+                %h1.text-block
+                  :markdown
+                    #{ @motion.title }
+              - else
+                .empty-value None recorded
 
-        .meta-data_block
-          %label Executive recommendation
-          - if @motion.executive_recommendation.present? or @motion.executive_vote.present?
-            .text-block
-              - if @motion.executive_vote.present?
-                %strong
+            .meta-data_block
+              %label Executive recommendation
+              - if @motion.executive_recommendation.present? or @motion.executive_vote.present?
+                .text-block
+                  - if @motion.executive_vote.present?
+                    %strong
+                      - if @motion.executive_recommendation.present?
+                        #{ @motion.executive_vote.capitalize }:
+                      - else
+                        #{ @motion.executive_vote.capitalize }
+
                   - if @motion.executive_recommendation.present?
-                    #{ @motion.executive_vote.capitalize }:
-                  - else
-                    #{ @motion.executive_vote.capitalize }
+                    #{ simple_format @motion.executive_recommendation }
+              - else
+                .empty-value None recorded
 
-              - if @motion.executive_recommendation.present?
-                #{ simple_format @motion.executive_recommendation }
-          - else
-            .empty-value None recorded
+        .col.-one
+          .meta-data.-small
+            .meta-data_block
+              %label Proposed by
+              - if @motion.proposers.any?
+                = render partial: 'councillors/inline-list', locals: {councillors: @motion.proposers}
+              - else
+                .empty-value None recorded
 
-        .meta-data_block
-          %label Attachments
-          %ul.list.-emmed
-            - @motion.attachments.each do |attachment|
-              %li= link_to "Attached PDF", @motion.pdf_url
-  
-        .meta-data_block
-          %label Related areas
-          - if @motion.local_electoral_areas.any?
-            %ul.list.-inline
-              - @motion.local_electoral_areas.each do |local_electoral_area|
-                %li= link_to local_electoral_area.name, local_electoral_area
-          - else
-            .empty-value None recorded
-        
-        .meta-data_block
-          %label Related topics
-          - if @motion.tags.any?
-            %ul.tag-list.-inline
-              - @motion.tags.each do |tag|
-                %li= link_to tag, topic_path(tag.parameterize)
-          - else
-            .empty-value None recorded
+            .meta-data_block
+              %label Attachments
+              %ul.list.-emmed
+                - @motion.attachments.each do |attachment|
+                  %li= link_to "Attached PDF", @motion.pdf_url
+      
+            .meta-data_block
+              %label Related areas
+              - if @motion.local_electoral_areas.any?
+                %ul.list.-inline
+                  - @motion.local_electoral_areas.each do |local_electoral_area|
+                    %li= link_to local_electoral_area.name, local_electoral_area
+              - else
+                .empty-value None recorded
+            
+            .meta-data_block
+              %label Related topics
+              - if @motion.tags.any?
+                %ul.tag-list.-inline
+                  - @motion.tags.each do |tag|
+                    %li= link_to tag, topic_path(tag.parameterize)
+              - else
+                .empty-value None recorded
 
-        - if @motion.media_mentions.any?
-          .meta-data_block
-            %label Media
-            %ul.list.-emmed
-              - @motion.media_mentions.each do |media_mention|
-                %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
+            - if @motion.media_mentions.any?
+              .meta-data_block
+                %label Media
+                %ul.list.-emmed
+                  - @motion.media_mentions.each do |media_mention|
+                    %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
 
 = svelte_component('Switcher', {basePath: motion_path(@motion), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'votes', label: 'Votes'},{view: 'amendments', label: 'Amendments'}]}, class: 'view-subnav')
 

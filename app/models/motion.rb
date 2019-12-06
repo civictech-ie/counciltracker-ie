@@ -34,12 +34,11 @@ class Motion < ApplicationRecord
   scope :related_to_area, -> (a) { where('local_electoral_area_ids @> ?', "{#{ a.id }}") }
   scope :has_countable_votes, -> { joins(:votes).merge(Vote.countable).distinct }
   scope :published, -> { where.not(published_at: nil) }
-  scope :interesting, -> { where(interesting: true) }
   scope :voted_on_by, -> (c) { joins(:votes).merge(Vote.countable.where(councillor: c)) }
 
   delegate :occurred_on, to: :meeting
 
-  paginates_per 28
+  paginates_per 20
 
   def to_param
     self.hashed_id
@@ -81,10 +80,6 @@ class Motion < ApplicationRecord
     self.votable
   end
 
-  def is_interesting?
-    self.interesting
-  end
-
   def is_published?
     self.published_at.present?
   end
@@ -99,10 +94,6 @@ class Motion < ApplicationRecord
 
   def unpublish!
     self.update(published_at: nil)
-  end
-
-  def mark_as_interesting!
-    self.update_column(:interesting, true)
   end
 
   def in_category?(cat)

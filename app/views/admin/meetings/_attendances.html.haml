@@ -1,0 +1,7 @@
+.view-content
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - meeting.attendances.by_councillor_name.each do |attendance|
+        %li
+          %div
+            = svelte_component('Attendance', {councillorId: attendance.councillor_id, meetingId: meeting.hashed_id, status: attendance.status, name: attendance.councillor.full_name})

@@ -1,0 +1,7 @@
+.view-content
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - meeting.motions.by_position.each do |motion|
+        %li
+          = link_to [:admin, motion] do
+            = render partial: 'admin/motions/motion', locals: {motion: motion}

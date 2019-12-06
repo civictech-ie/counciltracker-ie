@@ -2,10 +2,15 @@
   <circle fill-rule="nonzero" cx="10" cy="10" r="9.5"></circle>
   <%- if voteable.result.downcase == 'pass' -%>
     <polyline stroke-width="2.5" points="5 10.0007684 9.3642418 13.2138832 14.6194928 6.03092982"></polyline>
-  <%- else -%>
+  <%- elsif voteable.result.downcase == 'fail' -%>
     <g transform="translate(9.500000, 10.000000) rotate(-315.000000) translate(-9.500000, -10.000000) translate(3.000000, 4.000000)" stroke-width="2.5">
       <line x1="0.5" y1="5.75" x2="12.5" y2="5.75"></line>
       <line x1="6.75" y1="0" x2="6.75" y2="12"></line>
+    </g>
+  <%- else -%>
+    <g transform="translate(9.500000, 4.000000)" stroke-width="2.5">
+      <line x1="0.5" y1="7.73603996" x2="0.5" y2="0"></line>
+      <line x1="0.5" y1="11.5882428" x2="0.5" y2="9.35220287"></line>
     </g>
   <%- end -%>
 </svg>

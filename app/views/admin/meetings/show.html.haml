@@ -1,59 +1,9 @@
-%header.page-header
+%header.view-header
   .wrapper{role: 'layout'}
     .breadcrumbs
-      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
-      .breadcrumbs_crumb= link_to "Meetings", [:admin, :meetings]
-      .breadcrumbs_crumb
-        %h1= link_to @meeting.occurred_on_was.strftime('%-d.%m.%y'), [:admin, @meeting]
+      .breadcrumb= link_to 'Meetings', [:admin, :meetings]
+      .breadcrumb= link_to @meeting.occurred_on_formatted, [:admin, @meeting]
 
-.primary-main_content
-  .wrapper{role: 'layout'}
-    .row
-      .col-xs-2
-        %nav.secondary-nav
-          %ul.list.-enumerable
-            %li= link_to "Overview", [:admin, @meeting]
-            %li= link_to "Attendance", [:attendances, :admin, @meeting]
-            %li= link_to "Edit", [:edit, :admin, @meeting]
+= svelte_component('Switcher', {basePath: admin_meeting_path(@meeting), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'motions', label: 'Motions'},{view: 'attendances', label: 'Attendance'}], redirect: true}, class: 'view-subnav')
 
-      .col-xs-10
-        %section
-          %header.subheader
-            %h2 Details
-          %main
-            %dl.data
-              %dt Meeting type
-              %dd= @meeting.meeting_type
-              %dt Occurred on
-              %dd= @meeting.occurred_on
-
-        %section
-          %header.subheader
-            .row
-              .col-xs-8
-                %h2 Motions
-              .col-xs-4
-                .text.-right
-                  %nav.subheader_nav
-                    = link_to "New motion", [:new, :admin, @meeting, :motion]
-          %main
-            %ul.list.-enumerable
-              - @meeting.motions.by_position.each do |motion|
-                %li
-                  = link_to [:admin, motion] do
-                    .row
-                      .col-xs-8
-                        %p.text.-one-line
-                          #{ motion.agenda_item }.
-                          = motion.title
-                      .col-xs-2
-                        .status{class: "-#{ motion.result.to_s }"}
-                          .status_icon
-                          .status_text
-                            %p #{ motion.result }
-                      .col-xs-2
-                        .text.-fixed.-right
-                          - if motion.is_published?
-                            Published
-                          - else
-                            Not published
+%div= render partial: @view.to_s, locals: {meeting: @meeting}

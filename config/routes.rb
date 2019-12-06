@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: 'home#show'
+
   get 'faq' => 'pages#faq', as: :faq
 
   resources :user_sessions, only: [:create]
@@ -33,9 +34,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: 'dashboard#show'
-    resources :councillors do
+    resources :councillors, only: [:index, :show] do
       resources :media_mentions, only: [:new, :create]
     end
+
     resources :events, only: [:index, :show]
     resources :co_options, only: [:new, :create, :edit, :update, :destroy]
     resources :change_of_affiliations, only: [:new, :create, :edit, :update, :destroy]
@@ -43,21 +45,21 @@ Rails.application.routes.draw do
 
     resources :meetings do
       collection { patch :scrape }
-      member do
-        get :attendances
-        patch :update_attendances
-      end
+      member { post :save_attendance }
       resources :motions, only: [:new, :create]
     end
+    get 'meetings/:id/:view(/:context)' => 'meetings#show'
+
     resources :motions, except: [:new, :create] do
       member do
-        get :votes
-        patch :update_votes
+        post :save_vote
         patch :publish
       end
       resources :media_mentions, only: [:new, :create]
       resources :amendments, only: [:new, :create]
     end
+    get 'motions/:id/:view(/:context)' => 'motions#show'
+
     resources :amendments, except: [:new, :create] do
       member do
         get :votes

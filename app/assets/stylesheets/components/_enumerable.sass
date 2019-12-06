@@ -18,7 +18,7 @@
   
   .breakdown
     width: 8rem
-  
+
   .content
     display: block
     flex-grow: 1
@@ -33,6 +33,14 @@
       width: 100%
       text-overflow: ellipsis
   
+  label + label
+    padding-left: calc(var(--gutter)/2)
+  
+  label
+    &:hover
+      cursor: pointer
+      color: var(--blue)
+  
   &.-absent
     .content
       text-decoration: line-through
@@ -40,6 +48,7 @@
 
   @media screen and (min-width: '800px')
     justify-content: space-between
+
     .content
       flex: 50% 1 1
     .detail
@@ -50,96 +59,12 @@
       align-items: center
       & > div
         flex: 1
-
-.old-enumerable
-  flex-grow: 1
-  display: flex
-  flex-direction: row
-  justify-content: space-between
-  align-items: flex-start
-  position: relative
-  height: 1.8rem
-
-  .content
-    display: block
-    flex-grow: 1
-    flex-shrink: 1
-    text-align: left
-    padding-right: 6rem
-    overflow: hidden
-
-    .title, .name
-      font-weight: 400
-      white-space: nowrap
-      overflow: hidden
-      height: 1.3em
-      width: 100%
-      text-overflow: ellipsis
-  
-  .count-icon
-    margin-top: -0.1rem
-    width: 2.5rem
-    height: 100%
-  
-  &.-meeting
-    .date, .attendees
-      flex-grow: 0
-      flex-shrink: 0
-      width: 25%
-  
-  &.-attendance
-    .attendance
-      height: 100%
-      flex-grow: 0
-      flex-shrink: 0
-      width: 12.5rem
-      display: flex
-      flex-direction: row
-      justify-content: flex-end
-      align-items: center
-      .attendance-status
-        width: 8rem
-  
-  &.-vote
-    .date, .outcome, .verdict
-      flex-grow: 0
-      flex-shrink: 0
-      width: 12.5rem
     
-    .outcome
-      height: 100%
-      display: flex
-      flex-direction: row
-      justify-content: flex-end
-      align-items: center
-
-      .vote-result
-        width: 8rem
-  
-  &.-motion
-    .date, .outcome, .verdict
-      flex-grow: 0
-      flex-shrink: 0
-    
-    .content
-
-    .date
-      width: 20%
-    .outcome
-      width: 30%
-
-    .outcome
-      height: 100%
-      display: flex
-      flex-direction: row
-      justify-content: space-between
-      align-items: center
-
-      .breakdown
-        margin-right: 4rem
-
-      .vote-result
-        width: 8rem
+    & > div
+      &.-bigger
+        flex: 62.5% 1 1
+      &.-smaller
+        flex: 37.5% 1 1
   
 .enumerable.-councillor
   figure

@@ -4,4 +4,4 @@
   .detail
     .date #{ attendance.attendable.occurred_on.strftime('%-d %b \'%y') }
 
-    .attendance= render partial: 'attendances/status', locals: {attendance: attendance}
+    .attendance= attendance.status.capitalize

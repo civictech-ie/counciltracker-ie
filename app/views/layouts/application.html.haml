@@ -3,9 +3,7 @@
   %head
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all'
-    = javascript_include_tag 'application'
     = javascript_pack_tag 'application'
-    = stylesheet_pack_tag 'application'
     = display_meta_tags site: 'Council Tracker', reverse: true
     <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no' />
 
@@ -15,12 +13,15 @@
       %header.primary-header
         .content
           %nav.primary-nav
-            = link_to root_path, class: 'logo' do
-              CouncilTracker.ie
+            .links
+              = link_to root_path, class: 'logo' do
+                CouncilTracker.ie
 
-            = link_to "Motions", motions_path
-            = link_to "Councillors", councillors_path
-            = link_to "Meetings", meetings_path
+              = link_to "Motions", motions_path
+              = link_to "Councillors", councillors_path
+              = link_to "Meetings", meetings_path
+
+            .icons
 
           %footer
             .footer-block.p.-t4
@@ -28,6 +29,8 @@
                 %li= link_to 'FAQs', '/faq'
                 %li= link_to "Submit correction", '/submit-correction'
                 %li= link_to "Source code", 'https://www.github.com/civictech-ie/counciltracker-ie'
+                - if logged_in?
+                  %li= link_to "Admin panel", [:admin, :root]
 
               :markdown
                 [Council Tracker](/) is a project by [Dublin Inquirer](https://www.dublininquirer.com) and [CivicTech·ie](https://www.civictech.ie).

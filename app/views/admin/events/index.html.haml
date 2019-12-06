@@ -1,19 +1,15 @@
-%header.page-header
+%header.view-header
   .wrapper{role: 'layout'}
-    .breadcrumbs
-      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
-      .breadcrumbs_crumb
-        %h1= link_to "Events", [:admin, :events]
+    %h1= link_to "Events", [:admin, :events]
 
-.primary-main_content
+%main.view-content{role: 'layout'}
   .wrapper{role: 'layout'}
-    %section
-      %ul.list.-enumerable
-        - @events.each do |event|
-          %li
-            = link_to [:admin, event] do
-              .row
-                .col-xs-2
-                  .text.-fixed= event.occurred_on.strftime('%-d.%m.%y')
-                .col-xs-9
-                  = raw admin_summarize_event(event)
+    %ul.list.-enumerable
+      - @events.each do |event|
+        %li
+          = link_to [:admin, event] do
+            = render partial: 'admin/events/event', locals: {event: event}
+
+%footer.view-footer
+  .wrapper{role: 'layout'}
+    = render partial: 'shared/pagination', locals: {records: @events}

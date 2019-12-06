@@ -1,6 +1,6 @@
 class MeetingsController < ApplicationController
   def index
-    @meetings = Meeting.has_countable_attendances.by_occurred_on.page(params[:p])
+    @meetings = Meeting.has_published_motions.by_occurred_on.page(params[:p])
   end
 
   def show

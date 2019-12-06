@@ -67,10 +67,5 @@
     .input
       = f.select :vote_result, %w(pass fail error)
 
-  .admin-form_field
-    = f.label :interesting, 'Is this motion interesting?'
-    .input
-      = f.select :interesting, ['true','false']
-
   .admin-form_actions
     = f.submit 'Save'

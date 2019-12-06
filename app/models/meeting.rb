@@ -15,8 +15,7 @@ class Meeting < ApplicationRecord
 
   scope :by_occurred_on, -> { order('occurred_on desc') }
   scope :has_countable_attendances, -> { joins(:attendances).merge(Attendance.countable).distinct }
-
-  accepts_nested_attributes_for :attendances, reject_if: :incomplete_attendance
+  scope :has_published_motions, -> { joins(:motions).merge(Motion.published).distinct }
 
   paginates_per 20
 
@@ -77,10 +76,5 @@ class Meeting < ApplicationRecord
       a = self.attendances.new(councillor: councillor, status: 'exception')
       a.save!
     end
-  end
-
-  def incomplete_attendance(attributes)
-    attributes['councillor_id'].blank? or
-    attributes['status'].blank?
   end
 end

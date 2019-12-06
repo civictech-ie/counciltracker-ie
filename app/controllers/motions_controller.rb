@@ -5,8 +5,7 @@ class MotionsController < ApplicationController
     respond_to do |format|
       format.html { render :index }
       format.json do
-        @interesting_motions = @motions.where(interesting: true).by_occurred_on.limit(5)
-        render json: @interesting_motions.limit(10)
+        render json: @motions.limit(5)
       end
     end
   end
