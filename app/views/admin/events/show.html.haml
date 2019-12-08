@@ -2,7 +2,7 @@
   .wrapper{role: 'layout'}
     .breadcrumbs
       .breadcrumb= link_to 'Events', [:admin, :events]
-      .breadcrumb= link_to "#{ @event.eventable_type } on #{ @event.occurred_on.strftime('%-d.%m.%y') }", [:admin, @event]
+      .breadcrumb= link_to "#{ @event.eventable_type } on #{ @event.occurred_on.strftime('%-d %B \'%y') }", [:admin, @event]
 
 .view-content.-alpha
   .wrapper{role: 'layout'}

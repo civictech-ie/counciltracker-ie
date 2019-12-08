@@ -7,7 +7,7 @@ class Vote < ApplicationRecord
 
   validates :voteable, presence: true
   validates :status, presence: true, inclusion: %w(for against abstain absent not_voted exception)
-  validates :councillor, presence: true, uniqueness: { scope: :voteable }
+  validates :councillor, presence: true, uniqueness: {scope: [:voteable_id, :voteable_type]}
 
   scope :on_amendment, -> { where(voteable_type: 'Amendment') }
   scope :on_motion, -> { where(voteable_type: 'Motion') }
@@ -20,7 +20,7 @@ class Vote < ApplicationRecord
   scope :by_status, -> { order('status desc') }
   scope :by_councillor_name, -> { joins(:councillor).order('councillors.sort_name asc') }
 
-  after_save :update_attendance
+  after_save :update_attendance, :redetermine_vote_result
 
   def seat
     councillor.seats.active_on(self.occurred_on).take
@@ -35,9 +35,18 @@ class Vote < ApplicationRecord
     %w(for against abstain not_voted).include? self.status.to_s
   end
 
+  def countable?
+    %w(for against abstain not_voted).include? self.status.to_s
+  end
+
   private
 
   def update_attendance # TODO if somebody's voting, they're probably in attendance...
+  end
+
+  def redetermine_vote_result
+    return true if !self.countable?
+    self.voteable.redetermine_vote_result!
   end
 end
 

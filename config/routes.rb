@@ -62,10 +62,11 @@ Rails.application.routes.draw do
 
     resources :amendments, except: [:new, :create] do
       member do
-        get :votes
-        patch :update_votes
+        post :save_vote
       end
     end
+    get 'amendments/:id/:view(/:context)' => 'amendments#show'
+
     resources :media_mentions, only: [:edit, :update]
   end
 

@@ -5,6 +5,6 @@
       .breadcrumb= link_to @motion.meeting.occurred_on_formatted, [:admin, @motion.meeting]
       .breadcrumb= link_to 'Motion', [:admin, @motion]
 
-= svelte_component('Switcher', {basePath: admin_motion_path(@motion), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'details', label: 'Details'},{view: 'votes', label: 'Votes'}], redirect: true}, class: 'view-subnav')
+= svelte_component('Switcher', {basePath: admin_motion_path(@motion), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'details', label: 'Details'},{view: 'votes', label: 'Votes'},{view: 'amendments', label: 'Amendments'}], redirect: true}, class: 'view-subnav')
 
 %div= render partial: @view.to_s, locals: {motion: @motion}

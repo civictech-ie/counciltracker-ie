@@ -1,38 +1,11 @@
-%header.page-header
+%header.view-header
   .wrapper{role: 'layout'}
     .breadcrumbs
-      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
-      .breadcrumbs_crumb= link_to "Meetings", [:admin, :meetings]
-      .breadcrumbs_crumb= link_to @meeting.occurred_on_was.strftime('%-d.%m.%y'), [:admin, @meeting]
-      .breadcrumbs_crumb= link_to "Motion #{ @motion.agenda_item }", [:admin, @motion]
-      .breadcrumbs_crumb
-        %h1= link_to "Amendment #{ @amendment.position }", [:admin, @amendment]
+      .breadcrumb= link_to 'Meetings', [:admin, :meetings]
+      .breadcrumb= link_to @amendment.meeting.occurred_on_formatted, [:admin, @amendment.meeting]
+      .breadcrumb= link_to 'Motion', [:admin, @amendment.motion], title: @amendment.motion.title
+      .breadcrumb= link_to 'Amendment', [:admin, @amendment], title: @amendment.body
 
-.primary-main_content
-  .wrapper{role: 'layout'}
-    .row
-      .col-xs-2
-        %nav.secondary-nav
-          %ul.list.-enumerable
-            %li= link_to "Overview", [:admin, @amendment]
-            - if @amendment.rollcall?
-              %li= link_to "Votes", [:votes, :admin, @amendment]
-            %li= link_to "Edit", [:edit, :admin, @amendment]
+= svelte_component('Switcher', {basePath: admin_amendment_path(@amendment), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'details', label: 'Details'},{view: 'votes', label: 'Votes'}], redirect: true}, class: 'view-subnav')
 
-      .col-xs-10
-        %section
-          %header.subheader
-            %h2 Details
-          %main
-            %dl.data
-              %dt Text
-              %dd
-                .text
-                  :markdown
-                    #{ @amendment.body }
-              %dt Proposers
-              %dd= @amendment.proposers.map(&:full_name).join(', ')
-              %dt Vote
-              %dd rules: #{ @amendment.vote_ruleset }; method: #{ @amendment.vote_method }
-              %dt Result
-              %dd= @amendment.vote_result
+%div= render partial: @view.to_s, locals: {amendment: @amendment}

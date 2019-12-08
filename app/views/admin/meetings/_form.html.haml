@@ -1,5 +1,5 @@
-= form_for [:admin, meeting], class: 'admin-form' do |f|
-  = render partial: 'admin/shared/errors', locals: {errors: meeting.errors}
+= form_with model: meeting, url: meeting.persisted? ? [:admin, meeting] : [:admin, :meetings], class: 'admin-form' do |f|
+  = render partial: 'admin/shared/errors', locals: {errors: f.object.errors}
   .admin-form_field
     = f.label :occurred_on
     .input
@@ -10,4 +10,4 @@
       = f.select :meeting_type, %w(monthly annual special budget finance)
 
   .admin-form_actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'button'

@@ -4,6 +4,6 @@
       .breadcrumb= link_to 'Meetings', [:admin, :meetings]
       .breadcrumb= link_to @meeting.occurred_on_formatted, [:admin, @meeting]
 
-= svelte_component('Switcher', {basePath: admin_meeting_path(@meeting), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'motions', label: 'Motions'},{view: 'attendances', label: 'Attendance'}], redirect: true}, class: 'view-subnav')
+= svelte_component('Switcher', {basePath: admin_meeting_path(@meeting), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'details', label: 'Details'},{view: 'motions', label: 'Motions'},{view: 'attendances', label: 'Attendance'}], redirect: true}, class: 'view-subnav')
 
 %div= render partial: @view.to_s, locals: {meeting: @meeting}

@@ -18,7 +18,7 @@ class Admin::MotionsController < Admin::ApplicationController
 
   def new # nested under meetings
     @meeting = Meeting.find_by(hashed_id: params[:meeting_id])
-    @motion = @meeting.motions.new(agenda_item: (((@meeting.motions.map(&:position).max || 0) / 100) + 1))
+    @motion = @meeting.motions.new(agenda_item: (((@meeting.motions.maximum(:position) || 0) / 100) + 1))
   end
 
   def create # nested under meetings
@@ -44,7 +44,9 @@ class Admin::MotionsController < Admin::ApplicationController
     if @motion.update(motion_params)
       redirect_to [:admin, @motion]
     else
-      render :edit
+      @view = :details
+      @context = :full
+      render :show
     end
   end
 
@@ -69,11 +71,9 @@ class Admin::MotionsController < Admin::ApplicationController
       :executive_vote,
       :body,
       :title,
-      :votable,
       :pdf_url,
       :vote_ruleset,
       :vote_method,
-      :vote_result,
       :agenda_item,
       proposers_ids: [],
       local_electoral_area_ids: [],

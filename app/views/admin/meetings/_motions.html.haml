@@ -1,5 +1,7 @@
 .view-content
   .wrapper{role: 'layout'}
+    %nav.list-actions
+      = link_to "New motion", [:new, :admin, meeting, :motion], class: 'button'
     %ul.list.-enumerable
       - meeting.motions.by_position.each do |motion|
         %li

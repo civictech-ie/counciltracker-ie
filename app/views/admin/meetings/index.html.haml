@@ -4,6 +4,8 @@
 
 %main.view-content{role: 'layout'}
   .wrapper{role: 'layout'}
+    %nav.list-actions
+      = link_to "New meeting", [:new, :admin, :meeting], class: 'button'
     %ul.list.-enumerable
       - @meetings.each do |meeting|
         %li

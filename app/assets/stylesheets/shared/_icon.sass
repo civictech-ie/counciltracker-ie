@@ -40,6 +40,22 @@
     polyline, line
       stroke: var(--black)
 
+.dark .icon.-vote
+  polyline, line
+    fill: none
+    stroke: var(--black)
+  &.-pass
+    circle
+      fill: var(--green)
+  &.-fail
+    circle
+      fill: var(--red)
+  &.-error
+    circle
+      fill: var(--yellow)
+    polyline, line
+      stroke: var(--white)
+
 .icon.-count
   position: relative
   display: inline-block

@@ -12,7 +12,7 @@ class Admin::MeetingsController < Admin::ApplicationController
 
   def show
     @meeting = Meeting.find_by!(hashed_id: params[:id])
-    @view = params[:view].try(:to_sym) || :motions
+    @view = params[:view].try(:to_sym) || :details
     @context = params[:context].try(:to_sym) || :full
 
     case @context

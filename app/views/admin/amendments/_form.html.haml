@@ -1,4 +1,4 @@
-= form_for amendment.persisted? ? [:admin, amendment] : [:admin, motion, amendment], class: 'admin-form' do |f|
+= form_with model: amendment, url: amendment.persisted? ? [:admin, amendment] : [:admin, motion, amendment], class: 'admin-form' do |f|
   = render partial: 'admin/shared/errors', locals: {errors: amendment.errors}
 
   - if amendment.persisted?
@@ -21,14 +21,17 @@
     = f.label :vote_ruleset
     .input
       = f.select :vote_ruleset, %w(plurality absolute_majority super_majority)
+      
   .admin-form_field
     = f.label :vote_method
     .input
       = f.select :vote_method, %w(voice rollcall)
+
   .admin-form_field
     = f.label :vote_result
     .input
       = f.select :vote_result, %w(pass fail error)
+      .hint.p.-t5 This will be overridden if it's a rollcall vote.
 
   .admin-form_actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'button'

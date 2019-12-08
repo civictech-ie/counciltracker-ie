@@ -1,0 +1,68 @@
+.admin-form
+  input.button
+    padding: 0.5rem 1rem
+    text-align: center
+    &:hover
+      cursor: pointer
+      border-color: var(--blue)
+      color: var(--blue)
+
+  label
+    display: block
+    margin-bottom: 0.25rem
+
+  input, textarea
+    display: block
+    width: 100%
+    font-family: var(--sans)
+    font-size: var(--t3)
+    padding: 1rem
+    background-color: var(--transparent)
+    border: 0.55px solid var(--black)
+    color: var(--black)
+  
+  textarea
+    height: 18rem
+    resize: vertical
+  
+  select[multiple]
+    width: 100%
+  
+  select
+    min-width: 50%
+  
+  .checkboxes
+    border: 0.55px solid var(--black)
+    padding: 1rem
+    label
+      display: flex
+      flex-direction: row
+      justify-content: flex-start
+      input
+        width: auto
+        margin-right: 0.5rem
+      &:hover
+        color: var(--blue)
+        cursor: pointer
+
+  @media screen and (min-width: '800px')
+    .admin-form_field
+      max-width: calc(50% - var(--gutter)/2)
+
+.admin-form_field
+  margin-bottom: var(--gutter)
+
+.admin-form_actions
+  padding-top: var(--gutter)
+  border-top: 0.55px solid var(--black)
+  display: flex
+  flex-direction: row
+  justify-content: flex-end
+  align-items: flex-start
+
+  .button
+    width: auto
+    height: auto
+
+  @media screen and (min-width: '800px')
+    max-width: calc(50% - var(--gutter)/2)

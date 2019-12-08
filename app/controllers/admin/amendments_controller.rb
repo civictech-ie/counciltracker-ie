@@ -1,10 +1,6 @@
 class Admin::AmendmentsController < Admin::ApplicationController
-  def show
-    @amendment = Amendment.find_by(hashed_id: params[:id])
-    @motion = @amendment.motion
-    @meeting = @motion.meeting
-  end
-
+  skip_before_action :verify_authenticity_token, only: [:save_vote]
+  
   def new # nested under motions
     @motion = Motion.find_by(hashed_id: params[:motion_id])
     @meeting = @motion.meeting
@@ -19,6 +15,21 @@ class Admin::AmendmentsController < Admin::ApplicationController
       redirect_to [:admin, @amendment]
     else
       render :new
+    end
+  end
+  
+  def show
+    @amendment = Amendment.find_by(hashed_id: params[:id])
+    @view = params[:view].try(:to_sym) || :details
+    @context = params[:context].try(:to_sym) || :full
+
+    case @context
+    when :full
+      render action: :show
+    when :partial
+      render partial: "admin/amendments/#{ @view }", locals: {amendment: @amendment}
+    else
+      raise 'Unhandled render context'
     end
   end
 
@@ -40,21 +51,16 @@ class Admin::AmendmentsController < Admin::ApplicationController
     end
   end
 
-  def votes
-    @amendment = Amendment.find_by(hashed_id: params[:id])
-    @motion = @amendment.motion
-    @meeting = @motion.meeting
-  end
-
-  def update_votes
-    @amendment = Amendment.find_by(hashed_id: params[:id])
-    @motion = @amendment.motion
-    @meeting = @motion.meeting
-    bv = @amendment.votes.countable.count
-    if @amendment.update(votes_params)
-      render json: { saved_at: @amendment.updated_at, message: "Saved at #{ Time.zone.now.strftime('%H:%M:%S') }" }
+  def save_vote
+    @amendment = Amendment.find_by(id: params[:id])
+    @councillor = Councillor.find_by(id: params['councillorId'])
+    @vote = Vote.find_or_initialize_by(voteable: @amendment, councillor: @councillor)
+    @vote.status = params['status']
+    
+    if @vote.save
+      render json: { saved_at: @vote.updated_at, message: "Saved at #{ Time.zone.now.strftime('%H:%M:%S') }" }
     else
-      render json: { errors: @amendment.errors.full_messages }
+      render json: { errors: @vote.errors.full_messages }
     end
   end
 
@@ -68,12 +74,6 @@ class Admin::AmendmentsController < Admin::ApplicationController
       :vote_result,
       :position,
       proposers_ids: []
-    )
-  end
-
-  def votes_params
-    params.require(:amendment).permit(
-      votes_attributes: [:id, :councillor_id, :status]
     )
   end
 end
