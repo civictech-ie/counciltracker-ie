@@ -42,6 +42,16 @@
               - else
                 .empty-value None recorded
 
+            .meta-data_block
+              %label Vote result
+              .text-block
+                - if @motion.vote_result.present?
+                  %strong
+                    #{ @motion.vote_result.capitalize }ed
+
+                  - if @motion.vote_method.present?
+                    by #{ @motion.vote_method } vote
+
         .col.-one
           .meta-data.-small
             .meta-data_block
