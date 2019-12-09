@@ -1,0 +1,2181 @@
+@charset "UTF-8";
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/modules/_columns.sass */
+.row {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+@media screen and (min-width: 800px) {
+  /* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/modules/_columns.sass */
+  .row {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+    -webkit-box-pack: stretch;
+            justify-content: stretch;
+    -webkit-box-align: stretch;
+            align-items: stretch;
+  }
+  /* line 10, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/modules/_columns.sass */
+  .row .col {
+    -webkit-box-flex: 1;
+            flex-grow: 1;
+    flex-shrink: 1;
+  }
+}
+
+@font-face {
+  font-family: "swiss sans";
+  src: url("https://d2jelilm07lhuq.cloudfront.net/typefaces/SuisseIntl-Regular-WebXL.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "swiss sans";
+  src: url("https://d2jelilm07lhuq.cloudfront.net/typefaces/SuisseIntl-RegularItalic-WebXL.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "swiss sans";
+  src: url("https://d2jelilm07lhuq.cloudfront.net/typefaces/SuisseIntl-SemiBold-WebXL.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+}
+@font-face {
+  font-family: "swiss sans";
+  src: url("https://d2jelilm07lhuq.cloudfront.net/typefaces/SuisseIntl-SemiBoldItalic-WebXL.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 600;
+}
+@font-face {
+  font-family: "swiss mono";
+  src: url("https://d2jelilm07lhuq.cloudfront.net/typefaces/SuisseIntlMono-Regular-WebXL.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "swiss mono";
+  src: url("https://d2jelilm07lhuq.cloudfront.net/typefaces/SuisseIntlMono-Bold-WebXL.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 800;
+}
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/modules/_variables.sass */
+:root {
+  --white: #f3f3f3;
+  --black: #090909;
+  --faint: #cfcfdd;
+  --grey: #8989aa;
+  --green: #20ab30;
+  --red: #F90C2C;
+  --yellow: #F9f92C;
+  --blue: #5b5cfe;
+  --sans: "swiss sans", "Helvetica Neue", sans-serif;
+  --mono: "swiss mono", monospace;
+  --unit: calc(5rem/2);
+  --gutter: 2.5rem;
+  --line-height: 1.2;
+  --sidebar-width: 20rem;
+  --t1: 3rem;
+  --t2: 2.1rem;
+  --t3: 1.6rem;
+  --t4: 1.3rem;
+  --t5: 1.1rem;
+  --t6: 1.0rem;
+  --text-block-width: 64rem;
+}
+/* line 27, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/modules/_variables.sass */
+:root body.dark {
+  --white: #090909;
+  --black: #f3f3f3;
+  --faint: #696975;
+  --grey: #8989aa;
+}
+
+@-o-viewport {
+  zoom: 1;
+  width: extend-to-zoom;
+}
+
+@viewport {
+  zoom: 1;
+  width: extend-to-zoom;
+}
+@-ms-viewport {
+  width: extend-to-zoom;
+  zoom: 1;
+}
+/* line 10, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/modules/_reset.sass */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, font, img, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-feature-settings: "kern", "liga", "pnum";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+     -moz-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+}
+
+/* line 25, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/modules/_reset.sass */
+blockquote, q {
+  quotes: none;
+}
+
+/* line 28, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/modules/_reset.sass */
+:focus {
+  outline: 0;
+}
+
+/* line 31, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/modules/_reset.sass */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 35, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/modules/_reset.sass */
+ul, ol {
+  list-style: none;
+}
+
+/* line 38, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/modules/_reset.sass */
+* {
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_basics.sass */
+html {
+  font-size: 10px;
+}
+
+/* line 4, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_basics.sass */
+body {
+  background-color: var(--white);
+  color: var(--black);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: var(--t3);
+  line-height: 1.3;
+}
+/* line 12, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_basics.sass */
+body a, body a:link, body a:visited {
+  color: var(--black);
+  text-decoration: none;
+}
+
+/* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_basics.sass */
+::-moz-selection {
+  color: var(--grey);
+  background: transparent;
+}
+::selection {
+  color: var(--grey);
+  background: transparent;
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_button.sass */
+.button {
+  display: block;
+  color: var(--black);
+  padding: 0.5rem 1rem;
+  border: 0.55px solid var(--black);
+  margin: 0;
+  width: 100%;
+  font-family: var(--sans);
+  font-size: var(--t3);
+  background-color: var(--transparent);
+  white-space: nowrap;
+  -webkit-box-flex: 0;
+          flex: 0;
+}
+/* line 14, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_button.sass */
+.button:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  cursor: pointer;
+}
+/* line 19, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_button.sass */
+.button.-danger {
+  border-color: var(--red);
+  color: var(--red);
+}
+/* line 22, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_button.sass */
+.button.-danger:hover {
+  border-color: var(--red);
+  background-color: var(--red);
+  color: var(--black);
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_figure.sass */
+figure.figure {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 2, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form input.button, .basic-form input.button {
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+/* line 5, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form input.button:hover, .basic-form input.button:hover {
+  cursor: pointer;
+  border-color: var(--blue);
+  color: var(--blue);
+}
+/* line 10, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form label, .basic-form label {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+/* line 14, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form input, .admin-form textarea, .basic-form input, .basic-form textarea {
+  display: block;
+  width: 100%;
+  font-family: var(--sans);
+  font-size: var(--t3);
+  padding: 1rem;
+  background-color: var(--transparent);
+  border: 0.55px solid var(--black);
+  color: var(--black);
+}
+/* line 24, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form textarea, .basic-form textarea {
+  height: 18rem;
+  resize: vertical;
+}
+/* line 28, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form select[multiple], .basic-form select[multiple] {
+  width: 100%;
+}
+/* line 31, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form select, .basic-form select {
+  min-width: 50%;
+}
+/* line 34, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form .checkboxes, .basic-form .checkboxes {
+  border: 0.55px solid var(--black);
+  padding: 1rem;
+}
+/* line 37, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form .checkboxes label, .basic-form .checkboxes label {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+}
+/* line 41, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form .checkboxes label input, .basic-form .checkboxes label input {
+  width: auto;
+  margin-right: 0.5rem;
+}
+/* line 44, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form .checkboxes label:hover, .basic-form .checkboxes label:hover {
+  color: var(--blue);
+  cursor: pointer;
+}
+@media screen and (min-width: 800px) {
+  /* line 49, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+  .admin-form .admin-form_field, .admin-form .basic-form_field, .basic-form .admin-form_field, .basic-form .basic-form_field {
+    max-width: var(--text-block-width);
+  }
+}
+
+/* line 52, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form_field, .basic-form_field {
+  margin-bottom: var(--gutter);
+}
+
+/* line 55, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form_actions, .basic-form_actions {
+  padding-top: var(--gutter);
+  border-top: 0.55px solid var(--black);
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: start;
+          align-items: flex-start;
+}
+/* line 63, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.admin-form_actions .button, .basic-form_actions .button {
+  width: auto;
+  height: auto;
+}
+@media screen and (min-width: 800px) {
+  /* line 55, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+  .admin-form_actions, .basic-form_actions {
+    max-width: var(--text-block-width);
+  }
+}
+
+/* line 70, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_form.sass */
+.basic-form_actions {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* line 2, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-sinn-fein {
+  fill: #008800;
+}
+/* line 4, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-fianna-fail {
+  fill: #66BB66;
+}
+/* line 6, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-fine-gael {
+  fill: #6699FF;
+}
+/* line 8, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-labour-party {
+  fill: #CC0000;
+}
+/* line 10, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-people-before-profit {
+  fill: #660000;
+}
+/* line 12, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-green-party {
+  fill: #99cc3398;
+}
+/* line 14, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-solidarity {
+  fill: #BF2D2E;
+}
+/* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-united-left {
+  fill: #FF5555;
+}
+/* line 18, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-independent {
+  fill: #CCC;
+}
+/* line 20, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-independents-4-change {
+  fill: #FFC0CB;
+}
+/* line 22, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-social-democrats {
+  fill: #752F8B;
+}
+/* line 24, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-party.-workers-party {
+  fill: #D73D3D;
+}
+
+/* line 28, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-vote polyline, .icon.-vote line {
+  fill: none;
+  stroke: var(--white);
+}
+/* line 32, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-vote.-pass circle {
+  fill: var(--green);
+}
+/* line 35, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-vote.-fail circle {
+  fill: var(--red);
+}
+/* line 38, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-vote.-error circle {
+  fill: var(--yellow);
+}
+/* line 40, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-vote.-error polyline, .icon.-vote.-error line {
+  stroke: var(--black);
+}
+
+/* line 44, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.dark .icon.-vote polyline, .dark .icon.-vote line {
+  fill: none;
+  stroke: var(--black);
+}
+/* line 48, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.dark .icon.-vote.-pass circle {
+  fill: var(--green);
+}
+/* line 51, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.dark .icon.-vote.-fail circle {
+  fill: var(--red);
+}
+/* line 54, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.dark .icon.-vote.-error circle {
+  fill: var(--yellow);
+}
+/* line 56, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.dark .icon.-vote.-error polyline, .dark .icon.-vote.-error line {
+  stroke: var(--white);
+}
+
+/* line 59, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-count {
+  position: relative;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+}
+/* line 66, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-count svg {
+  display: block;
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  width: calc(100% - 2px);
+  fill: transparent;
+  stroke: var(--black);
+  stroke-width: 0.55px;
+  z-index: 9;
+}
+/* line 77, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_icon.sass */
+.icon.-count label {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  color: var(--black);
+  font-size: var(--t6);
+  line-height: 2.3;
+  z-index: 10;
+  text-indent: 0;
+  text-align: center;
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-enumerable {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: stretch;
+          align-items: stretch;
+}
+/* line 7, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-enumerable > li + li {
+  border-top: 0.55px solid var(--black);
+}
+/* line 10, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-enumerable > li {
+  padding: 0.75rem 0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  width: 100%;
+}
+/* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-enumerable > li > a, .list.-enumerable > li > div {
+  width: 100%;
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  margin: -0.75rem 0;
+  padding: 0.75rem 0;
+}
+/* line 23, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-enumerable > li > a:hover {
+  color: var(--blue);
+}
+/* line 26, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-enumerable.-mini {
+  padding: 0.325rem 0;
+}
+/* line 28, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-enumerable.-mini > li + li {
+  border-top: 0.55px solid var(--faint);
+}
+/* line 31, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-enumerable.-mini > li {
+  padding: 0.325rem 0;
+  font-size: var(--t4);
+}
+/* line 35, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-enumerable.-mini > li > a {
+  width: 100%;
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  margin: -0.325rem 0;
+  padding: 0.325rem 0;
+}
+
+/* line 42, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-capitalize:first-letter {
+  text-transform: capitalize;
+}
+
+/* line 47, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-emmed li:before {
+  content: "— ";
+  color: var(--grey);
+}
+
+/* line 51, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-errors {
+  margin-bottom: var(--gutter);
+  color: var(--red);
+  list-style: inside circle;
+}
+
+/* line 56, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-inline {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+          align-items: flex-start;
+  flex-wrap: wrap;
+}
+/* line 64, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-inline li:after {
+  content: ", ";
+}
+/* line 67, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_list.sass */
+.list.-inline li:last-child:after {
+  content: "";
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+h1, h2, h3, h4, h5 {
+  font-weight: 400;
+}
+
+/* line 5, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.p.-t1 {
+  font-size: var(--t1);
+}
+/* line 7, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.p.-t2 {
+  font-size: var(--t2);
+}
+/* line 9, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.p.-t3 {
+  font-size: var(--t3);
+}
+/* line 11, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.p.-t4 {
+  font-size: var(--t4);
+}
+/* line 13, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.p.-t5 {
+  font-size: var(--t5);
+}
+
+/* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.footer-block {
+  padding-right: 3rem;
+}
+/* line 19, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.footer-block p, .footer-block ul, .footer-block ol {
+  margin-bottom: 2rem;
+}
+/* line 22, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.footer-block p:last-child, .footer-block ul:last-child, .footer-block ol:last-child {
+  margin: 0;
+}
+/* line 25, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.footer-block a, .footer-block a:link, .footer-block a:visited {
+  font-weight: 600;
+}
+/* line 27, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.footer-block a:hover, .footer-block a:link:hover, .footer-block a:visited:hover {
+  color: var(--blue);
+}
+
+/* line 30, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block {
+  max-width: var(--text-block-width);
+  padding-right: 3rem;
+}
+/* line 34, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block a, .text-block a:link, .text-block a:visited {
+  font-weight: 400;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(86%, var(--white)), color-stop(86%, var(--black)), color-stop(88%, var(--black)), color-stop(88%, var(--white)));
+  background-image: linear-gradient(var(--white) 86%, var(--black) 86%, var(--black) 88%, var(--white) 88%);
+  text-shadow: 1px 1px 0 var(--white), -1px 1px 0 var(--white);
+  background-position: left bottom;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+/* line 42, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block a:hover, .text-block a:link:hover, .text-block a:visited:hover {
+  color: var(--blue);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(86%, var(--white)), color-stop(86%, var(--blue)), color-stop(88%, var(--blue)), color-stop(88%, var(--white)));
+  background-image: linear-gradient(var(--white) 86%, var(--blue) 86%, var(--blue) 88%, var(--white) 88%);
+}
+/* line 46, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block h1 {
+  margin-bottom: 2rem;
+}
+/* line 49, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block h3 {
+  font-weight: 400;
+}
+/* line 52, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block h3 + p, .text-block h3 + ul, .text-block h3 + ol {
+  text-indent: 5rem;
+}
+/* line 55, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block p + h3 {
+  margin-top: 4rem;
+}
+/* line 58, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block p, .text-block ul, .text-block ol {
+  margin-bottom: 2rem;
+}
+/* line 61, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block p:last-child, .text-block ul:last-child, .text-block ol:last-child {
+  margin: 0;
+}
+/* line 65, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block ul.list.-sentence, .text-block ol.list.-sentence {
+  display: block;
+}
+/* line 67, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block ul.list.-sentence li, .text-block ol.list.-sentence li {
+  display: inline;
+  white-space: nowrap;
+}
+/* line 70, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block ul.list.-sentence li a, .text-block ul.list.-sentence li a:link, .text-block ul.list.-sentence li a:visited, .text-block ol.list.-sentence li a, .text-block ol.list.-sentence li a:link, .text-block ol.list.-sentence li a:visited {
+  display: inline;
+  white-space: nowrap;
+}
+/* line 73, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block ul.list.-sentence li:after, .text-block ol.list.-sentence li:after {
+  content: ", ";
+}
+/* line 76, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block ul.list.-sentence li:last-child:after, .text-block ol.list.-sentence li:last-child:after {
+  content: "";
+}
+/* line 79, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/shared/_text.sass */
+.text-block ul.list.-sentence li:last-child:after, .text-block ol.list.-sentence li:last-child:after {
+  content: ".";
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_cols.sass */
+.cols[role='layout'] {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-flex: 1;
+          flex: 1;
+}
+@media screen and (min-width: 800px) {
+  /* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_cols.sass */
+  .cols[role='layout'] {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+            justify-content: space-between;
+    margin-left: calc(var(--gutter)/-2);
+    margin-right: calc(var(--gutter)/-2);
+  }
+  /* line 15, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_cols.sass */
+  .cols[role='layout'] > .col {
+    padding: 0 calc(var(--gutter)/2);
+    -webkit-box-flex: 1;
+            flex: 1;
+  }
+  /* line 19, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_cols.sass */
+  .cols[role='layout'] > .col.-one {
+    -webkit-box-flex: 1;
+            flex: 1;
+  }
+  /* line 22, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_cols.sass */
+  .cols[role='layout'] > .col.-two {
+    -webkit-box-flex: 2;
+            flex: 2;
+  }
+  /* line 25, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_cols.sass */
+  .cols[role='layout'] > .col.-three {
+    -webkit-box-flex: 3;
+            flex: 3;
+  }
+  /* line 28, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_cols.sass */
+  .cols[role='layout'] > .col.-four {
+    -webkit-box-flex: 4;
+            flex: 4;
+  }
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_modal.sass */
+.modal[role='layout'] {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: var(--white);
+  height: 100vh;
+  width: 100vw;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  overflow: auto;
+}
+/* line 14, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_modal.sass */
+.modal[role='layout'] > .content {
+  width: calc(100% - (var(--gutter) * 2));
+  max-width: 72rem;
+}
+
+/* line 2, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_standard.sass */
+.standard[role='layout'] #menu {
+  display: block;
+}
+/* line 5, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_standard.sass */
+.standard[role='layout'] > header {
+  display: none;
+}
+@media screen and (min-width: 800px) {
+  /* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_standard.sass */
+  .standard[role='layout'] {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+    -webkit-box-pack: stretch;
+            justify-content: stretch;
+    -webkit-box-align: stretch;
+            align-items: stretch;
+  }
+  /* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_standard.sass */
+  .standard[role='layout'] #menu {
+    display: none;
+  }
+  /* line 19, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_standard.sass */
+  .standard[role='layout'] > header {
+    display: block;
+    flex-basis: var(--sidebar-width);
+    -webkit-box-flex: 0;
+            flex-grow: 0;
+    flex-shrink: 0;
+    position: relative;
+  }
+  /* line 26, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_standard.sass */
+  .standard[role='layout'] > main {
+    -webkit-box-flex: 1;
+            flex-grow: 1;
+    width: calc(100vw - var(--sidebar-width));
+  }
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_wrapper.sass */
+.wrapper[role='layout'] {
+  width: calc(100% - 3rem);
+  max-width: 128rem;
+  margin: 0 auto;
+}
+@media screen and (min-width: 800px) {
+  /* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_wrapper.sass */
+  .wrapper[role='layout'] {
+    width: calc(100% - 8rem);
+    margin: 0 auto;
+  }
+}
+@media screen and (min-width: 1200px) {
+  /* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/layouts/_wrapper.sass */
+  .wrapper[role='layout'] {
+    margin-right: auto;
+    margin-left: 4rem;
+  }
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+          flex-direction: row-reverse;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+}
+/* line 6, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background: var(--blue);
+  width: 18rem;
+  height: 18rem;
+  overflow: hidden;
+}
+/* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-sinn-fein {
+  background-color: #008800;
+}
+/* line 18, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-fianna-fail {
+  background-color: #66BB66;
+}
+/* line 20, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-fine-gael {
+  background-color: #6699FF;
+}
+/* line 22, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-labour-party {
+  background-color: #CC0000;
+}
+/* line 24, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-people-before-profit {
+  background-color: #660000;
+}
+/* line 26, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-green-party {
+  background-color: #99CC33;
+}
+/* line 28, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-solidarity {
+  background-color: #BF2D2E;
+}
+/* line 30, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-united-left {
+  background-color: #FF5555;
+}
+/* line 32, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-independent {
+  background-color: #CCC;
+}
+/* line 34, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-independents-4-change {
+  background-color: #FFC0CB;
+}
+/* line 36, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-social-democrats {
+  background-color: #752F8B;
+}
+/* line 38, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait.-workers-party {
+  background-color: #D73D3D;
+}
+/* line 41, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card figure.-portrait img {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center center;
+     object-position: center center;
+}
+/* line 51, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_councillor-card.sass */
+.councillor-card .bio {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+          flex: 1;
+}
+
+/* line 2, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_empty-explanation.sass */
+.empty-explanation div {
+  max-width: 36rem;
+  padding: var(--unit);
+  border: 0.55px solid var(--black);
+}
+/* line 7, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_empty-explanation.sass */
+.empty-explanation label {
+  font-weight: 600;
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable {
+  position: relative;
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+          align-items: flex-start;
+  height: 1.8rem;
+}
+/* line 10, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable > div + div {
+  padding-left: var(--gutter);
+}
+/* line 13, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable > div.indicator + div {
+  padding-left: calc(var(--gutter)/2);
+}
+/* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable .detail {
+  display: none;
+}
+/* line 19, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable .breakdown {
+  width: 8rem;
+}
+/* line 22, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable .content {
+  display: block;
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  flex-shrink: 1;
+  text-align: left;
+  overflow: hidden;
+}
+/* line 28, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable .content > div {
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 1.3em;
+  width: 100%;
+  text-overflow: ellipsis;
+}
+/* line 36, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable label + label {
+  padding-left: calc(var(--gutter)/2);
+}
+/* line 40, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable label:hover {
+  cursor: pointer;
+  color: var(--blue);
+}
+/* line 45, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-absent .content {
+  text-decoration: line-through;
+  -webkit-text-decoration-color: rgba(0, 0, 0, 0.75);
+          text-decoration-color: rgba(0, 0, 0, 0.75);
+}
+@media screen and (min-width: 800px) {
+  /* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+  .enumerable {
+    -webkit-box-pack: justify;
+            justify-content: space-between;
+  }
+  /* line 52, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+  .enumerable .content {
+    -webkit-box-flex: 50%;
+            flex: 50% 1 1;
+  }
+  /* line 54, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+  .enumerable .detail {
+    -webkit-box-flex: 50%;
+            flex: 50% 1 1;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+    -webkit-box-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+            align-items: center;
+  }
+  /* line 60, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+  .enumerable .detail > div {
+    -webkit-box-flex: 1;
+            flex: 1;
+  }
+  /* line 64, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+  .enumerable > div.-bigger {
+    -webkit-box-flex: 62.5%;
+            flex: 62.5% 1 1;
+  }
+  /* line 66, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+  .enumerable > div.-smaller {
+    -webkit-box-flex: 37.5%;
+            flex: 37.5% 1 1;
+  }
+}
+
+/* line 70, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure {
+  opacity: 0;
+  position: absolute;
+  width: 18rem;
+  height: 18rem;
+  top: -8rem;
+  right: 0;
+  background: var(--blue);
+  -webkit-transition: opacity ease 1s;
+  transition: opacity ease 1s;
+}
+/* line 79, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+/* line 88, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-sinn-fein {
+  background-color: #008800;
+}
+/* line 90, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-fianna-fail {
+  background-color: #66BB66;
+}
+/* line 92, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-fine-gael {
+  background-color: #6699FF;
+}
+/* line 94, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-labour-party {
+  background-color: #CC0000;
+}
+/* line 96, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-people-before-profit {
+  background-color: #660000;
+}
+/* line 98, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-green-party {
+  background-color: #99CC33;
+}
+/* line 100, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-solidarity {
+  background-color: #BF2D2E;
+}
+/* line 102, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-united-left {
+  background-color: #FF5555;
+}
+/* line 104, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-independent {
+  background-color: #CCC;
+}
+/* line 106, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-independents-4-change {
+  background-color: #FFC0CB;
+}
+/* line 108, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-social-democrats {
+  background-color: #752F8B;
+}
+/* line 110, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor figure.-workers-party {
+  background-color: #D73D3D;
+}
+/* line 114, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+.enumerable.-councillor:hover figure {
+  opacity: 1;
+  pointer-events: none;
+  -webkit-transition: opacity ease 0;
+  transition: opacity ease 0;
+}
+@media screen and (min-width: 800px) {
+  /* line 120, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_enumerable.sass */
+  .enumerable.-councillor figure {
+    right: calc(50% + var(--unit));
+  }
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_meta-data.sass */
+.meta-data {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  flex-wrap: wrap;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: stretch;
+          align-items: stretch;
+}
+/* line 9, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_meta-data.sass */
+.meta-data a:hover, .meta-data a:link:hover, .meta-data a:visited:hover {
+  color: var(--blue);
+}
+/* line 13, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_meta-data.sass */
+.meta-data.-small .meta-data_block {
+  font-size: var(--t3);
+}
+
+/* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_meta-data.sass */
+.meta-data_block {
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  flex-shrink: 1;
+  margin-bottom: var(--gutter);
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+          align-items: flex-start;
+  font-size: var(--t2);
+  max-width: var(--text-block-width);
+}
+/* line 27, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_meta-data.sass */
+.meta-data_block .empty-value {
+  display: inline-block;
+  color: var(--grey);
+}
+/* line 31, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_meta-data.sass */
+.meta-data_block label {
+  font-size: var(--t3);
+  color: var(--black);
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_mobile-nav.sass */
+.mobile-header {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  padding: 1.5rem;
+}
+/* line 8, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_mobile-nav.sass */
+.mobile-header a:hover, .mobile-header a:link:hover, .mobile-header a:visited:hover {
+  cursor: pointer;
+}
+/* line 12, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_mobile-nav.sass */
+.mobile-header .logo a, .mobile-header .logo a:link, .mobile-header .logo a:visited {
+  background-color: var(--white);
+  color: var(--black);
+  border: 0.55px solid var(--black);
+  display: -webkit-box;
+  display: flex;
+  margin-bottom: 0.25rem;
+  padding: 0.5rem 0.75rem 0.4rem;
+  text-decoration: none;
+  -webkit-transition: ease 0.225s background-position, ease 0.325s padding;
+  transition: ease 0.225s background-position, ease 0.325s padding;
+  background-image: url("/assets/arrow-1d71b2a6f2f33419307602a1a2e382bd4aa9533b877936270950d6119d307063.svg");
+  background-position: -2.5rem center;
+  background-size: auto 1.25rem;
+  background-repeat: no-repeat;
+}
+/* line 26, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_mobile-nav.sass */
+.mobile-header .logo a:hover, .mobile-header .logo a:link:hover, .mobile-header .logo a:visited:hover {
+  background-position: 0.5rem center;
+  padding-left: 2.5rem;
+}
+/* line 30, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_mobile-nav.sass */
+.mobile-header a.toggle {
+  display: block;
+}
+/* line 33, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_mobile-nav.sass */
+.mobile-header a.toggle svg {
+  width: 2.5rem;
+  height: auto;
+  fill: none;
+}
+/* line 37, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_mobile-nav.sass */
+.mobile-header a.toggle svg rect {
+  stroke: none;
+}
+/* line 39, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_mobile-nav.sass */
+.mobile-header a.toggle svg line {
+  stroke: var(--black);
+}
+
+/* line 42, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_mobile-nav.sass */
+.mobile-nav {
+  padding: 1.5rem 0 5rem;
+  margin: 0 1.5rem;
+  border-bottom: 0.55px solid var(--black);
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_motion-card.sass */
+.motion-card {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+/* line 7, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_motion-card.sass */
+.motion-card a:hover, .motion-card a:link:hover, .motion-card a:visited:hover {
+  color: var(--blue);
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_pagination.sass */
+.pagination {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+          align-items: center;
+}
+/* line 9, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_pagination.sass */
+.pagination nav {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+          align-items: center;
+}
+/* line 15, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_pagination.sass */
+.pagination svg {
+  height: 1.3rem;
+  width: auto;
+  margin-right: 1rem;
+}
+/* line 19, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_pagination.sass */
+.pagination svg line, .pagination svg polyline {
+  stroke: var(--black);
+}
+/* line 24, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_pagination.sass */
+.pagination .-disabled svg line, .pagination .-disabled svg polyline {
+  stroke: var(--faint);
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+          flex-direction: row-reverse;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+}
+/* line 6, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background: var(--blue);
+  width: 7rem;
+  height: 7rem;
+  overflow: hidden;
+}
+/* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-sinn-fein {
+  background-color: #008800;
+}
+/* line 18, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-fianna-fail {
+  background-color: #66BB66;
+}
+/* line 20, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-fine-gael {
+  background-color: #6699FF;
+}
+/* line 22, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-labour-party {
+  background-color: #CC0000;
+}
+/* line 24, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-people-before-profit {
+  background-color: #660000;
+}
+/* line 26, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-green-party {
+  background-color: #99CC33;
+}
+/* line 28, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-solidarity {
+  background-color: #BF2D2E;
+}
+/* line 30, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-united-left {
+  background-color: #FF5555;
+}
+/* line 32, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-independent {
+  background-color: #CCC;
+}
+/* line 34, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-independents-4-change {
+  background-color: #FFC0CB;
+}
+/* line 36, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-social-democrats {
+  background-color: #752F8B;
+}
+/* line 38, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo.-workers-party {
+  background-color: #D73D3D;
+}
+/* line 42, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card figure.-logo img {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center center;
+     object-position: center center;
+}
+/* line 52, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-card.sass */
+.party-card .data {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+          flex: 1;
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-indicator.sass */
+.party-indicator {
+  width: 2.5rem;
+}
+/* line 3, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_party-indicator.sass */
+.party-indicator svg {
+  display: block;
+  margin: 0 auto 0 0;
+  width: 75%;
+  height: auto;
+}
+
+/* line 2, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_primary-header.sass */
+.primary-header > .content {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0rem;
+  padding: 2rem;
+  height: 100vh;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_primary-nav.sass */
+.primary-nav {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+          align-items: flex-start;
+}
+/* line 7, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_primary-nav.sass */
+.primary-nav .icons {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+          align-items: flex-start;
+  flex-wrap: wrap;
+}
+/* line 14, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_primary-nav.sass */
+.primary-nav .links {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+          align-items: flex-start;
+}
+/* line 19, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_primary-nav.sass */
+.primary-nav .links .logo {
+  font-weight: 400;
+}
+/* line 22, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_primary-nav.sass */
+.primary-nav .links a, .primary-nav .links a:link, .primary-nav .links a:visited {
+  background-color: var(--white);
+  color: var(--black);
+  border: 0.55px solid var(--black);
+  display: -webkit-box;
+  display: flex;
+  margin-bottom: 0.25rem;
+  padding: 0.5rem 0.75rem 0.4rem;
+  text-decoration: none;
+  -webkit-transition: ease 0.225s background-position, ease 0.325s padding;
+  transition: ease 0.225s background-position, ease 0.325s padding;
+  background-image: url("/assets/arrow-1d71b2a6f2f33419307602a1a2e382bd4aa9533b877936270950d6119d307063.svg");
+  background-position: -2.5rem center;
+  background-size: auto 1.25rem;
+  background-repeat: no-repeat;
+}
+/* line 36, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_primary-nav.sass */
+.primary-nav .links a:hover, .primary-nav .links a:link:hover, .primary-nav .links a:visited:hover {
+  background-position: 0.5rem center;
+  padding-left: 2.5rem;
+}
+
+/* line 44, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_primary-nav.sass */
+body.dark .primary-nav .links a, body.dark .primary-nav .links a:link, body.dark .primary-nav .links a:visited {
+  background-image: url("/assets/arrow-white-23058d864ea6e4192ff903fcbe0e5e6b5164bd498ed3d0c489d4499d13ba8b0b.svg");
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_progress.sass */
+.turbolinks-progress-bar {
+  height: 0.25rem;
+  background-color: var(--black);
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_slide.sass */
+.slide {
+  padding: var(--gutter) 0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_switcher.sass */
+.switcher {
+  position: relative;
+}
+
+/* line 4, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_switcher.sass */
+.switcher-nav {
+  position: relative;
+}
+/* line 6, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_switcher.sass */
+.switcher-nav select {
+  width: 100%;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  font-size: var(--t3);
+  font-family: var(--sans);
+  border-radius: 0;
+  border-color: var(--black);
+  color: var(--black);
+  background-color: var(--white);
+  background-image: url("data:image/svg+xml,%3Csvg width='122px' height='154px' viewBox='0 0 154 122' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cline x1='61' y1='139' x2='61' y2='0' stroke='%23090909' stroke-width='12' stroke-linecap='square'%3E%3C/line%3E%3Cpolyline fill='none' stroke='%23090909' stroke-width='12' points='5 80 61 145 117 80'%3E%3C/polyline%3E%3C/svg%3E");
+  background-position: right 0.5rem top calc(50% - 0.175rem);
+  background-size: auto 2rem;
+  background-repeat: no-repeat;
+  padding: 0.5rem 1rem;
+}
+/* line 23, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_switcher.sass */
+.switcher-nav select:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg width='122px' height='154px' viewBox='0 0 154 122' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cline x1='61' y1='139' x2='61' y2='0' stroke='%235b5cfe' stroke-width='12' stroke-linecap='square'%3E%3C/line%3E%3Cpolyline fill='none' stroke='%235b5cfe' stroke-width='12' points='5 80 61 145 117 80'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* line 29, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_switcher.sass */
+#switcherView {
+  min-height: calc(100vh - 10rem);
+}
+/* line 31, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_switcher.sass */
+#switcherView .loader {
+  padding: calc(var(--gutter) * 2) 0;
+  text-align: left;
+  font-size: var(--t3);
+}
+
+/* line 36, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_switcher.sass */
+.dark .switcher-nav select {
+  background-image: url("data:image/svg+xml,%3Csvg width='122px' height='154px' viewBox='0 0 154 122' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cline x1='61' y1='139' x2='61' y2='0' stroke='%23f3f3f3' stroke-width='12' stroke-linecap='square'%3E%3C/line%3E%3Cpolyline fill='none' stroke='%23f3f3f3' stroke-width='12' points='5 80 61 145 117 80'%3E%3C/polyline%3E%3C/svg%3E");
+}
+/* line 39, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_switcher.sass */
+.dark .switcher-nav select:hover {
+  background-image: url("data:image/svg+xml,%3Csvg width='122px' height='154px' viewBox='0 0 154 122' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cline x1='61' y1='139' x2='61' y2='0' stroke='%235b5cfe' stroke-width='12' stroke-linecap='square'%3E%3C/line%3E%3Cpolyline fill='none' stroke='%235b5cfe' stroke-width='12' points='5 80 61 145 117 80'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* line 2, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_tag-list.sass */
+.tag-list a, .tag-list a:link, .tag-list a:visited, .tag-list .tag {
+  display: inline-block;
+}
+/* line 4, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_tag-list.sass */
+.tag-list a:before, .tag-list a:link:before, .tag-list a:visited:before, .tag-list .tag:before {
+  content: "#";
+}
+/* line 8, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_tag-list.sass */
+.tag-list.-inline li {
+  display: inline-block;
+}
+/* line 11, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_tag-list.sass */
+.tag-list.-one-line {
+  overflow: hidden;
+  height: 1.3em;
+  width: 100%;
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-content.sass */
+.view-content {
+  padding: 6rem 0;
+}
+/* line 4, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-content.sass */
+.view-content.-tight {
+  padding-top: 0;
+}
+@media screen and (min-width: 800px) {
+  /* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-content.sass */
+  .view-content {
+    padding: calc(6rem + 5.2rem) 0;
+  }
+  /* line 10, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-content.sass */
+  .view-content.-tight {
+    padding-top: 0;
+  }
+  /* line 13, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-content.sass */
+  .view-content.-alpha {
+    padding-top: calc(6rem + 5.2rem);
+    padding-bottom: 6rem;
+  }
+  /* line 17, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-content.sass */
+  .view-content.-omega {
+    padding-top: 6rem;
+    padding-bottom: calc(6rem + 5.2rem);
+  }
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-footer.sass */
+.view-footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: var(--white);
+  z-index: 15;
+}
+/* line 9, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-footer.sass */
+.view-footer .wrapper[role='layout'] {
+  padding-top: 0.5rem;
+  padding-bottom: 2.5rem;
+  border-top: 0.55px solid var(--black);
+}
+/* line 14, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-footer.sass */
+.view-footer nav.api {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+}
+/* line 19, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-footer.sass */
+.view-footer nav.api .other-format {
+  margin-left: 1rem;
+  font-size: var(--t6);
+  border: 0.55px solid var(--black);
+  color: var(--black);
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0 0.5rem;
+  border-radius: 0.25rem;
+}
+/* line 29, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-footer.sass */
+.view-footer nav.api .other-format:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+@media screen and (min-width: 800px) {
+  /* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-footer.sass */
+  .view-footer {
+    left: var(--sidebar-width);
+  }
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header {
+  z-index: 15;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background: var(--white);
+}
+/* line 7, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header .breadcrumbs {
+  border-bottom: 0.55px solid var(--black);
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+}
+/* line 13, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header .breadcrumbs a, .view-header .breadcrumbs a:link, .view-header .breadcrumbs a:visited {
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 1.3em;
+  width: 100%;
+  text-overflow: ellipsis;
+  display: block;
+  -webkit-box-flex: 0;
+          flex: none;
+  padding: 0;
+  border-bottom: none;
+  color: var(--grey);
+}
+/* line 25, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header .breadcrumbs a:hover, .view-header .breadcrumbs a:link:hover, .view-header .breadcrumbs a:visited:hover {
+  color: var(--black);
+}
+/* line 30, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header .breadcrumbs .breadcrumb + .breadcrumb a:before, .view-header .breadcrumbs .breadcrumb + .breadcrumb a:link:before, .view-header .breadcrumbs .breadcrumb + .breadcrumb a:visited:before {
+  content: " / ";
+  color: var(--grey);
+}
+/* line 34, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header .breadcrumbs .breadcrumb {
+  padding-top: 2.5rem;
+  padding-bottom: 0.5rem;
+}
+/* line 38, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header .breadcrumbs .breadcrumb a, .view-header .breadcrumbs .breadcrumb a:link, .view-header .breadcrumbs .breadcrumb a:visited {
+  color: var(--grey);
+}
+/* line 41, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header .breadcrumbs .breadcrumb:last-of-type a, .view-header .breadcrumbs .breadcrumb:last-of-type a:link, .view-header .breadcrumbs .breadcrumb:last-of-type a:visited {
+  color: var(--black);
+}
+/* line 44, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header .nav-items {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: stretch;
+          justify-content: stretch;
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+/* line 51, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header .nav-item {
+  -webkit-box-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: stretch;
+          justify-content: stretch;
+}
+/* line 57, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header h1, .view-header h1 a {
+  font-weight: 400;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+/* line 63, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header h1 a, .view-header h1 a:link, .view-header h1 a:visited, .view-header h1 a a, .view-header h1 a a:link, .view-header h1 a a:visited {
+  color: var(--black);
+}
+/* line 66, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header a, .view-header a:link, .view-header a:visited {
+  display: block;
+  -webkit-box-flex: 1;
+          flex: 1;
+  padding-top: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.55px solid var(--black);
+  color: var(--grey);
+}
+/* line 73, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+.view-header a:hover, .view-header a:link:hover, .view-header a:visited:hover {
+  color: var(--black);
+}
+@media screen and (min-width: 800px) {
+  /* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-header.sass */
+  .view-header {
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: var(--sidebar-width);
+  }
+}
+
+/* line 3, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+.view-subnav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 5rem;
+  background-color: var(--white);
+  min-height: 3.2rem;
+  z-index: 14;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: var(--t3);
+}
+/* line 13, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+.view-subnav.-two {
+  top: calc(5rem - 2rem + 5.6rem);
+  z-index: 13;
+}
+/* line 17, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+.view-subnav .subnav-heading {
+  display: block;
+  -webkit-box-flex: 1;
+          flex: 1;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.55px solid var(--black);
+  color: var(--black);
+}
+/* line 27, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+.view-subnav .subnav-items {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: stretch;
+          justify-content: stretch;
+  margin-left: calc(var(--gutter)/-2);
+  margin-right: calc(var(--gutter)/-2);
+}
+/* line 34, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+.view-subnav .subnav-items .subnav-item {
+  display: none;
+  padding: 0 calc(var(--gutter)/2);
+  -webkit-box-flex: 1;
+          flex: 1;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: stretch;
+          justify-content: stretch;
+}
+/* line 42, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+.view-subnav .subnav-items .subnav-item.current a, .view-subnav .subnav-items .subnav-item.current a:link, .view-subnav .subnav-items .subnav-item.current a:visited {
+  border-bottom-color: var(--black);
+  color: var(--black);
+}
+/* line 46, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+.view-subnav .subnav-items .subnav-item a, .view-subnav .subnav-items .subnav-item a:link, .view-subnav .subnav-items .subnav-item a:visited {
+  display: block;
+  -webkit-box-flex: 1;
+          flex: 1;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.55px solid var(--grey);
+  color: var(--grey);
+}
+/* line 53, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+.view-subnav .subnav-items .subnav-item a:hover, .view-subnav .subnav-items .subnav-item a:link:hover, .view-subnav .subnav-items .subnav-item a:visited:hover {
+  color: var(--black);
+}
+/* line 56, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+.view-subnav .destop-subnav {
+  display: none;
+}
+/* line 59, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+.view-subnav .mobile-subnav {
+  display: block;
+  background-color: var(--white);
+  padding: 1rem 0;
+}
+@media screen and (min-width: 800px) {
+  /* line 65, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+  .view-subnav.-two {
+    top: calc(5rem - 2rem + 5.2rem);
+  }
+  /* line 68, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+  .view-subnav .mobile-subnav {
+    display: none;
+  }
+  /* line 71, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+  .view-subnav .destop-subnav {
+    display: block;
+  }
+  /* line 75, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_view-subnav.sass */
+  .view-subnav .subnav-items .subnav-item {
+    display: -webkit-box;
+    display: flex;
+  }
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-breakdown.sass */
+.breakdown {
+  width: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: stretch;
+          justify-content: stretch;
+  -webkit-box-align: center;
+          align-items: center;
+  font-size: var(--t6);
+  font-weight: 800;
+}
+/* line 10, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-breakdown.sass */
+.breakdown .voice-override {
+  width: 100%;
+  text-transform: uppercase;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+/* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-breakdown.sass */
+.breakdown .voice-override label {
+  color: var(--black);
+  padding: 0 1rem;
+  background: var(--faint);
+  opacity: 0.8;
+  border-radius: 0.25rem;
+}
+
+/* line 24, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-breakdown.sass */
+.breakdown_chart {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: stretch;
+          justify-content: stretch;
+  -webkit-box-align: stretch;
+          align-items: stretch;
+  height: 1.4rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.25rem;
+}
+/* line 34, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-breakdown.sass */
+.breakdown_chart .pct {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  overflow: hidden;
+  text-indent: -9999rem;
+}
+/* line 41, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-breakdown.sass */
+.breakdown_chart .pct.-for {
+  background-color: var(--green);
+  color: var(--white);
+}
+/* line 44, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-breakdown.sass */
+.breakdown_chart .pct.-against {
+  background-color: var(--red);
+  color: var(--white);
+}
+/* line 47, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-breakdown.sass */
+.breakdown_chart .pct.-abstain {
+  background-color: var(--faint);
+  color: var(--black);
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-result.sass */
+.vote-result {
+  height: 1.4rem;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  color: var(--white);
+  font-size: var(--t6);
+  text-transform: uppercase;
+  padding: 0 0.5rem;
+  line-height: 2;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 0.25rem;
+}
+/* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-result.sass */
+.vote-result.-pass {
+  background-color: var(--green);
+}
+/* line 18, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-result.sass */
+.vote-result.-fail {
+  background-color: var(--red);
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-status-diagram.sass */
+.vote-status-heading {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+          align-items: flex-end;
+}
+
+/* line 7, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-status-diagram.sass */
+.vote-status-diagram {
+  -webkit-box-flex: 1;
+          flex: 1;
+  background: purple;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: end;
+          align-items: flex-end;
+}
+/* line 15, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-status-diagram.sass */
+.vote-status-diagram .votes {
+  background: red;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+          align-items: flex-start;
+  flex-wrap: wrap;
+  height: 2rem;
+  overflow: hidden;
+  width: auto;
+}
+/* line 26, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-status-diagram.sass */
+.vote-status-diagram .party-icon {
+  margin: 0.125rem;
+  flex-shrink: 0;
+  -webkit-box-flex: 0;
+          flex-grow: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 0.5rem;
+  background: var(--black);
+  border: 0.55px solid var(--black);
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-status-heading.sass */
+.vote-status-heading {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+          align-items: flex-end;
+  padding-top: 1.5rem;
+}
+/* line 8, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-status-heading.sass */
+.vote-status-heading .text {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+          align-items: flex-start;
+}
+/* line 14, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-status-heading.sass */
+.vote-status-heading .text .status {
+  font-weight: 600;
+}
+/* line 16, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-status-heading.sass */
+.vote-status-heading .text .count {
+  font-size: var(--t4);
+}
+
+/* line 1, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser {
+  -webkit-box-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: end;
+          align-items: flex-end;
+}
+/* line 8, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .votes {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  align-content: flex-end;
+  -webkit-box-align: end;
+          align-items: flex-end;
+  flex-wrap: wrap;
+  height: 3rem;
+  overflow: hidden;
+  width: 100%;
+}
+/* line 19, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .vote {
+  margin: 0;
+  flex-basis: 1rem;
+  -webkit-box-flex: 0;
+          flex-grow: 0;
+  flex-shrink: 0;
+  height: 1rem;
+  width: 1rem;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+/* line 31, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon {
+  flex-shrink: 0;
+  -webkit-box-flex: 0;
+          flex-grow: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0.375rem;
+  background: var(--black);
+}
+/* line 39, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-sinn-fein {
+  background-color: #008800;
+}
+/* line 41, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-fianna-fail {
+  background-color: #66BB66;
+}
+/* line 43, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-fine-gael {
+  background-color: #6699FF;
+}
+/* line 45, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-labour-party {
+  background-color: #CC0000;
+}
+/* line 47, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-people-before-profit {
+  background-color: #660000;
+}
+/* line 49, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-green-party {
+  background-color: #99CC33;
+}
+/* line 51, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-solidarity {
+  background-color: #BF2D2E;
+}
+/* line 53, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-united-left {
+  background-color: #FF5555;
+}
+/* line 55, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-independent {
+  background-color: #ccc;
+}
+/* line 57, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-independents-4-change {
+  background-color: #FFC0CB;
+}
+/* line 59, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-social-democrats {
+  background-color: #752F8B;
+}
+/* line 61, /Users/btf/Projects/counciltracker-ie/app/assets/stylesheets/components/_vote-visualiser.sass */
+.vote-visualiser .party-icon.-workers-party {
+  background-color: #D73D3D;
+}
