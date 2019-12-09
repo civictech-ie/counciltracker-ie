@@ -81,6 +81,7 @@ class Admin::MotionsController < Admin::ApplicationController
       :pdf_url,
       :vote_ruleset,
       :vote_method,
+      :vote_result,
       :agenda_item,
       proposers_ids: [],
       local_electoral_area_ids: [],
