@@ -5,6 +5,6 @@
 
 
   .detail
-    .attendance= render partial: 'attendances/status', locals: {attendance: attendance}
+    .attendance= attendance.status.capitalize
 
   %figure.figure.-portrait= image_tag attendance.councillor.portrait.url(:small), loading: 'lazy', alt: "Portrait of #{ attendance.councillor.full_name }"
