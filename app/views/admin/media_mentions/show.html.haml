@@ -27,4 +27,4 @@
         = link_to "Edit mention", [:edit, :admin, @media_mention], class: 'button'
 
         .danger-zone
-          = button_to 'Delete mention', [:admin, @media_mention], method: 'delete', class: 'button -danger'
+          = button_to 'Delete mention', [:admin, @media_mention], method: 'delete', class: 'button -danger', data: {confirm: 'You sure? This can\'t be undone.'}

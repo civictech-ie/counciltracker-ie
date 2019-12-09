@@ -20,7 +20,7 @@
       %label Actions
       .actions
         .danger-zone
-          = button_to 'Delete amendment', [:admin, @amendment], method: 'delete', class: 'button -danger'
+          = button_to 'Delete amendment', [:admin, @amendment], method: 'delete', class: 'button -danger', data: {confirm: 'You sure? This can\'t be undone.'}
 
 = svelte_component('Switcher', {basePath: admin_amendment_path(@amendment), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'details', label: 'Details'},{view: 'votes', label: 'Votes'}], redirect: true}, class: 'view-subnav')
 

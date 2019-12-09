@@ -9,13 +9,11 @@ end
 gem 'rails', '~> 6.0.x'
 gem 'pg'
 gem 'haml'
-gem 'jquery-rails'
 gem 'puma'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem "webpacker"
 gem 'mini_racer', platforms: :ruby
-gem 'coffee-rails'
 gem 'sorcery'
 gem 'rails_12factor'
 gem 'turbolinks'

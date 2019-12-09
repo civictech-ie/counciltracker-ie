@@ -15,7 +15,7 @@
     .record-actions
       %label Actions
       .actions
-        .danger-zone= button_to 'Delete meeting', [:admin, @meeting], method: 'delete', class: 'button -danger'
+        .danger-zone= button_to 'Delete meeting', [:admin, @meeting], method: 'delete', class: 'button -danger', data: {confirm: 'You sure? This can\'t be undone.'}
 
 = svelte_component('Switcher', {basePath: admin_meeting_path(@meeting), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'details', label: 'Details'},{view: 'motions', label: 'Motions'},{view: 'attendances', label: 'Attendance'}], redirect: true}, class: 'view-subnav')
 

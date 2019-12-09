@@ -32,7 +32,7 @@
         = link_to "Add a media mention", [:new, :admin, @motion, :media_mention], class: 'button'
 
         .danger-zone
-          = button_to 'Delete motion', [:admin, @motion], method: 'delete', class: 'button -danger'
+          = button_to 'Delete motion', [:admin, @motion], method: 'delete', class: 'button -danger', data: {confirm: 'You sure? This can\'t be undone.'}
 
 = svelte_component('Switcher', {basePath: admin_motion_path(@motion), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'details', label: 'Details'},{view: 'votes', label: 'Votes'},{view: 'amendments', label: 'Amendments'}], redirect: true}, class: 'view-subnav')
 
