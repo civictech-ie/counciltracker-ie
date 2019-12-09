@@ -36,6 +36,16 @@
             - @amendment.attachments.each do |attachment|
               %li= link_to "Attached PDF", @amendment.pdf_url
 
+        .meta-data_block
+          %label Vote result
+          .text-block
+            - if @amendment.vote_result.present?
+              %strong
+                #{ @amendment.vote_result.capitalize }ed
+
+              - if @amendment.vote_method.present?
+                by #{ @amendment.vote_method } vote
+
 = svelte_component('Switcher', {basePath: amendment_path(@amendment), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'votes', label: 'Votes'}]}, class: 'view-subnav')
 
 #switcherView= render partial: @view.to_s, locals: {amendment: @amendment}
