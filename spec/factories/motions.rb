@@ -2,6 +2,8 @@ FactoryBot.define do
   factory :motion do
     meeting
 
+    title { 'I second that emotion' }
+
     sequence(:agenda_item)
     vote_ruleset { 'plurality' }
     vote_method { 'voice' }

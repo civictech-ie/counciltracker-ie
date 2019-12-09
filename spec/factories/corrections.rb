@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :correction do
-    body { "MyText" }
-    name { "MyText" }
-    email { "MyText" }
+    body { "Everything is broken" }
+    name { Faker::Name.name }
+    email_address { Faker::Internet.email }
   end
 end
