@@ -61,7 +61,6 @@
   display: inline-block
   width: 2rem
   height: 2rem
-  overflow: hidden
 
   svg
     display: block
@@ -77,13 +76,17 @@
   label
     display: block
     position: absolute
-    left: 0
+    left: 0.5px
     top: 0
     height: 100%
     width: 100%
     color: var(--black)
     font-size: var(--t6)
-    line-height: 2.3
+    line-height: 2.8
     z-index: 10
     text-indent: 0
     text-align: center
+
+  @media screen and (min-width: '800px')
+    label
+      line-height: 2.3
