@@ -6,27 +6,28 @@
     = javascript_pack_tag 'admin'
     = display_meta_tags site: 'Admin', reverse: true
     <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no' />
-
     = yield :snippets
+
   %body.dark
     .standard{role: 'layout'}
-      %header.primary-header
-        .content
-          %nav.primary-nav
-            .links
-              = link_to [:admin, :root], class: 'logo' do
-                Admin
+      - if logged_in?
+        %header.primary-header
+          .content
+            %nav.primary-nav
+              .links
+                = link_to [:admin, :root], class: 'logo' do
+                  Admin
 
-              = link_to "Meetings", [:admin, :meetings]
-              = link_to "Councillors", [:admin, :councillors]
-              = link_to "Events", [:admin, :events]
+                = link_to "Meetings", [:admin, :meetings]
+                = link_to "Councillors", [:admin, :councillors]
+                = link_to "Events", [:admin, :events]
 
-          %footer
-            .footer-block.p.-t4
-              %ul
-                %li= link_to 'Corrections', [:admin, :corrections]
-                %li= link_to 'Back to public site', :root
-                %li= link_to 'Log out', '/logout'
+            %footer
+              .footer-block.p.-t4
+                %ul
+                  %li= link_to 'Corrections', [:admin, :corrections]
+                  %li= link_to 'Back to public site', :root
+                  %li= link_to 'Log out', '/logout'
 
-      %nav.menu#menu= svelte_component('AdminMenu')
+        %nav.menu#menu= svelte_component('AdminMenu')
       %main.primary-main= yield

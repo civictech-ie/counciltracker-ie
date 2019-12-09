@@ -8,10 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :user_sessions, only: [:create]
-  resources :users, only: [:create]
-  resource :user, only: [:show, :edit, :update]
 
-  get 'register' => 'users#new', as: :register
   get 'signin' => 'user_sessions#new', as: :signin
   get 'logout' => 'user_sessions#destroy', as: :logout
 

@@ -2,12 +2,12 @@
 %html
   %head
     = csrf_meta_tags
-    = stylesheet_link_tag    'application', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all'
     = javascript_pack_tag 'application'
     = display_meta_tags site: 'Council Tracker', reverse: true
     <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no' />
-
     = yield :snippets
+
   %body
     .standard{role: 'layout'}
       %header.primary-header
