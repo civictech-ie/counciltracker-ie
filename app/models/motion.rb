@@ -33,6 +33,10 @@ class Motion < Voteable
     self.meeting.council_session
   end
 
+  def published?
+    self.published_at.present?
+  end
+
   def local_electoral_areas
     @local_electoral_areas ||= LocalElectoralArea.where(id: self.local_electoral_area_ids)
   end

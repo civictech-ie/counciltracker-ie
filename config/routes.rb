@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   get 'faq' => 'pages#faq', as: :faq
 
+  resources :corrections, only: [:new, :create] do
+    collection { get 'thanks' }
+  end
+
   resources :user_sessions, only: [:create]
   resources :users, only: [:create]
   resource :user, only: [:show, :edit, :update]
@@ -67,7 +71,9 @@ Rails.application.routes.draw do
     end
     get 'amendments/:id/:view(/:context)' => 'amendments#show'
 
-    resources :media_mentions, only: [:edit, :update]
+    resources :media_mentions, only: [:show, :destroy, :edit, :update]
+    
+    resources :corrections
   end
 
   get "/404" => "errors#not_found"

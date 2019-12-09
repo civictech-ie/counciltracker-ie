@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_17_202849) do
+ActiveRecord::Schema.define(version: 2019_12_08_170711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(version: 2019_06_17_202849) do
     t.index ["incoming_councillor_id"], name: "index_co_options_on_incoming_councillor_id"
     t.index ["incoming_party_id"], name: "index_co_options_on_incoming_party_id"
     t.index ["outgoing_seat_id"], name: "index_co_options_on_outgoing_seat_id"
+  end
+
+  create_table "corrections", force: :cascade do |t|
+    t.text "body"
+    t.text "name"
+    t.text "email_address"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "council_sessions", force: :cascade do |t|

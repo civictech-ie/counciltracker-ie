@@ -1,11 +1,25 @@
 .button
-  background: var(--white)
+  display: block
   color: var(--black)
   padding: 0.5rem 1rem
   border: 0.55px solid var(--black)
   margin: 0
+  width: 100%
+  font-family: var(--sans)
+  font-size: var(--t3)
+  background-color: var(--transparent)
+  white-space: nowrap
+  flex: 0
 
   &:hover
     border-color: var(--blue)
     color: var(--blue)
     cursor: pointer
+  
+  &.-danger
+    border-color: var(--red)
+    color: var(--red)
+    &:hover
+      border-color: var(--red)
+      background-color: var(--red)
+      color: var(--black)

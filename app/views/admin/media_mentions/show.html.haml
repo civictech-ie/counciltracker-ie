@@ -1,0 +1,30 @@
+%header.view-header
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumb= link_to @media_mention.mentionable_type.pluralize, [:admin, @media_mention.mentionable_type.pluralize.downcase.to_sym]
+      .breadcrumb= link_to @media_mention.mentionable_type, [:admin, @media_mention.mentionable]
+      .breadcrumb= link_to 'Media mention', [:new, :admin, @media_mention.mentionable, :media_mention]
+
+.view-content.-alpha
+  .wrapper{role: 'layout'}
+    .meta-data
+      .meta-data_block
+        %label Text
+        = simple_format @media_mention.body
+      .meta-data_block
+        %label Publication
+        %p #{ @media_mention.source }
+      .meta-data_block
+        %label URL
+        %p #{ link_to @media_mention.url }
+      .meta-data_block
+        %label Published on
+        %p #{ @media_mention.published_on }
+
+    .record-actions
+      %label Actions
+      .actions
+        = link_to "Edit mention", [:edit, :admin, @media_mention], class: 'button'
+
+        .danger-zone
+          = button_to 'Delete mention', [:admin, @media_mention], method: 'delete', class: 'button -danger'

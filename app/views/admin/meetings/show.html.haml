@@ -4,6 +4,19 @@
       .breadcrumb= link_to 'Meetings', [:admin, :meetings]
       .breadcrumb= link_to @meeting.occurred_on_formatted, [:admin, @meeting]
 
+.view-content.-alpha
+  .wrapper{role: 'layout'}
+    .meeting-card
+      .meta-data
+        .meta-data_block
+          %h1= @meeting.meeting_type_in_english
+          %p= @meeting.occurred_on.strftime('%-d %B \'%y')
+
+    .record-actions
+      %label Actions
+      .actions
+        .danger-zone= button_to 'Delete meeting', [:admin, @meeting], method: 'delete', class: 'button -danger'
+
 = svelte_component('Switcher', {basePath: admin_meeting_path(@meeting), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'details', label: 'Details'},{view: 'motions', label: 'Motions'},{view: 'attendances', label: 'Attendance'}], redirect: true}, class: 'view-subnav')
 
 %div= render partial: @view.to_s, locals: {meeting: @meeting}

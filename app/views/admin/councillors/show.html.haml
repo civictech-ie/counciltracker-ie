@@ -34,4 +34,9 @@
               %label Media
               %ul.list.-emmed
                 - @councillor.media_mentions.each do |media_mention|
-                  %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
+                  %li= render partial: 'admin/media_mentions/media_mention', locals: {media_mention: media_mention}
+
+    .record-actions
+      %label Actions
+      .actions
+        = link_to "Add a media mention", [:new, :admin, @councillor, :media_mention], class: 'button'

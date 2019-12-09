@@ -5,6 +5,35 @@
       .breadcrumb= link_to @motion.meeting.occurred_on_formatted, [:admin, @motion.meeting]
       .breadcrumb= link_to 'Motion', [:admin, @motion]
 
+.view-content.-alpha
+  .wrapper{role: 'layout'}
+    .motion-card
+      .meta-data
+        .meta-data_block
+          - if @motion.title.present?
+            %h1.text-block
+              :markdown
+                #{ @motion.title }
+
+        .meta-data_block
+          - if @motion.media_mentions.any?
+            %label Media
+            %ul.list.-emmed
+              - @motion.media_mentions.each do |media_mention|
+                %li= render partial: 'admin/media_mentions/media_mention', locals: {media_mention: media_mention}
+
+    .record-actions
+      %label Actions
+      .actions
+        - if @motion.published?
+          = button_to 'Unpublish', [:publish, :admin, @motion], method: 'patch', class: 'button'
+        - else
+          = button_to 'Publish', [:publish, :admin, @motion], method: 'patch', class: 'button'
+        = link_to "Add a media mention", [:new, :admin, @motion, :media_mention], class: 'button'
+
+        .danger-zone
+          = button_to 'Delete motion', [:admin, @motion], method: 'delete', class: 'button -danger'
+
 = svelte_component('Switcher', {basePath: admin_motion_path(@motion), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'details', label: 'Details'},{view: 'votes', label: 'Votes'},{view: 'amendments', label: 'Amendments'}], redirect: true}, class: 'view-subnav')
 
 %div= render partial: @view.to_s, locals: {motion: @motion}

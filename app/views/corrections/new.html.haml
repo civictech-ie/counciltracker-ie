@@ -1,0 +1,27 @@
+.slide
+  .wrapper{role: 'layout'}
+    .text-block.p.-t2
+      :markdown
+        We do our best to make sure that the data is correct, so we're really sorry if you've noticed an error creep in. Please let us know by using the form below.
+
+.slide
+  .wrapper{role: 'layout'}
+    = form_with model: @correction, url: :corrections, class: 'basic-form' do |f|
+
+      = render partial: 'shared/errors', locals: {errors: f.object.errors}
+
+      .basic-form_field
+        = f.label :name, 'Your name'
+        .input
+          = f.text_field :name
+      .basic-form_field
+        = f.label :email_address, 'Your email'
+        .input
+          = f.text_field :email_address
+      .basic-form_field
+        = f.label :body, "What did we get wrong? Please be specific and include the source of your correct information."
+        .input
+          = f.text_area :body
+
+      .basic-form_actions
+        = f.submit 'Submit correction', class: 'button'

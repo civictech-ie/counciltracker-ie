@@ -27,7 +27,7 @@
             .footer-block.p.-t4
               %ul
                 %li= link_to 'FAQs', '/faq'
-                %li= link_to "Submit correction", '/submit-correction'
+                %li= link_to "Submit correction", [:new, :correction]
                 %li= link_to "Source code", 'https://www.github.com/civictech-ie/counciltracker-ie'
                 - if logged_in?
                   %li= link_to "Admin panel", [:admin, :root]

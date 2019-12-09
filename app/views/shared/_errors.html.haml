@@ -1,0 +1,4 @@
+- if errors.any?
+  %ul.list.-errors
+    - errors.full_messages.each do |error_msg|
+      %li= error_msg

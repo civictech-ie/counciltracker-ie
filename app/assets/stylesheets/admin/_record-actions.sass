@@ -1,0 +1,26 @@
+.record-actions
+  display: block
+  color: var(--black)
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: flex-start
+
+  label
+    display: block
+    margin-bottom: 1rem
+    &::before
+      content: '— '
+
+  .actions
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+    align-items: center
+
+    & > * + *
+      margin-left: 1rem
+    
+    & > * + .danger-zone
+      border-left: 0.55px solid var(--red)
+      padding-left: 1rem

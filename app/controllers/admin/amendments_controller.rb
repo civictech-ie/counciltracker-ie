@@ -51,6 +51,13 @@ class Admin::AmendmentsController < Admin::ApplicationController
     end
   end
 
+  def destroy
+    @amendment = Amendment.find_by(hashed_id: params[:id])
+    @motion = @amendment.motion
+    @amendment.destroy!
+    redirect_to [:admin, @motion]
+  end
+
   def save_vote
     @amendment = Amendment.find_by(id: params[:id])
     @councillor = Councillor.find_by(id: params['councillorId'])

@@ -1,0 +1,19 @@
+%header.view-header
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumb= link_to 'Corrections', [:admin, :corrections]
+      .breadcrumb= link_to @correction.name, [:admin, @correction]
+
+.view-content.-alpha
+  .wrapper{role: 'layout'}
+    .correction-card
+      .meta-data
+        .meta-data_block
+          %label Submitted by
+          %p #{ @correction.name } (#{ @correction.email_address })
+        .meta-data_block
+          %label Submitted at
+          %p #{ @correction.created_at }
+        .meta-data_block
+          %label Text
+          = simple_format @correction.body

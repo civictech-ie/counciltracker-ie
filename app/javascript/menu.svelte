@@ -39,7 +39,7 @@
     <div class="footer-block">
       <ul class="p -t4">
         <li><a href="/faq">FAQs</a></li>
-        <li><a href="/submit-correction">Submit correction</a></li>
+        <li><a href="/corrections/new">Submit correction</a></li>
         <li><a href="https://www.github.com/civictech-ie/counciltracker-ie">Source code</a></li>
       </ul>
       <div class="p -t4">

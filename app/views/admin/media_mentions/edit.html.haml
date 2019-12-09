@@ -1,16 +1,10 @@
-%header.page-header
+%header.view-header
   .wrapper{role: 'layout'}
     .breadcrumbs
-      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
-      .breadcrumbs_crumb
-        %h1 Edit media mention
+      .breadcrumb= link_to @media_mention.mentionable_type.pluralize, [:admin, @media_mention.mentionable_type.pluralize.downcase.to_sym]
+      .breadcrumb= link_to @media_mention.mentionable_type, [:admin, @media_mention.mentionable]
+      .breadcrumb= link_to 'Edit media mention', [:new, :admin, @media_mention.mentionable, :media_mention]
 
-.primary-main_content
+.view-content
   .wrapper{role: 'layout'}
-    .row
-      .col-xs-12
-        %section
-          %header.subheader
-            %h2 Edit media mention
-          %main
-            = render partial: 'admin/media_mentions/form', locals: { media_mention: @media_mention, mentionable: @media_mention.mentionable }
+    = render partial: 'admin/media_mentions/form', locals: { media_mention: @media_mention, mentionable: @media_mention.mentionable }

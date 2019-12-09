@@ -47,8 +47,16 @@ class Admin::MeetingsController < Admin::ApplicationController
     if @meeting.update(meeting_params)
       redirect_to [:admin, @meeting]
     else
-      render :edit
+      @view = params[:view].try(:to_sym) || :details
+      @context = params[:context].try(:to_sym) || :full
+      render :show
     end
+  end
+
+  def destroy
+    @meeting = Meeting.find_by(hashed_id: params[:id])
+    @meeting.destroy!
+    redirect_to [:admin, :meetings]
   end
 
   def save_attendance

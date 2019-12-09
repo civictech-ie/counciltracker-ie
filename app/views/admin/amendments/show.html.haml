@@ -6,6 +6,22 @@
       .breadcrumb= link_to 'Motion', [:admin, @amendment.motion], title: @amendment.motion.title
       .breadcrumb= link_to 'Amendment', [:admin, @amendment], title: @amendment.body
 
+.view-content.-alpha
+  .wrapper{role: 'layout'}
+    .amendment-card
+      .meta-data
+        .meta-data_block
+          - if @amendment.body.present?
+            %p.text-block
+              :markdown
+                #{ @amendment.body }
+
+    .record-actions
+      %label Actions
+      .actions
+        .danger-zone
+          = button_to 'Delete amendment', [:admin, @amendment], method: 'delete', class: 'button -danger'
+
 = svelte_component('Switcher', {basePath: admin_amendment_path(@amendment), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'details', label: 'Details'},{view: 'votes', label: 'Votes'}], redirect: true}, class: 'view-subnav')
 
 %div= render partial: @view.to_s, locals: {amendment: @amendment}

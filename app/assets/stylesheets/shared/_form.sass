@@ -1,4 +1,4 @@
-.admin-form
+.admin-form, .basic-form
   input.button
     padding: 0.5rem 1rem
     text-align: center
@@ -46,13 +46,13 @@
         cursor: pointer
 
   @media screen and (min-width: '800px')
-    .admin-form_field
-      max-width: calc(50% - var(--gutter)/2)
+    .admin-form_field, .basic-form_field
+      max-width: var(--text-block-width)
 
-.admin-form_field
+.admin-form_field, .basic-form_field
   margin-bottom: var(--gutter)
 
-.admin-form_actions
+.admin-form_actions, .basic-form_actions
   padding-top: var(--gutter)
   border-top: 0.55px solid var(--black)
   display: flex
@@ -65,4 +65,8 @@
     height: auto
 
   @media screen and (min-width: '800px')
-    max-width: calc(50% - var(--gutter)/2)
+    max-width: var(--text-block-width)
+
+.basic-form_actions
+  border-top: 0
+  padding-top: 0

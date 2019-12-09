@@ -63,6 +63,13 @@ class Admin::MotionsController < Admin::ApplicationController
     end
   end
 
+  def destroy
+    @motion = Motion.find_by(hashed_id: params[:id])
+    @meeting = @motion.meeting
+    @motion.destroy!
+    redirect_to [:admin, @meeting]
+  end
+
   private
 
   def motion_params
