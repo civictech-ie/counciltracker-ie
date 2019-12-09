@@ -111,10 +111,11 @@
       background-color: #D73D3D
   
   &:hover
-    figure
-      opacity: 1
-      pointer-events: none
-      transition: opacity ease 0
+    @media screen and (min-width: '800px')
+      figure
+        opacity: 1
+        pointer-events: none
+        transition: opacity ease 0
 
   @media screen and (min-width: '800px')
     figure
