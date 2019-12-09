@@ -1,0 +1,34 @@
+.view-footer
+  position: fixed
+  bottom: 0
+  right: 0
+  left: 0
+  background: var(--white)
+  z-index: 15
+
+  .wrapper[role='layout']
+    padding-top: 0.5rem
+    padding-bottom: 2.5rem
+    border-top: 0.55px solid var(--black)
+
+  nav.api
+    display: flex
+    flex-direction: row
+    justify-content: flex-end
+
+    .other-format
+      margin-left: 1rem
+      font-size: var(--t6)
+      border: 0.55px solid var(--black)
+      color: var(--black)
+      font-weight: 600
+      text-transform: uppercase
+      padding: 0 0.5rem
+      border-radius: 0.25rem
+
+      &:hover
+        color: var(--blue)
+        border-color: var(--blue)
+
+  @media screen and (min-width: '800px')
+    left: var(--sidebar-width)

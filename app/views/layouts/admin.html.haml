@@ -2,35 +2,31 @@
 %html
   %head
     = csrf_meta_tags
-    = stylesheet_link_tag    'application', media: 'all'
-    = javascript_include_tag 'application'
-    = display_meta_tags site: 'Council Tracker', reverse: true
+    = stylesheet_link_tag    'admin', media: 'all'
+    = javascript_pack_tag 'admin'
+    = display_meta_tags site: 'Admin', reverse: true
+    <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no' />
 
     = yield :snippets
-  %body.-public
-    .primary-header_container
-      .wrapper{role: 'layout'}
-        %header.primary-header_content.-admin
-          .primary-header_logo
-            = link_to [:admin, :root], class: 'logo' do
-              Council Tracker: Admin
-          %nav.primary-header_nav
-            = link_to "Events", [:admin, :events]
-            = link_to "Councillors", [:admin, :councillors]
-            = link_to "Meetings", [:admin, :meetings]
+  %body.dark
+    .standard{role: 'layout'}
+      %header.primary-header
+        .content
+          %nav.primary-nav
+            .links
+              = link_to [:admin, :root], class: 'logo' do
+                Admin
 
-    %main.primary-main= yield
+              = link_to "Meetings", [:admin, :meetings]
+              = link_to "Councillors", [:admin, :councillors]
+              = link_to "Events", [:admin, :events]
 
-:javascript
-  var _gauges = _gauges || [];
-  (function() {
-    var t   = document.createElement('script');
-    t.type  = 'text/javascript';
-    t.async = true;
-    t.id    = 'gauges-tracker';
-    t.setAttribute('data-site-id', '5ab6c55bba4ae35c0a000004');
-    t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
-    t.src = 'https://d2fuc4clr7gvcn.cloudfront.net/track.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(t, s);
-  })();
+          %footer
+            .footer-block.p.-t4
+              %ul
+                %li= link_to 'Corrections', [:admin, :corrections]
+                %li= link_to 'Back to public site', :root
+                %li= link_to 'Log out', '/logout'
+
+      %nav.menu#menu= svelte_component('AdminMenu')
+      %main.primary-main= yield

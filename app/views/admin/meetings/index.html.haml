@@ -1,26 +1,17 @@
-%header.page-header
+%header.view-header
   .wrapper{role: 'layout'}
-    .breadcrumbs
-      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
-      .breadcrumbs_crumb
-        %h1= link_to "Meetings", [:admin, :meetings]
+    %h1= link_to "Meetings", [:admin, :meetings]
 
-.primary-main_content
+%main.view-content{role: 'layout'}
   .wrapper{role: 'layout'}
-    %section
-      %header.subheader
-        .text.-right
-          %nav.subheader_nav
-            = link_to "Scrape from DCC", [:scrape, :admin, :meetings], method: 'patch'
-            = link_to "Manually add new meeting", [:new, :admin, :meeting]
+    %nav.list-actions
+      = link_to "New meeting", [:new, :admin, :meeting], class: 'button'
     %ul.list.-enumerable
       - @meetings.each do |meeting|
         %li
           = link_to [:admin, meeting] do
-            .row
-              .col-xs-2
-                .text.-fixed= meeting.occurred_on.strftime('%d.%m.%y')
-              .col-xs-6
-                = meeting.meeting_type_in_english
-              .col-xs-4
-                .text.-fixed.-right= pluralize meeting.motions.published.count, 'motions'
+            = render partial: 'meetings/meeting', locals: {meeting: meeting}
+
+%footer.view-footer
+  .wrapper{role: 'layout'}
+    = render partial: 'shared/pagination', locals: {records: @meetings}

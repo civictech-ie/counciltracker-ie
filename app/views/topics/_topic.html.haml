@@ -1,0 +1,5 @@
+.enumerable.-topic
+  - count = Motion.published.in_category(topic).count
+  .indicator.count-icon= render partial: 'icons/count', locals: {count: count}
+  .content
+    .name #{ topic }

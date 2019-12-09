@@ -2,25 +2,23 @@
 - description "#{ @party.name } has #{ pluralize @party.active_councillors.count, 'councillor' } on Dublin City Council"
 - keywords "city council, parties, #{ @party.name }"
 
-%header.page-header
+%header.view-header
   .wrapper{role: 'layout'}
     .breadcrumbs
-      .breadcrumbs_crumb= link_to "Parties", :parties
-      .breadcrumbs_crumb
-        %h1= link_to @party.name, @party
+      .breadcrumb= link_to 'Parties', :parties
+      .breadcrumb= link_to @party.name, @party
 
-.primary-main_content
+.view-content.-alpha
   .wrapper{role: 'layout'}
-    %ul.list.-councillors.-enumerable
-      - @party.active_councillors.each do |councillor|
-        %li
-          = link_to councillor, class: 'councillor' do
-            %figure.figure.-portrait= image_tag councillor.portrait.url(:small)
-            %p.text.-display= councillor.full_name
-            %ul.list.-inline.-dotted
-              %li
-                %span.party-affiliated
-                  %span.party-icon.party-icon{style: "background-color: ##{ councillor.party.colour_hex };", title: councillor.party.name} &nbsp;
-                  = councillor.party.name
-              %li= councillor.local_electoral_area.name
+    .party-card
+      %figure.-logo{class: "-#{ @party.slug }"} &nbsp;
+      .data
+        .meta-data
+          .meta-data_block
+            %h1= @party.name
+            %p
+              #{ pluralize @party.active_councillors.count, 'member' } currently on the council
 
+= svelte_component('Switcher', {basePath: party_path(@party), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'councillors', label: 'Councillors'}]}, class: 'view-subnav')
+
+#switcherView= render partial: @view.to_s, locals: {party: @party}

@@ -6,14 +6,15 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.0.x'
 gem 'pg'
 gem 'haml'
 gem 'jquery-rails'
 gem 'puma'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'therubyracer', platforms: :ruby
+gem "webpacker"
+gem 'mini_racer', platforms: :ruby
 gem 'coffee-rails'
 gem 'sorcery'
 gem 'rails_12factor'
@@ -24,7 +25,7 @@ gem 'httparty'
 gem "nokogiri", ">= 1.10.4"
 gem 'carrierwave'
 gem 'fog'
-gem "mini_magick", ">= 4.9.4"
+gem 'mini_magick'
 gem 'date_validator'
 gem "sentry-raven"
 gem 'dalli'
@@ -33,6 +34,10 @@ gem 'meta-tags'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'scout_apm'
 gem 'redis'
+gem 'kaminari'
+gem 'oj' # json
+gem 'webpacker-svelte'
+gem "autoprefixer-rails"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -55,6 +60,9 @@ group :development do
   gem 'rack-livereload'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rack-mini-profiler'
+  gem "bullet"
+  gem 'squasher', require: false
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

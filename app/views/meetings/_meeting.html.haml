@@ -1,8 +1,6 @@
-- cache meeting do
-  .row
-    .col-xs-2
-      .text.-fixed= meeting.occurred_on.strftime('%d.%m.%y')
-    .col-xs-8
-      = meeting.meeting_type_in_english
-    .col-xs-2
-      .text.-fixed.-right= pluralize meeting.attendances.attended.count, 'attendee'
+.enumerable.-meeting
+  .content
+    .title= meeting.meeting_type_in_english
+  .detail
+    .date #{ raw meeting.occurred_on.strftime('%-d %b \'%y') }
+    .attendees= pluralize meeting.attendances.attended.count, 'attendee'

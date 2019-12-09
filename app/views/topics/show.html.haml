@@ -2,14 +2,25 @@
 - description "#{ pluralize @motions.count, 'motion' } related to #{ @tag } in Dublin City Council"
 - keywords "city council, motions, #{ @tag }"
 
-%header.page-header
+%header.view-header
   .wrapper{role: 'layout'}
-    %h1= @tag
+    .breadcrumbs
+      .breadcrumb= link_to 'Topics', :topics
+      .breadcrumb= link_to @tag, topic_path(@tag.parameterize)
 
-.primary-main_content
+.view-content.-alpha
   .wrapper{role: 'layout'}
-    %ul.list.-enumerable
-      - @motions.each do |motion|
-        %li
-          = link_to motion do
-            = render partial: 'motions/motion', locals: {motion: motion}
+    .topic-card
+      .data
+        .meta-data
+          .meta-data_block
+            %h1= @tag
+            %p
+              #{ pluralize Motion.published.in_category(@tag).count, 'motion' }
+
+= svelte_component('Switcher', {basePath: topic_path(@tag.parameterize), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'motions', label: 'Motions'}]}, class: 'view-subnav')
+
+#switcherView= render partial: @view.to_s, locals: {motions: @motions}
+
+%footer.view-footer
+  .wrapper{role: 'layout'}= render partial: 'shared/pagination', locals: {records: @motions}

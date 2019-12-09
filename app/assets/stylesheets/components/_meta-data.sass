@@ -1,0 +1,33 @@
+.meta-data
+  display: flex
+  flex-direction: column
+  flex-wrap: wrap
+  justify-content: flex-start
+  align-items: stretch
+
+  a, a:link, a:visited
+    &:hover
+      color: var(--blue)
+
+  &.-small
+    .meta-data_block
+      font-size: var(--t3)
+  
+.meta-data_block
+  flex-grow: 1
+  flex-shrink: 1
+  margin-bottom: var(--gutter)
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: flex-start
+  font-size: var(--t2)
+  max-width: var(--text-block-width)
+
+  .empty-value
+    display: inline-block
+    color: var(--grey)
+
+  label
+    font-size: var(--t3)
+    color: var(--black)

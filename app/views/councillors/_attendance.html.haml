@@ -1,0 +1,7 @@
+.enumerable.-meeting.-attendance
+  .content
+    .title= attendance.attendable.meeting_type_in_english
+  .detail
+    .date #{ attendance.attendable.occurred_on.strftime('%-d %b \'%y') }
+
+    .attendance= attendance.status.capitalize

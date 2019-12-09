@@ -1,130 +1,97 @@
 - title ['Motions', @motion.title]
-- description "Motion: #{ @motion.title } proposed by #{ @motion.proposers.map(&:full_name).to_sentence } on #{ @motion.occurred_on.strftime('%d/%m/%y') }."
+- description "Motion: #{ @motion.title } proposed by #{ @motion.proposers.map(&:full_name).to_sentence } on #{ @motion.occurred_on.strftime('%-d/%m/%y') }."
 - keywords "city council, motions, #{ @motion.tags.join(',') }"
 
-- cache [@motion, :show] do
-  %header.page-header
-    .wrapper{role: 'layout'}
-      .breadcrumbs
-        .breadcrumbs_crumb= link_to @motion.meeting.title, meeting_path(meeting_type: @motion.meeting.meeting_type, occurred_on: @motion.meeting.occurred_on)
-        .breadcrumbs_crumb
-          %h1= link_to truncate(@motion.title, length: 48), @motion
+%header.view-header
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumb= link_to @motion.meeting.occurred_on_formatted, @motion.meeting.path
+      .breadcrumb= link_to 'Motion', @motion
 
-  .primary-main_content
-    .wrapper{role: 'layout'}
-      .row
-        .col-xs-3
-          %section
-            %main
-              .box.-highlighted.-padded
-                .text.-display= @motion.title
-
-          %section
-            %main
-              .box.-padded.-result{class: "-#{ @motion.vote_result }"}
-                .text
-                  :markdown
-                    **#{ @motion.vote_result.capitalize }ed**
-                .text by #{ @motion.vote_method } vote.
-
-          %section
-            %header.subheader
-              %h3 Proposers
-            %main
-              - if @motion.proposers.any?
-                %ul.list
-                  - @motion.proposers.each do |councillor|
-                    %li
-                      = link_to councillor do
-                        .party-affiliated
-                          .party-icon{style: "background-color: ##{ councillor.party_on(@motion.occurred_on).colour_hex };", title: councillor.party_on(@motion.occurred_on).name}
-                          = councillor.full_name
-              - else
-                %p.empty (Not present)
-
-          - if @motion.media_mentions.any?
-            %section
-              %header.subheader
-                %h3 Media
-              %main
-                %ul.list.-small
-                  - @motion.media_mentions.order('published_on desc').each do |media_mention|
-                    %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
-
-          - if @motion.tags.any?
-            %section
-              %header.subheader
-                %h3 Topics
-              %main
-                %ul.list.-small
-                  - @motion.tags.sort.each do |tag|
-                    %li= link_to tag, topic_path(tag.parameterize)
-
-          - if @motion.pdf_url.present?
-            %section
-              %header.subheader
-                %h3 Attachments
-              %main
-                %ul.list.-small
-                  %li= link_to "Report PDF", @motion.pdf_url
-
-        .col-xs-9
-          - if @motion.body.present?
-            %section
-              %header.subheader
-                %h3 Text
-              %main
-                .text.-body
+.view-content.-alpha
+  .wrapper{role: 'layout'}
+    .motion-card
+      .cols{role: 'layout'}
+        .col.-two
+          .meta-data
+            .meta-data_block
+              - if @motion.body.present?
+                %h1.text-block
                   :markdown
                     #{ @motion.body }
+              - elsif @motion.title.present?
+                %h1.text-block
+                  :markdown
+                    #{ @motion.title }
+              - else
+                .empty-value None recorded
 
-          - if @motion.executive_recommendation.present?
-            %section
-              %header.subheader
-                %h3 Executive&rsquo;s recommendation
-              %main
-                .row
-                  .col-xs-10
-                    .text.-body
-                      :markdown
-                        #{ @motion.executive_recommendation }
+            .meta-data_block
+              %label Executive recommendation
+              - if @motion.executive_recommendation.present? or @motion.executive_vote.present?
+                .text-block
+                  - if @motion.executive_vote.present?
+                    %strong
+                      - if @motion.executive_recommendation.present?
+                        #{ @motion.executive_vote.capitalize }:
+                      - else
+                        #{ @motion.executive_vote.capitalize }
 
-                  .col-xs-2
-                    .status{class: "-#{ @motion.executive_vote.to_s }"}
-                      .status_icon
-                      .status_text
-                        %p #{ @motion.executive_vote }
+                  - if @motion.executive_recommendation.present?
+                    #{ simple_format @motion.executive_recommendation }
+              - else
+                .empty-value None recorded
 
-          - if @motion.amendments.any?
-            %section
-              %header.subheader
-                %h3 Amendments
-              %main
-                %ul.list.-enumerable
-                  - @motion.amendments.each do |amendment|
-                    %li
-                      = link_to amendment do
-                        = render partial: 'amendments/amendment', locals: {amendment: amendment}
+            .meta-data_block
+              %label Vote result
+              .text-block
+                - if @motion.vote_result.present?
+                  %strong
+                    #{ @motion.vote_result.capitalize }ed
 
-          - if @motion.rollcall?
-            %section
-              %header.subheader
-                %h3 Vote
+                  - if @motion.vote_method.present?
+                    by #{ @motion.vote_method } vote
 
-            %main
-              .breakdown
-                .row
-                  - ['for', 'against', 'abstain'].each do |status|
-                    - votes = @motion.votes.where(status: status)
-                    .col-xs-4.box.-delineated-h
-                      .breakdown_item{class: "-#{ status }"}
-                        %label= status
-                        %big= votes.count
+        .col.-one
+          .meta-data.-small
+            .meta-data_block
+              %label Proposed by
+              - if @motion.proposers.any?
+                = render partial: 'councillors/inline-list', locals: {councillors: @motion.proposers}
+              - else
+                .empty-value None recorded
 
-                      %ul.list.-small
-                        - votes.by_councillor_name.each do |vote|
-                          %li
-                            = link_to vote.councillor do
-                              .party-affiliated
-                                .party-icon{style: "background-color: ##{ vote.councillor.party_on(@motion.occurred_on).colour_hex };", title: vote.councillor.party_on(@motion.occurred_on).name} &nbsp;
-                                = vote.councillor.full_name
+            .meta-data_block
+              %label Attachments
+              %ul.list.-emmed
+                - @motion.attachments.each do |attachment|
+                  %li= link_to "Attached PDF", @motion.pdf_url
+      
+            .meta-data_block
+              %label Related areas
+              - if @motion.local_electoral_areas.any?
+                %ul.list.-inline
+                  - @motion.local_electoral_areas.each do |local_electoral_area|
+                    %li= link_to local_electoral_area.name, local_electoral_area
+              - else
+                .empty-value None recorded
+            
+            .meta-data_block
+              %label Related topics
+              - if @motion.tags.any?
+                %ul.tag-list.-inline
+                  - @motion.tags.each do |tag|
+                    %li= link_to tag, topic_path(tag.parameterize)
+              - else
+                .empty-value None recorded
+
+            - if @motion.media_mentions.any?
+              .meta-data_block
+                %label Media
+                %ul.list.-emmed
+                  - @motion.media_mentions.each do |media_mention|
+                    %li= render partial: 'media_mentions/media_mention', locals: {media_mention: media_mention}
+
+= svelte_component('Switcher', {basePath: motion_path(@motion), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'votes', label: 'Votes'},{view: 'amendments', label: 'Amendments'}]}, class: 'view-subnav')
+
+#switcherView= render partial: @view.to_s, locals: {motion: @motion}

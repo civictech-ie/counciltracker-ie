@@ -1,0 +1,14 @@
+.tag-list
+  a, a:link, a:visited, .tag
+    display: inline-block
+    &:before
+      content: '#'
+  
+  &.-inline
+    li
+      display: inline-block
+  
+  &.-one-line
+    overflow: hidden
+    height: 1.3em
+    width: 100%

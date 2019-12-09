@@ -26,6 +26,10 @@ class Attendance < ApplicationRecord
   scope :possible, -> { joins("LEFT JOIN meetings ON attendances.attendable_type = 'Meeting' AND attendances.attendable_id = meetings.id").
                         joins(councillor: :seats).
                         where('(seats.commenced_on <= meetings.occurred_on) AND ((seats.concluded_on IS NULL) OR (seats.concluded_on > meetings.occurred_on))') }
+  
+  def presentish?
+    %w(present expected).include?(self.status)
+  end
 
   private
 

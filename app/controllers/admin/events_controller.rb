@@ -1,6 +1,6 @@
 class Admin::EventsController < Admin::ApplicationController
   def index
-    @events = Event.by_occurred_on
+    @events = Event.by_occurred_on.page(params[:p])
   end
 
   def show

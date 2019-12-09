@@ -1,36 +1,21 @@
-%header.page-header
+- title ['Local electoral areas', @local_electoral_area.name]
+- description "#{ @local_electoral_area.name } has #{ pluralize @local_electoral_area.active_councillors.count, 'councillor' } on Dublin City Council"
+- keywords "city council, local electoral areas, #{ @local_electoral_area.name }"
+
+%header.view-header
   .wrapper{role: 'layout'}
     .breadcrumbs
-      .breadcrumbs_crumb= link_to "Electoral areas", :local_electoral_areas
-      .breadcrumbs_crumb
-        %h1= link_to @local_electoral_area.name, @local_electoral_area
+      .breadcrumb= link_to 'Electoral areas', :local_electoral_areas
+      .breadcrumb= link_to @local_electoral_area.name, @local_electoral_area
 
-.primary-main_content
+.view-content.-alpha
   .wrapper{role: 'layout'}
-    %section
-      %header.subheader
-        %h2 Councillors
-      %main
-        %ul.list.-councillors.-enumerable
-          - @councillors.by_name.each do |councillor|
-            - seat = councillor.seats.where(local_electoral_area: @local_electoral_area).take
-            %li
-              = link_to councillor, class: 'councillor' do
-                %figure.figure.-portrait= image_tag councillor.portrait.url(:small)
-                %p.text.-display= councillor.full_name
-                %ul.list.-inline.-dotted
-                  %li
-                    %span.party-affiliated
-                      %span.party-icon.party-icon{style: "background-color: ##{ seat.party.colour_hex };", title: seat.party.name} &nbsp;
-                    = seat.party.name
-                  %li= @local_electoral_area.name
+    .local_electoral_area-card
+      .meta-data
+        .meta-data_block
+          %h1= @local_electoral_area.name
+          %p #{ pluralize @local_electoral_area.active_councillors.count, 'member' } currently on the council
 
-    %section
-      %header.subheader
-        %h2 Motions concerning #{ link_to @local_electoral_area.name, @local_electoral_area }
-      %main
-        %ul.list.-enumerable
-          - @motions.each do |motion|
-            %li
-              = link_to motion do
-                = render partial: 'motions/motion', locals: {motion: motion}
+= svelte_component('Switcher', {basePath: local_electoral_area_path(@local_electoral_area), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'councillors', label: 'Councillors'}]}, class: 'view-subnav')
+
+#switcherView= render partial: @view.to_s, locals: {local_electoral_area: @local_electoral_area}

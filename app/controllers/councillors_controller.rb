@@ -1,7 +1,6 @@
 class CouncillorsController < ApplicationController
   def index
-    @local_electoral_areas = LocalElectoralArea.by_name
-    @councillors = current_council_session.active_councillors.by_name
+    @councillors = current_council_session.active_councillors.by_name.page(params[:p])
 
     respond_to do |f|
       f.html { render action: 'index' }
@@ -11,10 +10,16 @@ class CouncillorsController < ApplicationController
 
   def show
     @councillor = Councillor.find_by!(slug: params[:id])
-    @proposed_motions = @councillor.proposed_motions.published.by_occurred_on.includes(:votes)
-    @proposed_amendments = @councillor.proposed_amendments.published.by_occurred_on.includes(:votes)
-    @seat = @councillor.seat
-    @attendances = @councillor.attendances.countable.includes(:attendable)
-    @votes = @councillor.votes.countable.sort_by(&:occurred_on).reverse
+    @view = params[:view].try(:to_sym) || :votes
+    @context = params[:context].try(:to_sym) || :full
+
+    case @context
+    when :full
+      render action: :show
+    when :partial
+      render partial: "councillors/#{ @view }", locals: {councillor: @councillor}
+    else
+      raise 'Unhandled render context'
+    end
   end
 end

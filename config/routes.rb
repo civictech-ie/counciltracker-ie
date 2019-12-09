@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   root to: 'home#show'
-  get 'volunteer' => 'pages#volunteer', as: :volunteer
-  get 'correction' => 'pages#correction', as: :correction
+
   get 'faq' => 'pages#faq', as: :faq
+
+  resources :corrections, only: [:new, :create] do
+    collection { get 'thanks' }
+  end
 
   resources :user_sessions, only: [:create]
   resources :users, only: [:create]
@@ -13,22 +16,32 @@ Rails.application.routes.draw do
   get 'logout' => 'user_sessions#destroy', as: :logout
 
   resources :councillors, only: [:index, :show]
-  resources :local_electoral_areas, path: 'areas', only: [:index, :show]
-  resources :parties, only: [:index, :show]
-  resources :meetings, only: [:index]
-  resources :motions, only: [:index, :show]
-  resources :amendments, only: [:show]
-  resources :topics, only: [:show]
+  get 'councillors/:id/:view(/:context)' => 'councillors#show'
 
-  get 'meetings/:meeting_type/:occurred_on' => 'meetings#show', as: :meeting
-  get 'meetings/:meeting_type/:occurred_on/motions/:id' => 'motion#show', as: :meeting_motion
-  get 'meetings/:meeting_type/:occurred_on/motions/:motion_id/amendments/:id' => 'amendment#show', as: :meeting_motion_amendment
+  resources :local_electoral_areas, path: 'areas', only: [:index, :show]
+  get 'areas/:id/:view(/:context)' => 'local_electoral_areas#show'
+
+  resources :parties, only: [:index, :show]
+  get 'parties/:id/:view(/:context)' => 'parties#show'
+
+  resources :meetings, only: [:index]
+  get 'meetings/:meeting_type/:occurred_on' => 'meetings#show', as: :meeting_path
+  get 'meetings/:meeting_type/:occurred_on/:view(/:context)' => 'meetings#show'
+
+  resources :motions, only: [:index, :show]
+  get 'motions/:id/:view(/:context)' => 'motions#show'
+
+  resources :amendments, only: [:show]
+  get 'amendments/:id/:view(/:context)' => 'amendments#show'
+
+  resources :topics, only: [:index, :show]
 
   namespace :admin do
     root to: 'dashboard#show'
-    resources :councillors do
+    resources :councillors, only: [:index, :show] do
       resources :media_mentions, only: [:new, :create]
     end
+
     resources :events, only: [:index, :show]
     resources :co_options, only: [:new, :create, :edit, :update, :destroy]
     resources :change_of_affiliations, only: [:new, :create, :edit, :update, :destroy]
@@ -36,28 +49,31 @@ Rails.application.routes.draw do
 
     resources :meetings do
       collection { patch :scrape }
-      member do
-        get :attendances
-        patch :update_attendances
-      end
+      member { post :save_attendance }
       resources :motions, only: [:new, :create]
     end
+    get 'meetings/:id/:view(/:context)' => 'meetings#show'
+
     resources :motions, except: [:new, :create] do
       member do
-        get :votes
-        patch :update_votes
+        post :save_vote
         patch :publish
       end
       resources :media_mentions, only: [:new, :create]
       resources :amendments, only: [:new, :create]
     end
+    get 'motions/:id/:view(/:context)' => 'motions#show'
+
     resources :amendments, except: [:new, :create] do
       member do
-        get :votes
-        patch :update_votes
+        post :save_vote
       end
     end
-    resources :media_mentions, only: [:edit, :update]
+    get 'amendments/:id/:view(/:context)' => 'amendments#show'
+
+    resources :media_mentions, only: [:show, :destroy, :edit, :update]
+    
+    resources :corrections
   end
 
   get "/404" => "errors#not_found"

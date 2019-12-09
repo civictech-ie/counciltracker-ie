@@ -1,0 +1,10 @@
+.enumerable.-vote
+  .indicator.vote-indicator
+    = render partial: 'icons/vote', locals: {voteable: motion}
+
+  .content
+    .title #{ motion.title }
+
+  .detail
+    .date #{ motion.occurred_on.strftime('%-d %b \'%y') }
+    .verdict #{ vote.status.capitalize }

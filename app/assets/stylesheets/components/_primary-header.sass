@@ -1,43 +1,9 @@
-.primary-header_container
-  z-index: 1000
-  position: fixed
-  left: 0
-  right: 0
-  top: 0
-  padding: 1rem
-
-.primary-header_content
-  background: $black
-  color: $white
-  padding: 1rem
-  display: flex
-
-  &.-admin
-    background: $blue
-    a, a:link, a:visited
-      color: $white
-      &:hover
-        color: $white
-        background-image: linear-gradient($white, $white), linear-gradient($white, $white), linear-gradient($white, $white)
-        text-shadow: .03em 0 $blue, -.03em 0 $blue, 0 .03em $blue, 0 -.03em $blue, .06em 0 $blue, -.06em 0 $blue, .09em 0 $blue, -.09em 0 $blue, .12em 0 $blue, -.12em 0 $blue, .15em 0 $blue, -.15em 0 $blue
-
-  a, a:link, a:visited
-    color: $white
-    &:hover
-      color: $white
-      background-image: linear-gradient($white, $white), linear-gradient($white, $white), linear-gradient($white, $white)
-      text-shadow: .03em 0 $black, -.03em 0 $black, 0 .03em $black, 0 -.03em $black, .06em 0 $black, -.06em 0 $black, .09em 0 $black, -.09em 0 $black, .12em 0 $black, -.12em 0 $black, .15em 0 $black, -.15em 0 $black
-
-.primary-header_logo
-  flex: 2
-  a, a:link, a:visited
-    font-weight: 500
-
-.primary-header_nav
-  flex: 3
-  text-align: right
-  a, a:link, a:visited
-    display: inline-block
-    margin-left: 0.75rem
-    &:first-child
-      margin: 0
+.primary-header
+  & > .content
+    position: sticky
+    top: 0rem
+    padding: 2rem
+    height: 100vh
+    display: flex
+    flex-direction: column
+    justify-content: space-between

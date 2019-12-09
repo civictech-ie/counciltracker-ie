@@ -1,0 +1,25 @@
+.pagination
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: center
+
+  .current
+
+  nav
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+    align-items: center
+  
+  svg
+    height: 1.3rem
+    width: auto
+    margin-right: 1rem
+    line, polyline
+      stroke: var(--black)
+  
+  .-disabled
+    svg
+      line, polyline
+        stroke: var(--faint)

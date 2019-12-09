@@ -1,12 +1,24 @@
 class Admin::MotionsController < Admin::ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:save_vote]
+  
   def show
     @motion = Motion.find_by(hashed_id: params[:id])
-    @meeting = @motion.meeting
+    @view = params[:view].try(:to_sym) || :details
+    @context = params[:context].try(:to_sym) || :full
+
+    case @context
+    when :full
+      render action: :show
+    when :partial
+      render partial: "admin/motions/#{ @view }", locals: {motion: @motion}
+    else
+      raise 'Unhandled render context'
+    end
   end
 
   def new # nested under meetings
     @meeting = Meeting.find_by(hashed_id: params[:meeting_id])
-    @motion = @meeting.motions.new(agenda_item: (((@meeting.motions.map(&:position).max || 0) / 100) + 1))
+    @motion = @meeting.motions.new(agenda_item: (((@meeting.motions.maximum(:position) || 0) / 100) + 1))
   end
 
   def create # nested under meetings
@@ -17,11 +29,6 @@ class Admin::MotionsController < Admin::ApplicationController
     else
       render :new
     end
-  end
-
-  def edit
-    @motion = Motion.find_by(hashed_id: params[:id])
-    @meeting = @motion.meeting
   end
 
   def publish
@@ -37,23 +44,30 @@ class Admin::MotionsController < Admin::ApplicationController
     if @motion.update(motion_params)
       redirect_to [:admin, @motion]
     else
-      render :edit
+      @view = :details
+      @context = :full
+      render :show
     end
   end
 
-  def votes
-    @motion = Motion.find_by(hashed_id: params[:id])
-    @meeting = @motion.meeting
-  end
-
-  def update_votes
-    @motion = Motion.find_by(hashed_id: params[:id])
-    @meeting = @motion.meeting
-    if @motion.update(votes_params)
-      render json: { saved_at: @motion.updated_at, message: "Saved at #{ Time.zone.now.strftime('%H:%M:%S') }" }
+  def save_vote
+    @motion = Motion.find_by(id: params[:id])
+    @councillor = Councillor.find_by(id: params['councillorId'])
+    @vote = Vote.find_or_initialize_by(voteable: @motion, councillor: @councillor)
+    @vote.status = params['status']
+    
+    if @vote.save
+      render json: { saved_at: @vote.updated_at, message: "Saved at #{ Time.zone.now.strftime('%H:%M:%S') }" }
     else
-      render json: { errors: @motion.errors.full_messages }
+      render json: { errors: @vote.errors.full_messages }
     end
+  end
+
+  def destroy
+    @motion = Motion.find_by(hashed_id: params[:id])
+    @meeting = @motion.meeting
+    @motion.destroy!
+    redirect_to [:admin, @meeting]
   end
 
   private
@@ -64,22 +78,13 @@ class Admin::MotionsController < Admin::ApplicationController
       :executive_vote,
       :body,
       :title,
-      :votable,
       :pdf_url,
       :vote_ruleset,
       :vote_method,
-      :vote_result,
       :agenda_item,
-      :interesting,
       proposers_ids: [],
       local_electoral_area_ids: [],
       tags: []
-    )
-  end
-
-  def votes_params
-    params.require(:motion).permit(
-      votes_attributes: [:id, :councillor_id, :status]
     )
   end
 end

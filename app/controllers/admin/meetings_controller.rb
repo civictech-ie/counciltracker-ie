@@ -1,6 +1,8 @@
 class Admin::MeetingsController < Admin::ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:save_attendance]
+
   def index
-    @meetings = Meeting.by_occurred_on
+    @meetings = Meeting.by_occurred_on.page(params[:p])
   end
 
   def scrape
@@ -9,7 +11,18 @@ class Admin::MeetingsController < Admin::ApplicationController
   end
 
   def show
-    @meeting = Meeting.find_by(hashed_id: params[:id])
+    @meeting = Meeting.find_by!(hashed_id: params[:id])
+    @view = params[:view].try(:to_sym) || :details
+    @context = params[:context].try(:to_sym) || :full
+
+    case @context
+    when :full
+      render action: :show
+    when :partial
+      render partial: "admin/meetings/#{ @view }", locals: {meeting: @meeting}
+    else
+      raise 'Unhandled render context'
+    end
   end
 
   def new
@@ -34,20 +47,27 @@ class Admin::MeetingsController < Admin::ApplicationController
     if @meeting.update(meeting_params)
       redirect_to [:admin, @meeting]
     else
-      render :edit
+      @view = params[:view].try(:to_sym) || :details
+      @context = params[:context].try(:to_sym) || :full
+      render :show
     end
   end
 
-  def attendances
+  def destroy
     @meeting = Meeting.find_by(hashed_id: params[:id])
+    @meeting.destroy!
+    redirect_to [:admin, :meetings]
   end
 
-  def update_attendances
+  def save_attendance
     @meeting = Meeting.find_by(hashed_id: params[:id])
-    if @meeting.update(attendances_params)
-      render json: { saved_at: @meeting.updated_at, message: "Saved at #{ Time.zone.now.strftime('%H:%M:%S') }" }
+    @councillor = Councillor.find_by(id: params['councillorId'])
+    @attendance = Attendance.find_or_initialize_by(attendable: @meeting, councillor: @councillor)
+    @attendance.status = params['status']
+    if @attendance.save
+      render json: { saved_at: @attendance.updated_at, message: "Saved at #{ Time.zone.now.strftime('%H:%M:%S') }" }
     else
-      render json: { errors: @meeting.errors.full_messages }
+      render json: { errors: @attendance.errors.full_messages }
     end
   end
 
@@ -57,12 +77,6 @@ class Admin::MeetingsController < Admin::ApplicationController
     params.require(:meeting).permit(
       :meeting_type,
       :occurred_on
-    )
-  end
-
-  def attendances_params
-    params.require(:meeting).permit(
-      attendances_attributes: [:id, :councillor_id, :status]
     )
   end
 end

@@ -1,10 +1,10 @@
-= form_for media_mention.persisted? ? [:admin, media_mention] : [:admin, mentionable, media_mention], class: 'admin-form' do |f|
-  = render partial: 'admin/shared/errors', locals: {errors: media_mention.errors}
+= form_with model: media_mention, url: media_mention.persisted? ? [:admin, media_mention] : [:admin, mentionable, media_mention], class: 'admin-form' do |f|
+  = render partial: 'admin/shared/errors', locals: {errors: f.object.errors}
 
   .admin-form_field
     = f.label :body, 'Article headline'
     .input
-      = f.text_area :body
+      = f.text_field :body
 
   .admin-form_field
     = f.label :url, 'Permanent URL of article'
@@ -23,4 +23,4 @@
 
 
   .admin-form_actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'button'

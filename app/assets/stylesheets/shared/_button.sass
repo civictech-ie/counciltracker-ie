@@ -1,28 +1,25 @@
-input[type="submit"], a, a:link, a:visited
-  &.button
-    appearance: none
-    border: 0
-    background: $black
-    color: $white
-    font-size: ms(1)
-    padding: 0.25rem 0.75rem 0.325rem
+.button
+  display: block
+  color: var(--black)
+  padding: 0.5rem 1rem
+  border: 0.55px solid var(--black)
+  margin: 0
+  width: 100%
+  font-family: var(--sans)
+  font-size: var(--t3)
+  background-color: var(--transparent)
+  white-space: nowrap
+  flex: 0
+
+  &:hover
+    border-color: var(--blue)
+    color: var(--blue)
+    cursor: pointer
+  
+  &.-danger
+    border-color: var(--red)
+    color: var(--red)
     &:hover
-      cursor: pointer
-      background-color: $blue
-
-    &.-danger
-      color: $white
-      &:hover
-        color: $white
-        background: $red
-        text-shadow: none
-
-    &.-utility
-      font-size: ms(-1)
-      font-family: $mono
-      color: $white !important
-      background: $blue
-      &:hover
-        color: $white
-        background: darken($blue,2.5%)
-        text-shadow: none
+      border-color: var(--red)
+      background-color: var(--red)
+      color: var(--black)

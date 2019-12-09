@@ -1,0 +1,76 @@
+.view-content + .view-subnav
+
+.view-subnav
+  position: sticky
+  top: 5rem
+  background-color: var(--white)
+  min-height: 3.2rem
+  z-index: 14
+  padding-top: 0.5rem
+  padding-bottom: 0.5rem
+  font-size: var(--t3)
+
+  &.-two
+    top: calc(5rem - 2rem + 5.6rem)
+    z-index: 13
+
+  .subnav-heading
+    display: block
+    flex: 1
+    padding-top: 0.5rem
+    padding-bottom: 0.5rem
+    border-bottom: 0.55px solid var(--black)
+    color: var(--black)
+
+  .wrapper[role="layout"]
+
+  .subnav-items
+    display: flex
+    flex-direction: row
+    justify-content: stretch
+    margin-left: calc(var(--gutter)/-2)
+    margin-right: calc(var(--gutter)/-2)
+
+    .subnav-item
+      display: none
+      padding: 0 calc(var(--gutter)/2)
+      flex: 1
+      flex-direction: row
+      justify-content: stretch
+
+      &.current
+        a, a:link, a:visited
+          border-bottom-color: var(--black)
+          color: var(--black)
+
+      a, a:link, a:visited
+        display: block
+        flex: 1
+        padding-top: 0.5rem
+        padding-bottom: 0.5rem
+        border-bottom: 0.55px solid var(--grey)
+        color: var(--grey)
+        &:hover
+          color: var(--black)
+  
+  .destop-subnav
+    display: none
+
+  .mobile-subnav
+    display: block
+    background-color: var(--white)
+    padding: 1rem 0
+
+  @media screen and (min-width: '800px')
+    &.-two
+      top: calc(5rem - 2rem + 5.2rem)
+
+    .mobile-subnav
+      display: none
+  
+    .destop-subnav
+      display: block
+
+    .subnav-items
+      .subnav-item
+        display: flex

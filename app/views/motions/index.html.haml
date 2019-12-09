@@ -2,19 +2,17 @@
 - description "Motions tabled and voted upon by Dublin City Council"
 - keywords "city council, motions, votes"
 
-- cache @motions do
-  %header.page-header
-    .wrapper{role: 'layout'}
-      %h1 Motions
+%header.view-header
+  .wrapper{role: 'layout'}
+    %h1= link_to "Motions", :motions
 
-  .primary-main_content
-    .wrapper{role: 'layout'}
-      - ['Local property tax', 'Fire and emergency services', 'Housing and homelessness', 'Environment', 'International relations', 'Waste management', 'Arts and culture', 'Finance', 'Economic development', 'Transport', 'Planning and zoning', 'Human rights'].each do |category|
-        - next unless @motions.in_category(category).any?
-        %header.subheader
-          %h2= category
-        %ul.list.-enumerable
-          - @motions.in_category(category).each do |motion|
-            %li
-              = link_to motion do
-                = render partial: 'motion', locals: {motion: motion}
+%main.view-content
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - @motions.each do |motion|
+        %li
+          = link_to motion do
+            = render partial: 'motion', locals: {motion: motion}
+
+%footer.view-footer
+  .wrapper{role: 'layout'}= render partial: 'shared/pagination', locals: {records: @motions}

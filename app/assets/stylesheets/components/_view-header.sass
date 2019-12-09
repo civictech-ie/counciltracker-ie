@@ -1,0 +1,82 @@
+.view-header
+  z-index: 15
+  position: sticky
+  top: 0
+  background: var(--white)
+
+  .breadcrumbs
+    border-bottom: 0.55px solid var(--black)
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+
+    a, a:link, a:visited
+      font-weight: 400
+      white-space: nowrap
+      overflow: hidden
+      height: 1.3em
+      width: 100%
+      text-overflow: ellipsis
+      display: block
+      flex: none
+      padding: 0
+      border-bottom: none
+      color: var(--grey)
+      &:hover
+        color: var(--black)
+      
+    .breadcrumb + .breadcrumb
+      a, a:link, a:visited
+        &:before
+          content: ' / '
+          color: var(--grey)
+
+    .breadcrumb
+      padding-top: 2.5rem
+      padding-bottom: 0.5rem
+
+      a, a:link, a:visited
+        color: var(--grey)
+    .breadcrumb:last-of-type
+      a, a:link, a:visited
+        color: var(--black)
+
+  .nav-items
+    display: flex
+    flex-direction: row
+    justify-content: stretch
+    margin-left: -1rem
+    margin-right: -1rem
+  
+  .nav-item
+    flex: 1
+    display: flex
+    flex-direction: row
+    justify-content: stretch
+  
+  h1, h1 a
+    font-weight: 400
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+
+    a, a:link, a:visited
+      color: var(--black)
+
+  a, a:link, a:visited
+    display: block
+    flex: 1
+    padding-top: 2.5rem
+    padding-bottom: 0.5rem
+    border-bottom: 0.55px solid var(--black)
+    color: var(--grey)
+    &:hover
+      color: var(--black)
+
+  .wrapper[role='layout']
+
+  @media screen and (min-width: '800px')
+    position: fixed
+    right: 0
+    top: 0
+    left: var(--sidebar-width)

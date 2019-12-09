@@ -1,50 +1,21 @@
 - title ['Meetings', @meeting.title]
-- description "Dublin City Council #{ @meeting.meeting_type } meeting on #{ @meeting.occurred_on.strftime('%d/%m/%y') } at which #{ pluralize @meeting.attendances.presentish.count, 'councillor' } were present."
+- description "Dublin City Council #{ @meeting.meeting_type } meeting on #{ @meeting.occurred_on.strftime('%-d %B \'%y') } at which #{ pluralize @meeting.attendances.presentish.count, 'councillor' } were present."
 - keywords "city council, meetings, #{ @meeting.meeting_type }"
 
-- cache [@meeting, :show] do
-  %header.page-header
-    .wrapper{role: 'layout'}
-      .breadcrumbs
-        .breadcrumbs_crumb= link_to "Meetings", :meetings
-        .breadcrumbs_crumb
-          %h1= link_to @meeting.title, meeting_path(meeting_type: @meeting.meeting_type, occurred_on: @meeting.occurred_on)
+%header.view-header
+  .wrapper{role: 'layout'}
+    .breadcrumbs
+      .breadcrumb= link_to 'Meetings', :meetings
+      .breadcrumb= link_to @meeting.occurred_on_formatted, @meeting.path
 
-  .primary-main_content
-    .wrapper{role: 'layout'}
-      .row
-        .col-xs-12
-          %section
-            %header.subheader
-              %h3 Motions
-            %main
-              - if @motions.any?
-                %ul.list.-enumerable
-                  - @motions.each do |motion|
-                    %li
-                      = link_to motion do
-                        = render partial: 'motions/brief', locals: {motion: motion}
-              - else
-                %p.empty (None present)
+.view-content.-alpha
+  .wrapper{role: 'layout'}
+    .meeting-card
+      .meta-data
+        .meta-data_block
+          %h1= @meeting.meeting_type_in_english
+          %p= @meeting.occurred_on.strftime('%-d %B \'%y')
 
-          %section
-            %header.subheader
-              %h3 Attendance
-            %main
-              .breakdown
-                .row
-                  - ['expected', 'present', 'absent'].each do |status|
-                    - attendances = @attendances.where(status: status)
-                    - next if (status != 'absent') && attendances.empty?
-                    .col-xs-4.box.-delineated-h
-                      .breakdown_item{class: "-#{ status }"}
-                        %label= status
-                        %big= attendances.count
+= svelte_component('Switcher', {basePath: @meeting.path, renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'motions', label: 'Motions'},{view: 'attendances', label: 'Attendance'}]}, class: 'view-subnav')
 
-                      %ul.list.-small
-                        - attendances.by_councillor_name.each do |attendance|
-                          %li
-                            = link_to attendance.councillor do
-                              .party-affiliated
-                                .party-icon{style: "background-color: ##{ attendance.councillor.party_on(@meeting.occurred_on).colour_hex };", title: attendance.councillor.party_on(@meeting.occurred_on).name} &nbsp;
-                                = attendance.full_name
+#switcherView= render partial: @view.to_s, locals: {meeting: @meeting}

@@ -15,15 +15,28 @@ class Meeting < ApplicationRecord
 
   scope :by_occurred_on, -> { order('occurred_on desc') }
   scope :has_countable_attendances, -> { joins(:attendances).merge(Attendance.countable).distinct }
+  scope :has_published_motions, -> { joins(:motions).merge(Motion.published).distinct }
 
-  accepts_nested_attributes_for :attendances, reject_if: :incomplete_attendance
+  paginates_per 20
 
   def to_param
     self.hashed_id
   end
 
+  def path
+    "/meetings/#{ self.meeting_type }/#{ self.occurred_on }"
+  end
+
   def title
-    "#{ self.meeting_type_in_english } #{ occurred_on.strftime('%d.%m.%y') }"
+    "#{ self.meeting_type_in_english } on #{ occurred_on.strftime('%-d %B \'%y') }"
+  end
+
+  def occurred_on_formatted
+    occurred_on.strftime('%-d %B \'%y')
+  end
+
+  def tags
+    motions.map(&:tags).flatten.uniq
   end
 
   def meeting_type_in_english
@@ -39,11 +52,6 @@ class Meeting < ApplicationRecord
   def expected_attendance # todo: rename to expected_councillors?
     return nil unless self.council_session
     self.council_session.councillors.active_on(self.occurred_on)
-  end
-
-  def refresh_hashed_id!
-    set_hashed_id
-    save!
   end
 
   private
@@ -68,10 +76,5 @@ class Meeting < ApplicationRecord
       a = self.attendances.new(councillor: councillor, status: 'exception')
       a.save!
     end
-  end
-
-  def incomplete_attendance(attributes)
-    attributes['councillor_id'].blank? or
-    attributes['status'].blank?
   end
 end

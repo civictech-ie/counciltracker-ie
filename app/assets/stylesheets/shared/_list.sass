@@ -1,111 +1,68 @@
-.list.-nav
+.list.-enumerable
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: stretch
+
+  & > li + li
+    border-top: 0.55px solid var(--black)
+  
+  & > li
+    padding: 0.75rem 0
+    display: flex
+    flex-grow: 1
+    width: 100%
+
+    & > a, & > div
+      width: 100%
+      flex-grow: 1
+      margin: -0.75rem 0
+      padding: 0.75rem 0
+    
+    & > a
+      &:hover
+        color: var(--blue)
+
+  &.-mini
+    padding: 0.325rem 0
+    & > li + li
+      border-top: 0.55px solid var(--faint)
+
+    & > li
+      padding: 0.325rem 0
+      font-size: var(--t4)
+
+      & > a
+        width: 100%
+        flex-grow: 1
+        margin: -0.325rem 0
+        padding: 0.325rem 0
+
+.list.-capitalize
+  &:first-letter
+    text-transform: capitalize
+
+.list.-emmed
   li
     &:before
-      content: '- '
+      content: '— '
+      color: var(--grey)
+
+.list.-errors
+  margin-bottom: var(--gutter)
+  color: var(--red)
+  list-style: inside circle
 
 .list.-inline
-  li
-    display: inline-block
-    margin-right: 0.5rem
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: flex-start
+  flex-wrap: wrap
 
-.list.-thirds.-enumerable
-  width: 100%
   li
-    width: 32.5%
-    display: inline-block
-
-.list.-inline.-dotted
-  & > li
-    display: inline
-    margin: 0
-    &:before
-      content: ' · '
-    &:first-child
-      &:before
-        content: ''
-
-.list.-sentence
-  li
-    display: inline-block
     &:after
-      content: ', '
+      content: ', '
     &:last-child
       &:after
-        content: '.'
-
-.list.-tags
-  max-height: 1.25em
-  max-width: 100%
-  white-space: nowrap
-  text-overflow: ellipsis
-  overflow: hidden
-  .tag
-    display: inline-block
-    background: $faint
-    font-size: ms(-1)
-    text-transform: lowercase
-    font-weight: 400
-    color: $grey
-    font-family: $mono
-    padding: 0 0.125rem
-    border-radius: 2px
-    text-shadow: none !important
-
-.list.-enumerable
-  padding: 0.5rem 0
-
-  & > li
-    display: block
-    padding: 0.5rem 0
-
-    &:first-child
-      & > a, & > a:link, & > a:visited
-        border-top: 1px dotted $faint
-
-    & > a, & > a:link, & > a:visited
-      display: block
-      margin: -0.5rem 0
-      padding: 0.5rem 0
-      border-bottom: 1px dotted $faint
-      &:hover
-        background: rgba($faint,0.5)
-
-.list.-dashed
-  & > li
-    &:before
-      content: '- '
-
-  &.-done
-    & > li
-      text-decoration: line-through
-      &:before
         content: ''
-
-.list.-control
-  & > li
-    display: block
-    overflow: hidden
-    .select
-      float: right
-
-dl.data
-  dt
-    font-weight: 500
-    font-family: $mono
-  dd
-    margin-bottom: 0.25rem
-    padding: 0.25rem
-    background-color: $faint
-
-.list.-small
-  border-top: 1px dotted $faint
-  & > li
-    padding: 0.125rem
-    border-bottom: 1px dotted $faint
-
-.list.-councillors
-  & > li
-    & > a, & > a:link, & > a:visited
-      display: block
-      margin: -0.5rem 0
-      padding: 0.5rem 0 0.5rem 3rem

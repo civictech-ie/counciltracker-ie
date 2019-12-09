@@ -2,17 +2,17 @@
 - description "Meeting held by Dublin City Council"
 - keywords "city council, meetings"
 
-- cache @meetings do
-  %header.page-header
-    .wrapper{role: 'layout'}
-      .breadcrumbs
-        .breadcrumbs_crumb
-          %h1= link_to "Meetings", :meetings
+%header.view-header
+  .wrapper{role: 'layout'}
+    %h1= link_to "Meetings", :meetings
 
-  .primary-main_content
-    .wrapper{role: 'layout'}
-      %ul.list.-enumerable
-        - @meetings.each do |meeting|
-          %li
-            = link_to meeting_path(meeting_type: meeting.meeting_type, occurred_on: meeting.occurred_on) do
-              = render partial: 'meetings/meeting', locals: {meeting: meeting}
+%main.view-content
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - @meetings.each do |meeting|
+        %li
+          = link_to meeting.path do
+            = render partial: 'meetings/meeting', locals: {meeting: meeting}
+
+%footer.view-footer
+  .wrapper{role: 'layout'}= render partial: 'shared/pagination', locals: {records: @meetings}

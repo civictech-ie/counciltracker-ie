@@ -1,0 +1,10 @@
+.enumerable.-councillor.-attendance{class: attendance.presentish? ? '-present' : '-absent'}
+  .indicator.party-indicator= render partial: 'icons/party', locals: {party: attendance.councillor.party}
+  .content
+    .name= attendance.councillor.full_name
+
+
+  .detail
+    .attendance= attendance.status.capitalize
+
+  %figure.figure.-portrait= image_tag attendance.councillor.portrait.url(:small), loading: 'lazy', alt: "Portrait of #{ attendance.councillor.full_name }"

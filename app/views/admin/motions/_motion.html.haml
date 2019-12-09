@@ -1,0 +1,10 @@
+.enumerable.-motion{class: motion.published_at ? nil : '-absent' }
+  .indicator.vote-indicator
+    = render partial: 'icons/vote', locals: {voteable: motion}
+
+  .content
+    .title #{ motion.title }
+
+  .detail
+    .published #{ motion.published_at ? 'published' : nil }
+    .votes= render partial: 'votes/breakdown', locals: {voteable: motion}

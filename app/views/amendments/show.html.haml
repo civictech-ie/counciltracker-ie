@@ -1,77 +1,51 @@
-- title "Amendment to #{@motion.title}"
-- description "Amendment to #{ @motion.title } proposed by #{ @amendment.proposers.map(&:full_name).to_sentence } on #{ @amendment.occurred_on.strftime('%d/%m/%y') }."
-- keywords "city council, motions, amendments, #{ @motion.tags.join(',') }"
+- title "Amendment to #{@amendment.motion.title}"
+- description "Amendment to #{ @amendment.motion.title } proposed by #{ @amendment.proposers.map(&:full_name).to_sentence } on #{ @amendment.occurred_on.strftime('%d/%m/%y') }."
+- keywords "city council, motions, amendments, #{ @amendment.motion.tags.join(',') }"
 
-%header.page-header
+%header.view-header
   .wrapper{role: 'layout'}
     .breadcrumbs
-      .breadcrumbs_crumb= link_to @motion.meeting.title, meeting_path(meeting_type: @motion.meeting.meeting_type, occurred_on: @motion.meeting.occurred_on)
-      .breadcrumbs_crumb= link_to truncate(@motion.title, length: 48), @motion
-      .breadcrumbs_crumb
-        %h1= link_to truncate(@amendment.body, length: 48), @amendment
+      .breadcrumb= link_to @amendment.motion.meeting.occurred_on_formatted, @amendment.motion.meeting.path
+      .breadcrumb= link_to 'Motion', @amendment.motion
+      .breadcrumb= link_to 'Amendment', @amendment
 
-.primary-main_content
+.view-content.-alpha
   .wrapper{role: 'layout'}
-    .row
-      .col-xs-3
-        %section
-          %main
-            .box.-highlighted.-padded
-              .text.-fixed Amendment to:
-              .text.-display= @motion.title
+    .motion-card
+      .meta-data
+        .meta-data_block
+          %label Amendment text
 
-        %section
-          %main
-            .box.-padded.-result{class: "-#{ @amendment.vote_result }"}
-              .text
-                :markdown
-                  **#{ @amendment.vote_result.capitalize }ed**
-              .text by #{ @amendment.vote_method } vote.
+          - if @amendment.body.present?
+            .text-block
+              :markdown
+                #{ @amendment.body }
+          - else
+            .empty-value None recorded
+    
+        .meta-data_block
+          %label Proposed by
+          - if @amendment.proposers.any?
+            = render partial: 'councillors/inline-list', locals: {councillors: @amendment.proposers}
+          - else
+            .empty-value None recorded
+  
+        .meta-data_block
+          %label Attachments
+          %ul.list.-emmed
+            - @amendment.attachments.each do |attachment|
+              %li= link_to "Attached PDF", @amendment.pdf_url
 
-        %section
-          %header.subheader
-            %h3 Proposers
-          %main
-            - if @amendment.proposers.any?
-              %ul.list
-                - @amendment.proposers.each do |councillor|
-                  %li
-                    = link_to councillor do
-                      .party-affiliated
-                        .party-icon{style: "background-color: ##{ councillor.party_on(@amendment.occurred_on).colour_hex };", title: councillor.party_on(@amendment.occurred_on).name}
-                        = councillor.full_name
-            - else
-              %p.empty (Not present)
+        .meta-data_block
+          %label Vote result
+          .text-block
+            - if @amendment.vote_result.present?
+              %strong
+                #{ @amendment.vote_result.capitalize }ed
 
-      .col-xs-9
-        - if @amendment.body.present?
-          %section
-            %header.subheader
-              %h3 Text
-            %main
-              .text.-body
-                :markdown
-                  #{ @amendment.body }
+              - if @amendment.vote_method.present?
+                by #{ @amendment.vote_method } vote
 
-        - if @amendment.rollcall?
-          %section
-            %header.subheader
-              %h3 Vote
+= svelte_component('Switcher', {basePath: amendment_path(@amendment), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'votes', label: 'Votes'}]}, class: 'view-subnav')
 
-          %main
-            .breakdown
-              .row
-                - ['for', 'against', 'abstain'].each do |status|
-                  - votes = @amendment.votes.where(status: status)
-                  .col-xs-4.box.-delineated-h
-                    .breakdown_item{class: "-#{ status }"}
-                      %label= status
-                      %big= votes.count
-
-                    %ul.list.-small
-                      - votes.by_councillor_name.each do |vote|
-                        %li
-                          = link_to vote.councillor do
-                            .party-affiliated
-                              .party-icon{style: "background-color: ##{ vote.councillor.party.colour_hex };", title: vote.councillor.party.name} &nbsp;
-                              = vote.councillor.full_name
+#switcherView= render partial: @view.to_s, locals: {amendment: @amendment}

@@ -1,0 +1,18 @@
+- title 'Topics'
+- description "Topics addressed by motions considered in Dublin City Council"
+- keywords "city council, topics, issues, policy"
+
+%header.view-header
+  .wrapper{role: 'layout'}
+    %h1= link_to "Topics", :topics
+
+%main.view-content{role: 'layout'}
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - @topics.each do |topic|
+        %li
+          = link_to topic_path(topic.parameterize) do
+            = render partial: 'topic', locals: {topic: topic}
+
+%footer.view-footer
+  .wrapper{role: 'layout'} &nbsp;

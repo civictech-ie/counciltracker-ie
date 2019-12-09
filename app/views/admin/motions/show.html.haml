@@ -1,109 +1,39 @@
-%header.page-header
+%header.view-header
   .wrapper{role: 'layout'}
     .breadcrumbs
-      .breadcrumbs_crumb= link_to "Admin", [:admin, :root]
-      .breadcrumbs_crumb= link_to "Meetings", [:admin, :meetings]
-      .breadcrumbs_crumb= link_to @meeting.occurred_on_was.strftime('%d.%m.%y'), [:admin, @meeting]
-      .breadcrumbs_crumb
-        %h1= link_to "Motion #{ @motion.agenda_item }", [:admin, @motion]
+      .breadcrumb= link_to 'Meetings', [:admin, :meetings]
+      .breadcrumb= link_to @motion.meeting.occurred_on_formatted, [:admin, @motion.meeting]
+      .breadcrumb= link_to 'Motion', [:admin, @motion]
 
-.primary-main_content
+.view-content.-alpha
   .wrapper{role: 'layout'}
-    .row
-      .col-xs-2
-        %nav.secondary-nav
-          %ul.list.-enumerable
-            %li= link_to "Overview", [:admin, @motion]
-            - if @motion.rollcall?
-              %li= link_to "Votes", [:votes, :admin, @motion]
-            %li= link_to "Edit", [:edit, :admin, @motion]
+    .motion-card
+      .meta-data
+        .meta-data_block
+          - if @motion.title.present?
+            %h1.text-block
+              :markdown
+                #{ @motion.title }
 
-      .col-xs-10
-        %section
-          %main
-            .box.-highlighted.-padded
-              .row
-                .col-xs-8
-                  .text.-display
-                    - if !@motion.is_published?
-                      This motion is not published.
-                    - else
-                      This motion was published on #{ @motion.published_at.strftime('%d.%m.%y') }.
-                .col-xs-4
-                  .text.-right
-                    - if !@motion.is_published?
-                      = link_to 'Publish', [:publish, :admin, @motion], class: 'button -utility', method: 'patch'
-                    - else
-                      = link_to 'Unpublish', [:publish, :admin, @motion], class: 'button -utility', method: 'patch'
-
-        %section
-          %header.subheader
-            %h2 Details
-          %main
-            %dl.data
-              %dt Title
-              %dd= @motion.title
-              %dt Text
-              %dd
-                .text
-                  :markdown
-                    #{ @motion.body }
-              %dt Areas
-              %dd= @motion.local_electoral_areas.map(&:name).join(', ')
-              %dt Proposers
-              %dd= @motion.proposers.map(&:full_name).join(', ')
-              %dt Topics
-              %dd= @motion.tags.join(', ')
-              %dt Vote
-              %dd rules: #{ @motion.vote_ruleset }; method: #{ @motion.vote_method }
-              %dt Result
-              %dd= @motion.result
-              %dt Interesting?
-              %dd= @motion.interesting ? 'yes' : 'no'
-
-        %section
-          %header.subheader
-            .row
-              .col-xs-8
-                %h2 Media
-              .col-xs-4
-                .text.-right
-                  %nav.subheader_nav
-                    = link_to "New mention", [:new, :admin, @motion, :media_mention]
-          %main
-            %ul.list.-enumerable
+        .meta-data_block
+          - if @motion.media_mentions.any?
+            %label Media
+            %ul.list.-emmed
               - @motion.media_mentions.each do |media_mention|
-                %li
-                  = link_to [:edit, :admin, media_mention] do
-                    .row
-                      .col-xs-2
-                        .text.-fixed= media_mention.published_on
-                      .col-xs-7
-                        %p.text.-one-line= media_mention.body
-                      .col-xs-3
-                        .text.-fixed.-info.-right= media_mention.domain
+                %li= render partial: 'admin/media_mentions/media_mention', locals: {media_mention: media_mention}
 
-        %section
-          %header.subheader
-            .row
-              .col-xs-8
-                %h2 Amendments
-              .col-xs-4
-                .text.-right
-                  %nav.subheader_nav
-                    = link_to "New amendment", [:new, :admin, @motion, :amendment]
-          %main
-            %ul.list.-enumerable
-              - @motion.amendments.by_position.each do |amendment|
-                %li
-                  = link_to [:admin, amendment] do
-                    .row
-                      .col-xs-1
-                        .text.-fixed= amendment.position
-                      .col-xs-9
-                        %p.text.-one-line= amendment.body
-                      .col-xs-2
-                        .status{class: "-#{ amendment.vote_result.to_s }"}
-                          .status_icon
-                          .status_text
-                            %p #{ amendment.vote_result }
+    .record-actions
+      %label Actions
+      .actions
+        - if @motion.published?
+          = button_to 'Unpublish', [:publish, :admin, @motion], method: 'patch', class: 'button'
+        - else
+          = button_to 'Publish', [:publish, :admin, @motion], method: 'patch', class: 'button'
+        = link_to "Add a media mention", [:new, :admin, @motion, :media_mention], class: 'button'
+
+        .danger-zone
+          = button_to 'Delete motion', [:admin, @motion], method: 'delete', class: 'button -danger'
+
+= svelte_component('Switcher', {basePath: admin_motion_path(@motion), renderedView: @view.to_s, currentView: @view.to_s, links: [{view: 'details', label: 'Details'},{view: 'votes', label: 'Votes'},{view: 'amendments', label: 'Amendments'}], redirect: true}, class: 'view-subnav')
+
+%div= render partial: @view.to_s, locals: {motion: @motion}

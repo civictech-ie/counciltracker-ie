@@ -1,0 +1,15 @@
+%header.view-header
+  .wrapper{role: 'layout'}
+    %h1= link_to "Corrections", [:admin, :corrections]
+
+%main.view-content{role: 'layout'}
+  .wrapper{role: 'layout'}
+    %ul.list.-enumerable
+      - @corrections.each do |correction|
+        %li
+          = link_to [:admin, correction] do
+            = render partial: 'admin/corrections/correction', locals: {correction: correction}
+
+%footer.view-footer
+  .wrapper{role: 'layout'}
+    = render partial: 'shared/pagination', locals: {records: @corrections}

@@ -1,60 +1,80 @@
-.text
-  a, a:visited, a:link
-    color: $blue !important
-    font-weight: 500
+h1, h2, h3, h4, h5
+  font-weight: 400
+  
+.p
+  &.-t1
+    font-size: var(--t1)
+  &.-t2
+    font-size: var(--t2)
+  &.-t3
+    font-size: var(--t3)
+  &.-t4
+    font-size: var(--t4)
+  &.-t5
+    font-size: var(--t5)
+
+.footer-block
+  padding-right: 3rem
 
   p, ul, ol
-    margin: 1rem 0
-
-    &:first-child
-      margin-top: 0
+    margin-bottom: 2rem
 
     &:last-child
-      margin-bottom: 0
+      margin: 0
 
-  &.-info
-    font-size: ms(-1)
+  a, a:link, a:visited
+    font-weight: 600
+    &:hover
+      color: var(--blue)
+
+.text-block
+  max-width: var(--text-block-width)
+  padding-right: 3rem
+
+  a, a:link, a:visited
     font-weight: 400
-    color: $grey
+    background-image: linear-gradient(var(--white) 86%, var(--black) 86%,var(--black) 88%,var(--white) 88%)
+    text-shadow: 1px 1px 0 var(--white), -1px 1px 0 var(--white)
+    background-position: left bottom
+    background-size: 100% 100%
+    background-repeat: no-repeat
+    background-color: transparent
+    &:hover
+      color: var(--blue)
+      background-image: linear-gradient(var(--white) 86%, var(--blue) 86%,var(--blue) 88%,var(--white) 88%)
+  
+  h1
+    margin-bottom: 2rem
 
-  &.-tiny
-    font-size: ms(-2)
+  h3
     font-weight: 400
-    color: $grey
+  
+  h3 + p, h3 + ul, h3 + ol
+    text-indent: 5rem
 
-  &.-right
-    text-align: right
+  p + h3
+    margin-top: 4rem
 
-  &.-center
-    text-align: center
+  p, ul, ol
+    margin-bottom: 2rem
 
-  &.-one-line
-    height: 1.3em
-    width: 72em
-    max-width: 100%
-    overflow: hidden
-    white-space: nowrap
-    text-overflow: ellipsis
-
-  &.-article
-    a, a:link, a:visited
-      font-weight: 500
-      color: $blue
-
-  &.-display
-    font-weight: 500
-
-    strong
-      font-weight: 500
-
-  &.-label
-    display: block
-    font-size: ms(-2)
-    font-weight: 500
-    text-transform: uppercase
-
-  &.-fixed
-    font-family: $mono
-
-  &.-body
-    max-width: 36em
+    &:last-child
+      margin: 0
+    
+  ul, ol
+    &.list.-sentence
+      display: block
+      li
+        display: inline
+        white-space: nowrap
+        a, a:link, a:visited
+          display: inline
+          white-space: nowrap
+        &:after
+          content: ', '
+        &:last-child
+          &:after
+            content: ''
+      li:last-child
+        &:after
+          content: '.'

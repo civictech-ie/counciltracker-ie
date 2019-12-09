@@ -1,0 +1,28 @@
+.standard[role='layout']
+  #menu
+    display: block
+
+  & > header
+    display: none
+
+  & > main
+
+  @media screen and (min-width: '800px')
+    display: flex
+    flex-direction: row
+    justify-content: stretch
+    align-items: stretch
+
+    #menu
+      display: none
+
+    & > header
+      display: block
+      flex-basis: var(--sidebar-width)
+      flex-grow: 0
+      flex-shrink: 0
+      position: relative
+
+    & > main
+      flex-grow: 1
+      width: calc(100vw - var(--sidebar-width))

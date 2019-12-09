@@ -1,0 +1,9 @@
+.view-content
+  .wrapper{role: 'layout'}
+    %nav.list-actions
+      = link_to "New amendment", [:new, :admin, motion, :amendment], class: 'button'
+    %ul.list.-enumerable
+      - motion.amendments.each do |amendment|
+        %li
+          = link_to [:admin, amendment] do
+            = render partial: 'amendments/amendment', locals: {amendment: amendment}

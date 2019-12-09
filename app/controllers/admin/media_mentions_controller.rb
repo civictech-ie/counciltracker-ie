@@ -23,6 +23,10 @@ class Admin::MediaMentionsController < Admin::ApplicationController
     end
   end
 
+  def show
+    @media_mention = MediaMention.find(params[:id])
+  end
+
   def edit
     @media_mention = MediaMention.find(params[:id])
   end
@@ -35,6 +39,13 @@ class Admin::MediaMentionsController < Admin::ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @media_mention = MediaMention.find(params[:id])
+    @mentionable = @media_mention.mentionable
+    @media_mention.destroy!
+    redirect_to [:admin, @mentionable]
   end
 
   private

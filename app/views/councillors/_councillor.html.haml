@@ -1,0 +1,10 @@
+.enumerable.-councillor
+  .indicator.party-indicator= render partial: 'icons/party', locals: {party: councillor.party}
+  .content
+    .name= councillor.full_name
+
+  .detail
+    .party= councillor.party.name
+    .area= councillor.local_electoral_area.name
+
+  %figure.figure.-portrait= image_tag councillor.portrait.url(:small), loading: 'lazy', alt: "Portrait of #{ councillor.full_name }"

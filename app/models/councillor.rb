@@ -5,8 +5,7 @@ class Councillor < ApplicationRecord
   has_many :media_mentions, as: :mentionable
   has_many :council_sessions, through: :seats
 
-  has_many :meetings, through: :attendances
-  has_many :motions, through: :votes
+  has_many :meetings, through: :attendances, source: :attendable, source_type: 'Meeting'
 
   validates :full_name, presence: true
 
@@ -16,9 +15,12 @@ class Councillor < ApplicationRecord
   after_validation :generate_slug
 
   scope :by_name, -> { order('sort_name asc') }
+  scope :inactive_on, -> (date) { joins(:seats).merge(Seat.active_on(date)).distinct }
   scope :active_on, -> (date) { joins(:seats).merge(Seat.active_on(date)).distinct }
 
   mount_uploader :portrait, PortraitUploader, mount_on: :portrait_file
+
+  paginates_per 20
 
   def to_param
     self.slug_was
@@ -58,6 +60,10 @@ class Councillor < ApplicationRecord
 
   def local_electoral_area_name
     self.local_electoral_area.present? ? self.local_electoral_area.name : ''
+  end
+
+  def vote_on(motion)
+    votes.where(voteable: motion).take
   end
 
   def attended?(meeting)
