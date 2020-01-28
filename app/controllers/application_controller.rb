@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :redirect_domain, if: -> { Rails.env.production? && ENV['APP_DOMAIN'] }
+  before_action :redirect_to_www, if: -> { Rails.env.production? }
   protect_from_forgery with: :exception
 
   def current_account
@@ -18,8 +18,9 @@ class ApplicationController < ActionController::Base
     redirect_to signin_path, alert: "You need to log in."
   end
 
-  def redirect_domain
-    return true if request.host == ENV['APP_DOMAIN']
-    redirect_to [request.protocol,ENV['APP_DOMAIN'],request.fullpath].join, status: :moved_permanently
+  def redirect_to_www
+    unless /^www/.match(request.host)
+      redirect_to("#{request.protocol}x.com#{request.request_uri}",
+                  :status => 301)
   end
 end
