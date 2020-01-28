@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Amendment, type: :model do
   it { should validate_presence_of(:motion) }
@@ -9,12 +9,12 @@ RSpec.describe Amendment, type: :model do
   it { should validate_presence_of(:vote_result) }
 
   it "recognises rollcall votes" do
-    amendment = build(:amendment, vote_method: 'rollcall')
+    amendment = build(:amendment, vote_method: "rollcall")
     expect(amendment.rollcall?).to be true
   end
 
   it "recognises voice votes" do
-    amendment = build(:amendment, vote_method: 'voice')
+    amendment = build(:amendment, vote_method: "voice")
     expect(amendment.rollcall?).to be false
   end
 

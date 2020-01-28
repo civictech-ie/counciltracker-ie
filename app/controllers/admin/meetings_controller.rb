@@ -19,9 +19,9 @@ class Admin::MeetingsController < Admin::ApplicationController
     when :full
       render action: :show
     when :partial
-      render partial: "admin/meetings/#{ @view }", locals: {meeting: @meeting}
+      render partial: "admin/meetings/#{@view}", locals: {meeting: @meeting}
     else
-      raise 'Unhandled render context'
+      raise "Unhandled render context"
     end
   end
 
@@ -61,13 +61,13 @@ class Admin::MeetingsController < Admin::ApplicationController
 
   def save_attendance
     @meeting = Meeting.find_by(hashed_id: params[:id])
-    @councillor = Councillor.find_by(id: params['councillorId'])
+    @councillor = Councillor.find_by(id: params["councillorId"])
     @attendance = Attendance.find_or_initialize_by(attendable: @meeting, councillor: @councillor)
-    @attendance.status = params['status']
+    @attendance.status = params["status"]
     if @attendance.save
-      render json: { saved_at: @attendance.updated_at, message: "Saved at #{ Time.zone.now.strftime('%H:%M:%S') }" }
+      render json: {saved_at: @attendance.updated_at, message: "Saved at #{Time.zone.now.strftime("%H:%M:%S")}"}
     else
-      render json: { errors: @attendance.errors.full_messages }
+      render json: {errors: @attendance.errors.full_messages}
     end
   end
 

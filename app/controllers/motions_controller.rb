@@ -19,9 +19,9 @@ class MotionsController < ApplicationController
     when :full
       render action: :show
     when :partial
-      render partial: "motions/#{ @view }", locals: {motion: @motion}
+      render partial: "motions/#{@view}", locals: {motion: @motion}
     else
-      raise 'Unhandled render context'
+      raise "Unhandled render context"
     end
   end
 end

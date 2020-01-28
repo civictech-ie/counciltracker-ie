@@ -12,9 +12,9 @@ class MeetingsController < ApplicationController
     when :full
       render action: :show
     when :partial
-      render partial: "meetings/#{ @view }", locals: {meeting: @meeting}
+      render partial: "meetings/#{@view}", locals: {meeting: @meeting}
     else
-      raise 'Unhandled render context'
+      raise "Unhandled render context"
     end
   end
 end

@@ -1,40 +1,40 @@
 Rails.application.routes.draw do
-  root to: 'home#show'
+  root to: "home#show"
 
-  get 'faq' => 'pages#faq', as: :faq
+  get "faq" => "pages#faq", :as => :faq
 
   resources :corrections, only: [:new, :create] do
-    collection { get 'thanks' }
+    collection { get "thanks" }
   end
 
   resources :user_sessions, only: [:create]
 
-  get 'signin' => 'user_sessions#new', as: :signin
-  get 'logout' => 'user_sessions#destroy', as: :logout
+  get "signin" => "user_sessions#new", :as => :signin
+  get "logout" => "user_sessions#destroy", :as => :logout
 
   resources :councillors, only: [:index, :show]
-  get 'councillors/:id/:view(/:context)' => 'councillors#show'
+  get "councillors/:id/:view(/:context)" => "councillors#show"
 
-  resources :local_electoral_areas, path: 'areas', only: [:index, :show]
-  get 'areas/:id/:view(/:context)' => 'local_electoral_areas#show'
+  resources :local_electoral_areas, path: "areas", only: [:index, :show]
+  get "areas/:id/:view(/:context)" => "local_electoral_areas#show"
 
   resources :parties, only: [:index, :show]
-  get 'parties/:id/:view(/:context)' => 'parties#show'
+  get "parties/:id/:view(/:context)" => "parties#show"
 
   resources :meetings, only: [:index]
-  get 'meetings/:meeting_type/:occurred_on' => 'meetings#show', as: :meeting_path
-  get 'meetings/:meeting_type/:occurred_on/:view(/:context)' => 'meetings#show'
+  get "meetings/:meeting_type/:occurred_on" => "meetings#show", :as => :meeting_path
+  get "meetings/:meeting_type/:occurred_on/:view(/:context)" => "meetings#show"
 
   resources :motions, only: [:index, :show]
-  get 'motions/:id/:view(/:context)' => 'motions#show'
+  get "motions/:id/:view(/:context)" => "motions#show"
 
   resources :amendments, only: [:show]
-  get 'amendments/:id/:view(/:context)' => 'amendments#show'
+  get "amendments/:id/:view(/:context)" => "amendments#show"
 
   resources :topics, only: [:index, :show]
 
   namespace :admin do
-    root to: 'dashboard#show'
+    root to: "dashboard#show"
     resources :councillors, only: [:index, :show] do
       resources :media_mentions, only: [:new, :create]
     end
@@ -49,7 +49,7 @@ Rails.application.routes.draw do
       member { post :save_attendance }
       resources :motions, only: [:new, :create]
     end
-    get 'meetings/:id/:view(/:context)' => 'meetings#show'
+    get "meetings/:id/:view(/:context)" => "meetings#show"
 
     resources :motions, except: [:new, :create] do
       member do
@@ -59,17 +59,17 @@ Rails.application.routes.draw do
       resources :media_mentions, only: [:new, :create]
       resources :amendments, only: [:new, :create]
     end
-    get 'motions/:id/:view(/:context)' => 'motions#show'
+    get "motions/:id/:view(/:context)" => "motions#show"
 
     resources :amendments, except: [:new, :create] do
       member do
         post :save_vote
       end
     end
-    get 'amendments/:id/:view(/:context)' => 'amendments#show'
+    get "amendments/:id/:view(/:context)" => "amendments#show"
 
     resources :media_mentions, only: [:show, :destroy, :edit, :update]
-    
+
     resources :corrections
   end
 

@@ -3,12 +3,12 @@ FactoryBot.define do
     motion
 
     sequence(:official_reference) { |n| "ofref#{n}" }
-    vote_ruleset { 'plurality' }
-    vote_method { 'voice' }
-    vote_result { 'pass' }
+    vote_ruleset { "plurality" }
+    vote_method { "voice" }
+    vote_result { "pass" }
 
     trait :failed do
-      vote_result { 'fail' }
+      vote_result { "fail" }
     end
   end
 end

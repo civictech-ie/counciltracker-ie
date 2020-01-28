@@ -12,7 +12,8 @@ class CorrectionsController < ApplicationController
     end
   end
 
-  def thanks; end
+  def thanks
+  end
 
   private
 

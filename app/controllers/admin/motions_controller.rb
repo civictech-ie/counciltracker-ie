@@ -1,6 +1,6 @@
 class Admin::MotionsController < Admin::ApplicationController
   skip_before_action :verify_authenticity_token, only: [:save_vote]
-  
+
   def show
     @motion = Motion.find_by(hashed_id: params[:id])
     @view = params[:view].try(:to_sym) || :details
@@ -10,18 +10,20 @@ class Admin::MotionsController < Admin::ApplicationController
     when :full
       render action: :show
     when :partial
-      render partial: "admin/motions/#{ @view }", locals: {motion: @motion}
+      render partial: "admin/motions/#{@view}", locals: {motion: @motion}
     else
-      raise 'Unhandled render context'
+      raise "Unhandled render context"
     end
   end
 
-  def new # nested under meetings
+  # nested under meetings
+  def new
     @meeting = Meeting.find_by(hashed_id: params[:meeting_id])
     @motion = @meeting.motions.new(agenda_item: (((@meeting.motions.maximum(:position) || 0) / 100) + 1))
   end
 
-  def create # nested under meetings
+  # nested under meetings
+  def create
     @meeting = Meeting.find_by(hashed_id: params[:meeting_id])
     @motion = @meeting.motions.new(motion_params)
     if @motion.save
@@ -52,14 +54,14 @@ class Admin::MotionsController < Admin::ApplicationController
 
   def save_vote
     @motion = Motion.find_by(id: params[:id])
-    @councillor = Councillor.find_by(id: params['councillorId'])
+    @councillor = Councillor.find_by(id: params["councillorId"])
     @vote = Vote.find_or_initialize_by(voteable: @motion, councillor: @councillor)
-    @vote.status = params['status']
-    
+    @vote.status = params["status"]
+
     if @vote.save
-      render json: { saved_at: @vote.updated_at, message: "Saved at #{ Time.zone.now.strftime('%H:%M:%S') }" }
+      render json: {saved_at: @vote.updated_at, message: "Saved at #{Time.zone.now.strftime("%H:%M:%S")}"}
     else
-      render json: { errors: @vote.errors.full_messages }
+      render json: {errors: @vote.errors.full_messages}
     end
   end
 

@@ -5,7 +5,7 @@ FactoryBot.define do
     councillor
 
     trait :active do
-      sequence(:commenced_on) { |n| (n.years.ago).to_date }
+      sequence(:commenced_on) { |n| n.years.ago.to_date }
     end
   end
 end

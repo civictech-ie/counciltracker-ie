@@ -5,5 +5,5 @@ Rails.application.config.sorcery.configure do |config|
     user.username_attribute_names = [:email_address]
   end
 
-  config.user_class = 'User'
+  config.user_class = "User"
 end

@@ -12,9 +12,9 @@ class PartiesController < ApplicationController
     when :full
       render action: :show
     when :partial
-      render partial: "parties/#{ @view }", locals: {party: @party}
+      render partial: "parties/#{@view}", locals: {party: @party}
     else
-      raise 'Unhandled render context'
+      raise "Unhandled render context"
     end
   end
 end

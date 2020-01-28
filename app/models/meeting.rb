@@ -6,33 +6,33 @@ class Meeting < ApplicationRecord
   has_many :councillors, through: :attendances
 
   before_validation :set_council_session
-  after_validation :set_hashed_id, if: -> (m) { m.hashed_id.blank? }
+  after_validation :set_hashed_id, if: ->(m) { m.hashed_id.blank? }
   after_save :clean_attendances
 
   validates :council_session, presence: true
-  validates :occurred_on, presence: true, uniqueness: { scope: :meeting_type }
-  validates :meeting_type, presence: true, inclusion: %w(monthly annual special budget finance)
+  validates :occurred_on, presence: true, uniqueness: {scope: :meeting_type}
+  validates :meeting_type, presence: true, inclusion: %w[monthly annual special budget finance]
 
-  scope :by_occurred_on, -> { order('occurred_on desc') }
+  scope :by_occurred_on, -> { order("occurred_on desc") }
   scope :has_countable_attendances, -> { joins(:attendances).merge(Attendance.countable).distinct }
   scope :has_published_motions, -> { joins(:motions).merge(Motion.published).distinct }
 
   paginates_per 20
 
   def to_param
-    self.hashed_id
+    hashed_id
   end
 
   def path
-    "/meetings/#{ self.meeting_type }/#{ self.occurred_on }"
+    "/meetings/#{meeting_type}/#{occurred_on}"
   end
 
   def title
-    "#{ self.meeting_type_in_english } on #{ occurred_on.strftime('%-d %B \'%y') }"
+    "#{meeting_type_in_english} on #{occurred_on.strftime("%-d %B '%y")}"
   end
 
   def occurred_on_formatted
-    occurred_on.strftime('%-d %B \'%y')
+    occurred_on.strftime("%-d %B '%y")
   end
 
   def tags
@@ -41,23 +41,23 @@ class Meeting < ApplicationRecord
 
   def meeting_type_in_english
     case meeting_type.to_s
-    when 'monthly' then 'Monthly Council Meeting'
-    when 'annual' then 'Annual Council Meeting'
-    when 'special' then 'Special Council Meeting'
-    when 'budget' then 'Budget Meeting'
-    when 'finance' then 'Finance Special Council Meeting'
+    when "monthly" then "Monthly Council Meeting"
+    when "annual" then "Annual Council Meeting"
+    when "special" then "Special Council Meeting"
+    when "budget" then "Budget Meeting"
+    when "finance" then "Finance Special Council Meeting"
     end
   end
 
   def expected_attendance # todo: rename to expected_councillors?
-    return nil unless self.council_session
-    self.council_session.councillors.active_on(self.occurred_on)
+    return nil unless council_session
+    council_session.councillors.active_on(occurred_on)
   end
 
   private
 
   def set_council_session
-    self.council_session = CouncilSession.current_on(self.occurred_on).take
+    self.council_session = CouncilSession.current_on(occurred_on).take
   end
 
   def set_hashed_id
@@ -67,13 +67,13 @@ class Meeting < ApplicationRecord
   def clean_attendances
     expected_councillors = expected_attendance.to_a
 
-    self.attendances.each do |a|
+    attendances.each do |a|
       c = expected_councillors.delete(a.councillor)
       a.destroy! if c.nil?
     end
 
     expected_councillors.each do |councillor|
-      a = self.attendances.new(councillor: councillor, status: 'exception')
+      a = attendances.new(councillor: councillor, status: "exception")
       a.save!
     end
   end

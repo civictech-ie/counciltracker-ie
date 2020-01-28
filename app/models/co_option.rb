@@ -1,7 +1,7 @@
 class CoOption < Eventable
-  belongs_to :outgoing_seat, class_name: 'Seat'
-  belongs_to :incoming_councillor, class_name: 'Councillor'
-  belongs_to :incoming_party, class_name: 'Party'
+  belongs_to :outgoing_seat, class_name: "Seat"
+  belongs_to :incoming_councillor, class_name: "Councillor"
+  belongs_to :incoming_party, class_name: "Party"
 
   validates :outgoing_seat, presence: true
   validates :incoming_councillor, presence: true

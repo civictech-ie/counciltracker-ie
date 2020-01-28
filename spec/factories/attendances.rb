@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :attendance do
     councillor
-    status { 'present' }
+    status { "present" }
   end
 end

@@ -8,9 +8,9 @@ class AmendmentsController < ApplicationController
     when :full
       render action: :show
     when :partial
-      render partial: "amendments/#{ @view }", locals: {amendment: @amendment}
+      render partial: "amendments/#{@view}", locals: {amendment: @amendment}
     else
-      raise 'Unhandled render context'
+      raise "Unhandled render context"
     end
   end
 end

@@ -1,6 +1,6 @@
 class LocalElectoralArea < ApplicationRecord
   has_many :seats
-  has_many :active_seats, -> { active }, class_name: 'Seat'
+  has_many :active_seats, -> { active }, class_name: "Seat"
 
   has_many :councillors, -> { distinct }, through: :seats
   has_many :local_electoral_areas, -> { distinct }, through: :seats
@@ -11,10 +11,10 @@ class LocalElectoralArea < ApplicationRecord
 
   before_validation :generate_slug
 
-  scope :by_name, -> { order('name asc') }
+  scope :by_name, -> { order("name asc") }
 
   def to_param
-    self.slug
+    slug
   end
 
   def motions
@@ -24,7 +24,7 @@ class LocalElectoralArea < ApplicationRecord
   private
 
   def generate_slug
-    return unless self.name
-    self.slug = self.name.parameterize
+    return unless name
+    self.slug = name.parameterize
   end
 end

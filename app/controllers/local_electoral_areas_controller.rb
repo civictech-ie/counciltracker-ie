@@ -12,9 +12,9 @@ class LocalElectoralAreasController < ApplicationController
     when :full
       render action: :show
     when :partial
-      render partial: "local_electoral_areas/#{ @view }", locals: {local_electoral_area: @local_electoral_area}
+      render partial: "local_electoral_areas/#{@view}", locals: {local_electoral_area: @local_electoral_area}
     else
-      raise 'Unhandled render context'
+      raise "Unhandled render context"
     end
   end
 end

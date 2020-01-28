@@ -1,13 +1,13 @@
 class PortraitUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  process convert: 'png'
+  process convert: "png"
 
   def filename
     "portrait.png"
   end
 
   def store_dir
-    "councillors/#{ model.slug }"
+    "councillors/#{model.slug}"
   end
 
   version :small do

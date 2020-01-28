@@ -4,21 +4,21 @@ class Motion < Voteable
   has_many :amendments, dependent: :destroy
   has_many :media_mentions, as: :mentionable
 
-  validates :official_reference, presence: true, uniqueness: { scope: :meeting_id }
+  validates :official_reference, presence: true, uniqueness: {scope: :meeting_id}
   validates :title, presence: true
   validates :meeting, presence: true
   validates :position, presence: true
   validates :agenda_item, presence: true
-  validates :executive_vote, inclusion: %w(for against abstain absent), allow_blank: true
+  validates :executive_vote, inclusion: %w[for against abstain absent], allow_blank: true
 
   before_validation :cleanup_agenda_item, :set_official_reference, :set_position, :cleanup_tags
-  after_validation :set_hashed_id, if: -> (m) { m.hashed_id.blank? }
+  after_validation :set_hashed_id, if: ->(m) { m.hashed_id.blank? }
 
-  scope :by_position, -> { order('position asc') }
-  scope :by_occurred_on, -> { includes(:meeting).order('meetings.occurred_on desc') }
-  scope :proposed_by, -> (c) { where('proposers_ids @> ?', "{#{ c.id }}") }
-  scope :in_category, -> (c) { where('tags @> ?', "{#{ c.downcase }}") }
-  scope :related_to_area, -> (a) { where('local_electoral_area_ids @> ?', "{#{ a.id }}") }
+  scope :by_position, -> { order("position asc") }
+  scope :by_occurred_on, -> { includes(:meeting).order("meetings.occurred_on desc") }
+  scope :proposed_by, ->(c) { where("proposers_ids @> ?", "{#{c.id}}") }
+  scope :in_category, ->(c) { where("tags @> ?", "{#{c.downcase}}") }
+  scope :related_to_area, ->(a) { where("local_electoral_area_ids @> ?", "{#{a.id}}") }
   scope :published, -> { where.not(published_at: nil) }
 
   delegate :occurred_on, to: :meeting
@@ -26,43 +26,43 @@ class Motion < Voteable
   paginates_per 20
 
   def to_param
-    self.hashed_id
+    hashed_id
   end
 
   def council_session
-    self.meeting.council_session
+    meeting.council_session
   end
 
   def published?
-    self.published_at.present?
+    published_at.present?
   end
 
   def local_electoral_areas
-    @local_electoral_areas ||= LocalElectoralArea.where(id: self.local_electoral_area_ids)
+    @local_electoral_areas ||= LocalElectoralArea.where(id: local_electoral_area_ids)
   end
 
   def proposers
-    @proposers ||= Councillor.where(id: self.proposers_ids).by_name
+    @proposers ||= Councillor.where(id: proposers_ids).by_name
   end
 
   def self.cleanup_agenda_item(itm)
-    itm.gsub(/[)()]/,'').downcase
+    itm.gsub(/[)()]/, "").downcase
   end
 
   def attachments
-    [self.pdf_url]
+    [pdf_url]
   end
 
   def meeting_date
-    self.occurred_on
+    occurred_on
   end
 
   def is_votable?
-    self.votable
+    votable
   end
 
   def is_published?
-    self.published_at.present?
+    published_at.present?
   end
 
   def toggle_publication!
@@ -70,39 +70,39 @@ class Motion < Voteable
   end
 
   def publish!
-    self.update(published_at: Time.zone.now)
+    update(published_at: Time.zone.now)
   end
 
   def unpublish!
-    self.update(published_at: nil)
+    update(published_at: nil)
   end
 
   def in_category?(cat)
-    self.tags.include?(cat.downcase)
+    tags.include?(cat.downcase)
   end
 
-  def as_json(options={})
+  def as_json(options = {})
     super(only: [:title, :votable, :hashed_id], methods: [:result, :meeting_date])
   end
 
   private
 
   def cleanup_tags
-    self.tags = self.tags.map(&:downcase)
+    self.tags = tags.map(&:downcase)
   end
 
   def cleanup_agenda_item
-    return if self.agenda_item.blank?
+    return if agenda_item.blank?
     self.agenda_item = self.class.cleanup_agenda_item(agenda_item)
   end
 
   def set_position
-    return if self.agenda_item.blank?
-    return if self.agenda_item.scan(/(\d+)/).empty?
+    return if agenda_item.blank?
+    return if agenda_item.scan(/(\d+)/).empty?
 
-    top_level_int = self.agenda_item.scan(/(\d+)/).first.first.to_i
-    self.position = if self.agenda_item.scan(/([a-z])/i).any?
-      second_level_alpha = self.agenda_item.scan(/([a-z])/i).first.first.downcase
+    top_level_int = agenda_item.scan(/(\d+)/).first.first.to_i
+    self.position = if agenda_item.scan(/([a-z])/i).any?
+      second_level_alpha = agenda_item.scan(/([a-z])/i).first.first.downcase
       alpha_val = (("a".."z").to_a.index(second_level_alpha) + 1)
       ((top_level_int * 100) + alpha_val)
     else
@@ -111,8 +111,8 @@ class Motion < Voteable
   end
 
   def set_official_reference
-    return unless self.meeting
-    self.official_reference = "#{ self.meeting.meeting_type }-#{ self.occurred_on.to_s.gsub('-','') }-#{ self.agenda_item }"
+    return unless meeting
+    self.official_reference = "#{meeting.meeting_type}-#{occurred_on.to_s.delete("-")}-#{agenda_item}"
   end
 
   def set_hashed_id

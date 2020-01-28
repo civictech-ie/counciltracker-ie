@@ -3,7 +3,7 @@ class CouncillorsController < ApplicationController
     @councillors = current_council_session.active_councillors.by_name.page(params[:p])
 
     respond_to do |f|
-      f.html { render action: 'index' }
+      f.html { render action: "index" }
       f.json { render json: @councillors }
     end
   end
@@ -17,9 +17,9 @@ class CouncillorsController < ApplicationController
     when :full
       render action: :show
     when :partial
-      render partial: "councillors/#{ @view }", locals: {councillor: @councillor}
+      render partial: "councillors/#{@view}", locals: {councillor: @councillor}
     else
-      raise 'Unhandled render context'
+      raise "Unhandled render context"
     end
   end
 end

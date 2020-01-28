@@ -1,7 +1,7 @@
 class ChangeOfAffiliation < Eventable
   belongs_to :councillor
-  belongs_to :outgoing_party, class_name: 'Party'
-  belongs_to :incoming_party, class_name: 'Party'
+  belongs_to :outgoing_party, class_name: "Party"
+  belongs_to :incoming_party, class_name: "Party"
 
   validates :councillor, presence: true
   validates :outgoing_party, presence: true
@@ -9,14 +9,14 @@ class ChangeOfAffiliation < Eventable
 
   def commit!
     raise "No current seat" unless seat.present?
-    seat.set_party_affiliation_starting_on(incoming_party, self.occurred_on)
+    seat.set_party_affiliation_starting_on(incoming_party, occurred_on)
     seat.save!
     save!
   end
 
   def rollback!
     raise "No current seat" unless seat.present?
-    pa = seat.party_affiliations.where(commenced_on: self.occurred_on).take
+    pa = seat.party_affiliations.where(commenced_on: occurred_on).take
     pa.destroy!
     save!
   end

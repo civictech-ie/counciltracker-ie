@@ -11,34 +11,34 @@ class Event < ApplicationRecord
 
   scope :uncommitted, -> { where("committed_at IS NULL") }
   scope :by_occurred_on, -> { order("events.occurred_on desc") }
-  scope :related_to_seat, -> (id) { where('related_seat_ids @> ?', "{#{ id }}") }
-  scope :related_to_seats, -> (ids) { where('related_seat_ids && ARRAY[?]::bigint[]', ids) }
-  scope :co_option, -> { where(eventable_type: 'CoOption') }
-  scope :change_of_affiliation, -> { where(eventable_type: 'ChangeOfAffiliation') }
-  scope :election, -> { where(eventable_type: 'Election') }
+  scope :related_to_seat, ->(id) { where("related_seat_ids @> ?", "{#{id}}") }
+  scope :related_to_seats, ->(ids) { where("related_seat_ids && ARRAY[?]::bigint[]", ids) }
+  scope :co_option, -> { where(eventable_type: "CoOption") }
+  scope :change_of_affiliation, -> { where(eventable_type: "ChangeOfAffiliation") }
+  scope :election, -> { where(eventable_type: "Election") }
 
   def commit!
     raise "Can't commit unless uncommitted" unless !committed?
-    self.eventable.commit!
-    self.update! committed_at: Time.zone.now
+    eventable.commit!
+    update! committed_at: Time.zone.now
   end
 
   def rollback!
     raise "Can't rollback unless committed" unless committed?
-    self.eventable.rollback!
-    self.update! committed_at: nil
+    eventable.rollback!
+    update! committed_at: nil
   end
 
   def committed?
-    self.committed_at.present?
+    committed_at.present?
   end
 
   def seats
-    Seat.where id: self.related_seat_ids
+    Seat.where id: related_seat_ids
   end
 
   def council_session
-    @council_session ||= CouncilSession.current_on(self.occurred_on).take
+    @council_session ||= CouncilSession.current_on(occurred_on).take
   end
 
   private
