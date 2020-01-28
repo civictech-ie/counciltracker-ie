@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_www
     if (/^www/ =~ request.host).nil?
-      redirect_to("#{request.protocol}#{ENV["APP_DOMAIN"]}#{request.request_uri}", status: 301)
+      redirect_to("#{request.protocol}#{ENV["APP_DOMAIN"]}#{request.fullpath}", status: 301)
     end
   end
 end
