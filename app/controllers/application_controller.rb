@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :redirect_to_www, if: -> { Rails.env.production? && ENV['APP_DOMAIN '] }
+  before_action :redirect_to_www, if: -> { Rails.env.production? && ENV["APP_DOMAIN"] }
   protect_from_forgery with: :exception
 
   def current_account
@@ -19,8 +19,8 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_www
-    unless /^www/.match(request.host)
-      redirect_to("#{request.protocol}#{ENV['APP_DOMAIN ']}#{request.request_uri}",
-                  status: 301)
+    if (/^www/ =~ request.host).nil?
+      redirect_to("#{request.protocol}#{ENV["APP_DOMAIN"]}#{request.request_uri}", status: 301)
+    end
   end
 end
