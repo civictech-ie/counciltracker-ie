@@ -41,7 +41,8 @@ class Vote < ApplicationRecord
 
   private
 
-  def update_attendance # TODO if somebody's voting, they're probably in attendance...
+  def update_attendance
+    # TODO if somebody's voting, they're probably in attendance...
   end
 
   def redetermine_vote_result

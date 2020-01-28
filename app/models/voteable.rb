@@ -22,10 +22,6 @@ class Voteable < ApplicationRecord
     vote_result
   end
 
-  def result
-    vote_result
-  end
-
   def rollcall?
     (vote_method == "rollcall")
   end
@@ -86,7 +82,8 @@ class Voteable < ApplicationRecord
     end
   end
 
-  def destroy_votes # if it's not a rollcall vote, destroy uncountable votes
+  # if it's not a rollcall vote, destroy uncountable votes
+  def destroy_votes
     return true if votes.countable.any? # don't destroy countable ones, these take work to enter!
     votes.destroy_all
   end

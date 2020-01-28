@@ -19,13 +19,13 @@ class RemovePartyFromSeat < ActiveRecord::Migration[5.2]
       seat = change_of_affiliation.seat
       party = change_of_affiliation.incoming_party
       commenced_on = change_of_affiliation.occurred_on
-      p = PartyAffiliation.create! seat: seat, party: party, commenced_on: commenced_on
+      PartyAffiliation.create! seat: seat, party: party, commenced_on: commenced_on
     end
 
     CoOption.joins(:event).order("events.occurred_on asc").each do |co_option|
       seat = co_option.incoming_seat
       party = co_option.incoming_party
-      p = PartyAffiliation.create! seat: seat, party: party, commenced_on: nil
+      PartyAffiliation.create! seat: seat, party: party, commenced_on: nil
     end
 
     Event.all.each(&:save)

@@ -16,7 +16,8 @@ class Seat < ApplicationRecord
   scope :inactive_on, ->(date) { where("(seats.commenced_on <= ?) AND (seats.concluded_on <= ?)", date, date) }
   scope :active_on, ->(date) { where("(seats.commenced_on <= ?) AND ((seats.concluded_on IS NULL) OR (seats.concluded_on > ?))", date, date) }
 
-  def self.find_by_councillor_name(name) # should only be one per councillor per council_session
+  # should only be one per councillor per council_session
+  def self.find_by_councillor_name(name)
     joins(:councillor).where(councillors: {full_name: name}).take
   end
 

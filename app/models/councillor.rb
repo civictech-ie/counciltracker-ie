@@ -46,7 +46,8 @@ class Councillor < ApplicationRecord
     @party ||= seats.order("commenced_on desc").take.party
   end
 
-  def party_on(date) # lol
+  # lol
+  def party_on(date)
     seat_on(date).party
   end
 

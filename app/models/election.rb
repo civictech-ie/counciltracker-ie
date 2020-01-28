@@ -18,7 +18,8 @@ class Election < Eventable
     create! occurred_on: date, parameters: councillors
   end
 
-  def commit! # replace names with ids
+  # replace names with ids
+  def commit!
     raise("Missing event") unless event.present?
 
     council_session = CouncilSession.create!(commenced_on: event.occurred_on)
@@ -45,7 +46,8 @@ class Election < Eventable
     save!
   end
 
-  def rollback! # replace ids with names
+  # replace ids with names
+  def rollback!
     raise("Missing event") unless event.present?
 
     self.parameters = parameters.map do |row|

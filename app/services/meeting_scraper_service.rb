@@ -33,7 +33,7 @@ class MeetingScraperService
   end
 
   def self.get_url_for_dcc_id(dcc_id)
-    url_base = dcc_host + "mgMeetingAttendance.aspx?ID=" + dcc_id
+    (dcc_host + "mgMeetingAttendance.aspx?ID=" + dcc_id)
   end
 
   def self.create_meeting_from_dcc_id!(dcc_id, committee)
@@ -48,8 +48,6 @@ class MeetingScraperService
     return false if occurred_on >= Date.current
 
     raise "No date found" unless occurred_on.present?
-
-    council_session = CouncilSession.current_on(occurred_on).take
 
     councillor_selector = '[summary="Table of meeting attendance"] tbody tr'
     attendance_html = ng_page.css(councillor_selector)
@@ -66,8 +64,6 @@ class MeetingScraperService
     @meeting.attendances_attributes = attendances_from_html(attendance_html, @meeting)
     @meeting.save!
   end
-
-  private
 
   def self.attendances_from_html(rows, meeting)
     raw_attendance = rows.map { |row|

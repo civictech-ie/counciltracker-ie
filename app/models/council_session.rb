@@ -31,10 +31,6 @@ class CouncilSession < ApplicationRecord
     end
   end
 
-  def election
-    events.find_by(eventable_type: "Election")
-  end
-
   def co_options
     events.where(eventable_type: "CoOption")
   end
@@ -56,7 +52,7 @@ class CouncilSession < ApplicationRecord
   end
 
   def election
-    events.where(eventable_type: "Election").take
+    @election ||= events.where(eventable_type: "Election").take
   end
 
   private

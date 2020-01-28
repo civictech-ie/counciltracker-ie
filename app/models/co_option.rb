@@ -9,7 +9,7 @@ class CoOption < Eventable
 
   def commit!
     outgoing_seat.update(concluded_on: event.occurred_on)
-    incoming_seat = Seat.create!(
+    Seat.create!(
       council_session: event.council_session,
       party: incoming_party,
       councillor: incoming_councillor,
