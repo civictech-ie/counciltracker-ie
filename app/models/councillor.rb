@@ -101,7 +101,7 @@ class Councillor < ApplicationRecord
   def generate_slug
     return unless self.full_name
 
-    self.slug = if self.class.where(slug: self.full_name.parameterize).
+    self.slug = if Councillor.where(slug: self.full_name.parameterize).
                               where.not(id: self.id).any?
       n = 1
       while self.class.where(slug: "#{ self.full_name.parameterize }-#{ n }").any?
