@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :set_raven_context
 
   def current_account
     return nil unless logged_in?
@@ -16,9 +15,5 @@ class ApplicationController < ActionController::Base
 
   def not_authenticated
     redirect_to signin_path, alert: "You need to log in."
-  end
-
-  def set_raven_context
-    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end

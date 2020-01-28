@@ -1,4 +1,4 @@
-ruby '2.6.5'
+ruby '2.7.0'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -25,17 +25,16 @@ gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
 gem 'date_validator'
-gem "sentry-raven"
 gem 'dalli'
 gem 'sitemap_generator'
 gem 'meta-tags'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'scout_apm'
 gem 'redis'
 gem 'kaminari'
 gem 'oj' # json
 gem 'webpacker-svelte'
 gem "autoprefixer-rails"
+gem "appsignal"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
