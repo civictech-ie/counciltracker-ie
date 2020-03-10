@@ -14,7 +14,7 @@ Election.destroy_all
  {name: "United Left", colour_hex: "FF5555"},
  {name: "Independent", colour_hex: "EFEFEF"},
  {name: "Social Democrats", colour_hex: "752F8B"},
- {name: "Workers' Party", colour_hex: "D73D3D"},].each do |params|
+ {name: "Workers' Party", colour_hex: "D73D3D"}].each do |params|
   party = Party.find_or_initialize_by(name: params[:name])
   party.update(params)
 end

@@ -11,7 +11,7 @@ class Election < Eventable
       {
         party_name: row["Party"].strip,
         councillor_name: row["Name"].strip,
-        local_electoral_area_name: row["Local Electoral Area"].strip,
+        local_electoral_area_name: row["Local Electoral Area"].strip
       }
     }
 

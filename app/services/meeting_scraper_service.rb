@@ -55,7 +55,7 @@ class MeetingScraperService
     params = {
       dcc_id: dcc_id,
       occurred_on: occurred_on,
-      meeting_type: committee.to_s,
+      meeting_type: committee.to_s
     }
 
     @meeting = Meeting.new(params)
@@ -92,7 +92,7 @@ class MeetingScraperService
       {
         id: attendance.id,
         councillor_id: councillor.id,
-        status: attendance_status,
+        status: attendance_status
       }
     }.compact
   end
