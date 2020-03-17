@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_135033) do
+ActiveRecord::Schema.define(version: 2020_03_17_183444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2020_03_10_135033) do
     t.text "vote_method", default: "rollcall", null: false
     t.text "vote_result", default: "error", null: false
     t.text "hashed_id"
+    t.text "mayors_vote"
     t.index ["hashed_id"], name: "index_amendments_on_hashed_id", unique: true
     t.index ["motion_id"], name: "index_amendments_on_motion_id"
     t.index ["official_reference"], name: "index_amendments_on_official_reference", unique: true
@@ -182,6 +183,7 @@ ActiveRecord::Schema.define(version: 2020_03_10_135033) do
     t.text "vote_result", default: "error", null: false
     t.text "hashed_id"
     t.datetime "published_at"
+    t.text "mayors_vote"
     t.index ["executive_vote"], name: "index_motions_on_executive_vote"
     t.index ["hashed_id"], name: "index_motions_on_hashed_id", unique: true
     t.index ["interesting"], name: "index_motions_on_interesting"

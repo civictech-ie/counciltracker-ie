@@ -10,6 +10,7 @@ class Voteable < ApplicationRecord
   validates :vote_method, inclusion: %w[voice rollcall], allow_blank: false
   validates :vote_result, presence: true
   validates :vote_result, inclusion: %w[pass fail error], allow_blank: false
+  validates :mayors_vote, inclusion: %w[for against], allow_blank: true
 
   after_validation :set_vote_result, if: ->(m) { m.rollcall? }
   after_save :clean_votes, if: ->(m) { m.rollcall? }
@@ -45,6 +46,8 @@ class Voteable < ApplicationRecord
     when "plurality"
       if votes.in_favour.count > votes.in_opposition.count
         "pass"
+      elsif mayors_vote.present? && (votes.in_favour.count == votes.in_opposition.count)
+        (mayors_vote == 'for') ? 'pass' : 'fail'
       else
         "fail"
       end
