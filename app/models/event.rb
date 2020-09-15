@@ -19,13 +19,13 @@ class Event < ApplicationRecord
 
   def commit!
     raise "Can't commit unless uncommitted" unless !committed?
-    eventable.commit!
+    eventable.commit! if eventable
     update! committed_at: Time.zone.now
   end
 
   def rollback!
     raise "Can't rollback unless committed" unless committed?
-    eventable.rollback!
+    eventable.rollback! if eventable
     update! committed_at: nil
   end
 
