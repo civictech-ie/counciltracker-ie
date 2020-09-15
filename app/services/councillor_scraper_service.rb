@@ -30,7 +30,7 @@ class CouncillorScraperService
       anchor = li.css("a").first
       area_slug = li.css("p").first.try(:text).downcase.strip.parameterize
       next unless anchor.text.present? && area_slug.present?
-      councillor_slug = anchor.text.downcase.strip.parameterize.gsub("councillor-", "").gsub("deputy-", "").gsub("lord-mayor-", "").gsub("mc-auliffe", "mcauliffe") # lol @ this
+      councillor_slug = anchor.text.downcase.strip.parameterize.gsub("councillor-", "").gsub("deputy-", "").gsub("lord-mayor-", "").gsub('macoscar','mac-oscar').gsub("mc-auliffe", "mcauliffe") # lol @ this
       councillor = Councillor.find_by!(slug: councillor_slug)
 
       if Seat.where(local_electoral_area: LocalElectoralArea.find_by!(slug: area_slug), councillor: councillor).empty?
