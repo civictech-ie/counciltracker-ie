@@ -1,4 +1,4 @@
-ruby "2.7.0"
+ruby "2.7.1"
 source "https://rubygems.org"
 
 git_source(:github) do |repo_name|
@@ -13,7 +13,6 @@ gem "puma"
 gem "sass-rails", "~> 5.0"
 gem "uglifier", ">= 1.3.0"
 gem "webpacker"
-gem "mini_racer", platforms: :ruby
 gem "sorcery"
 gem "rails_12factor"
 gem "turbolinks"

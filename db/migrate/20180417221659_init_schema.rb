@@ -1,4 +1,4 @@
-class InitSchema < ActiveRecord::Migration
+class InitSchema < ActiveRecord::Migration[5.2]
   def up
     enable_extension "plpgsql"
     create_table "amendments" do |t|
