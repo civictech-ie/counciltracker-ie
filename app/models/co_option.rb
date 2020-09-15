@@ -20,8 +20,8 @@ class CoOption < Eventable
   end
 
   def rollback!
-    outgoing_seat.update(concluded_on: nil)
-    incoming_seat.destroy!
+    outgoing_seat.update(concluded_on: nil) if outgoing_seat
+    incoming_seat.destroy! if incoming_seat
     save!
   end
 

@@ -1,6 +1,6 @@
 class CoOptionsJune2020 < ActiveRecord::Migration[6.0]
   def change
-    date = Date.new(2020,7,1)
+    date = Date.new(2020,6,1)
     session = CouncilSession.current_on(date).take
 
     CoOption.create!(
