@@ -1,6 +1,6 @@
 class CouncillorScraperService
   def self.dcc_host
-    "https://www.dublincity.ie/councilmeetings/"
+    "https://councilmeetings.dublincity.ie"
   end
 
   def self.scrape_portraits_from_dcc!
