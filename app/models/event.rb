@@ -4,8 +4,8 @@ class Event < ApplicationRecord
   validates :eventable, presence: true
   validates :occurred_on, presence: true
 
-  after_create :commit!
-  before_destroy :rollback!
+  # after_create :commit!
+  # before_destroy :rollback!
 
   before_validation :set_occurred_on, :set_related_seat_ids
 
