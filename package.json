@@ -2,14 +2,14 @@
   "name": "counciltracker-ie",
   "private": true,
   "dependencies": {
-    "@rails/ujs": "^6.0.1",
-    "@rails/webpacker": "^4.0.7",
+    "@rails/ujs": "^6.1.1",
+    "@rails/webpacker": "^5.2.1",
     "svelte": "^3.15.0",
     "svelte-loader": "^2.13.6",
     "turbolinks": "^5.2.0",
     "webpacker-svelte": "^0.1.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.11.2"
   }
 }
