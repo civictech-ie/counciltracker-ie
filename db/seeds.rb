@@ -8,7 +8,7 @@ Election.destroy_all
  {name: "Fianna Fáil", colour_hex: "66BB66"},
  {name: "Fine Gael", colour_hex: "6699FF"},
  {name: "Labour Party", colour_hex: "CC0000"},
- {name: "People Before Profit", colour_hex: "660000"},
+ {name: "People Before Profit", colour_hex: "E91D50"},
  {name: "Green Party", colour_hex: "99CC33"},
  {name: "Solidarity", colour_hex: "BF2D2E"},
  {name: "United Left", colour_hex: "FF5555"},
