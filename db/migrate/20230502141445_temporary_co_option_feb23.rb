@@ -10,4 +10,3 @@ class TemporaryCoOptionFeb23 < ActiveRecord::Migration[6.1]
     )
   end
 end
-13 February 2023
