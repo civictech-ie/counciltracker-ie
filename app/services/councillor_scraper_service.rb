@@ -17,7 +17,7 @@ class CouncillorScraperService
     page = HTTParty.get(url_base + councillor.dcc_id.to_s)
     ng_page = Nokogiri::HTML(page)
 
-    if ng_page.css(".mgBigPhoto img")
+    if ng_page.css(".mgBigPhoto img") && ng_page.css(".mgBigPhoto img")[0]
       image_url = ng_page.css(".mgBigPhoto img")[0]["src"]
       councillor.remote_portrait_url = dcc_host + image_url
       councillor.save!
