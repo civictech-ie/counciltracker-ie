@@ -24,7 +24,6 @@ config/master.key
 .byebug_history
 .DS_Store
 .env
-/public/councillors
 /public/uploads
 .ruby-version
 /public/packs
